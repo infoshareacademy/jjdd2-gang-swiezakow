@@ -1,20 +1,20 @@
 package pl.infoshareacademy.jjdd2_gang_swiezakow;
 
 public class AllegroCategory {
-    private int cadID;
+    private int catID;
     private String name;
     private int parent;
     private int catPosition;
 
-    public AllegroCategory(int cadID, String name, int parent, int catPosition) {
-        this.cadID = cadID;
+    public AllegroCategory(int catID, String name, int parent, int catPosition) {
+        this.catID = catID;
         this.name = name;
         this.parent = parent;
         this.catPosition = catPosition;
     }
 
-    public int getCadID() {
-        return cadID;
+    public int getCatID() {
+        return catID;
     }
 
     public String getName() {
