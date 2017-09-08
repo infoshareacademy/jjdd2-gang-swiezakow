@@ -1,4 +1,4 @@
-package pl.infoshareacademy.jjdd2_gang_swiezakow;
+package pl.infoshareacademy;
 
 public class AllegroCategory {
     private int catID;

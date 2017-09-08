@@ -1,4 +1,4 @@
-package pl.infoshareacademy.jjdd2_gang_swiezakow;
+package pl.infoshareacademy;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
