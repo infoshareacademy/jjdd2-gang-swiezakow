@@ -1,12 +1,20 @@
 package pl.infoshareacademy.jjdd2_gang_swiezakow;
 
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
     public static final String KOMENDA_WYJSCIA = "exit";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
+
+       // public class void parents {
+
 
         System.out.println("\n~~wspanialy pomagacz w zakupach internetowych~~");
         System.out.println("-----------------------------------------------\n");
@@ -35,10 +43,23 @@ public class Main {
                     break;
                 case("4"):
                     // wejście do polecenia 4
+                    AllegroCategoryLoader loader = new AllegroCategoryLoader();
+                    List<AllegroCategory> lista = loader.loadAllCategories();
+
+                    for (int i = 0; i<lista.size(); i++) {
+                        if(lista.get(i).getParent() == 0) {
+                            AllegroCategory category = lista.get(i);
+                            System.out.println(category.getName());            }
+
+                    }
                     break;
                 default:
                     System.out.println("Niepoprawny numer. Podaj liczbę.");
             }
         }
+
+
+
+
     }
 }

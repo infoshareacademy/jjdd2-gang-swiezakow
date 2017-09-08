@@ -11,8 +11,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class AllegroCategoryLoader {
 
@@ -62,4 +61,22 @@ public class AllegroCategoryLoader {
         return list;
     }
 
-}
+
+
+    }
+
+
+
+
+  /**  public class AllegroParents {
+
+        AllegroParents loader = new AllegroParents();
+        List<AllegroCategory> lista = loader.parents();
+       for(int i = 0; i < AllegroParents.(); i++){
+           if(lista.get(i).getParent() == 0) {
+            AllegroCategory category = lista.get(i);
+            System.out.println(category.getName());            }        }
+
+
+        } **/
+
