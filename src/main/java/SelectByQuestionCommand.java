@@ -61,12 +61,27 @@ Witaj! Czy szukasz sprzetu elektronicznego> T/N
 public class SelectByQuestionCommand {
     public void run () {
         System.out.println("Wyszukiwanie kategorii na podstawie pytań.\n----------------------------------------------\n");
-        askQuestion();
+
+        Category cat = CategoryUtils.buildCategoriesAndReturnRoot();
+       // for (Typ zmienna_dla_elementu : kolekcja){
+        //  przechodzi po kolei po elementach kolekcji
+       // }
+        for (Category sub : cat.getSubcategories()) {
+            if (askQuestion(sub.getName())) {
+                //todo obsluga podkategorii..
+                System.out.println("Link to: " + sub.getLinkUrl());
+                return; //znlezlsmy to konczymy metode
+            }
+            // domyslnie przechodzimy do kolejnego pytania
+        }
+        // skoro nie wyszlismy z metody znaczy ze nie znalezlismy odpowiedzi
+        System.out.println("Nic nie pasowało, spróbuj innej kategorii lub skorzystaj z wyszukiwarki :)");
 
     }
 
-    private void askQuestion() {
-        String question = "Czy szukasz informacji o produktach z kategorii Elektronika?" ;
+    //zwraca true, jesli podana kategoria zostala wskazana
+    private boolean askQuestion(String categoryName) {
+        String question = String.format("Czy szukasz informacji o produktach z kategorii %s?", categoryName);
         String options = "\t[T]ak\n\t[N]ie";
 
         System.out.println(question);
@@ -74,11 +89,7 @@ public class SelectByQuestionCommand {
 
         boolean answer = readAnwser();
 
-        if (answer) {
-            System.out.println("Proponowanana kategoria to Elektronika");
-        } else {
-            System.out.println("Niestety nei możemy Ci pomóc. Jesteśmy koniem.");
-        }
+        return answer;
     }
 
     private boolean readAnwser() {
