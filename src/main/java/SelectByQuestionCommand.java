@@ -48,6 +48,7 @@ Witaj! Czy szukasz sprzetu elektronicznego> T/N
 
     Dzialanie:
 
+
     1. Zadaj pytanie, czy chodzi o dana kategorie.
         Gdy brakuje kategorii, wyswietl "Nic nie pasowało, spróbuj innej kategorii lub skorzystaj z wyszukiwarki :)"
     2. Jesli uzytkownik odpowie NIE, przejdz do pkt 1. (pytajac o następną kategorie)
