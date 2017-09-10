@@ -9,10 +9,10 @@ public class Category {
     private List<Category> subcategories;
 
     //konstruktor
-    public Category(String name, String linkUrl, List<Category> subcategories) {
-        this.name = name;
-        this.linkUrl = linkUrl;
-        this.subcategories = subcategories;
+    public Category(String namek, String linkUrlk, List<Category> subcategoriesk) {
+        name = namek;
+        linkUrl = linkUrlk;
+        subcategories = subcategoriesk;
     }
 
     public String getName() {
