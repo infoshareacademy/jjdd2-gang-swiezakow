@@ -9,16 +9,18 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AllegroCategoryLoader {
 
     public List<AllegroCategory> loadAllCategories() throws ParserConfigurationException, IOException, SAXException {
 
-        InputStream xmlFile = getClass().getResourceAsStream("/Allegro_cathegories_2016-02-13.xml");
+        File xmlFile = new File("Allegro_cathegories_2016-02-13.xml");
 
         DocumentBuilderFactory dbF = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbF.newDocumentBuilder();
@@ -35,7 +37,6 @@ public class AllegroCategoryLoader {
 
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);
-//            System.out.println("\nBieżący element: " + node.getNodeName());
 
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
@@ -51,15 +52,22 @@ public class AllegroCategoryLoader {
                 AllegroCategory acategory = new AllegroCategory(id, sname, parentId, position);
 
                 list.add(acategory);
-
-//                System.out.println("ID: " + sid);
-//                System.out.println("Name: " + sname);
-//                System.out.println("Parent: " + sparent);
-//                System.out.println("Position: " + sposition);
             }
         }
-
         return list;
     }
 
+    public Map<Integer, List<AllegroCategory>> loadCategoryTree() throws IOException, SAXException, ParserConfigurationException {
+        Map<Integer, List<AllegroCategory>> categoryMap = new HashMap<>();
+        for(AllegroCategory category : loadAllCategories()){
+            if(!categoryMap.containsKey(category.getParent())){
+                List<AllegroCategory> list = new ArrayList<>();
+                list.add(category);
+                categoryMap.put(category.getParent(), list);
+            } else {
+                categoryMap.get(category.getParent()).add(category);
+            }
+        }
+        return categoryMap;
+    }
 }
