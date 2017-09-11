@@ -29,7 +29,9 @@ public class Main {
 
             switch (linia) {
                 case ("1"):
-                        // wejscie do polecenia 1
+                    SearchByQuestionsCommand searchByQuestionsCommand = new SearchByQuestionsCommand();
+                    searchByQuestionsCommand.//categorySearchByQuestionCommand
+                    // wejscie do polecenia 1
                     break;
                 case ("2"):
                     SearchCategoryCommand newSearch = new SearchCategoryCommand();
