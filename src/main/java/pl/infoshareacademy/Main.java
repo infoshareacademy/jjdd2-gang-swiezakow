@@ -29,7 +29,7 @@ public class Main {
 
             switch (linia) {
                 case ("1"):
-                    // wejscie do polecenia 1
+                        // wejscie do polecenia 1
                     break;
                 case ("2"):
                     SearchCategoryCommand newSearch = new SearchCategoryCommand();
@@ -37,7 +37,8 @@ public class Main {
                     // wejście do polcenia 2
                     break;
                 case ("3"):
-                    // wejście do polecenia 3
+                    CategoryPickerCommand categoryPickerCommand = new CategoryPickerCommand();
+                    categoryPickerCommand.//categoryPickerCammandMethod
                     break;
                 case("4"):
                     // wejście do polecenia 4
