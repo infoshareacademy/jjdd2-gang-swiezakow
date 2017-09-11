@@ -39,6 +39,7 @@ public class Main {
                 case ("3"):
                     CategoryPickerCommand categoryPickerCommand = new CategoryPickerCommand();
                     categoryPickerCommand.//categoryPickerCammandMethod
+                    // wejście do polecenia 3
                     break;
                 case("4"):
                     // wejście do polecenia 4
