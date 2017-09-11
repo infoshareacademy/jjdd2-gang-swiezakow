@@ -47,6 +47,11 @@ public class Main {
 
                     // wejście do polecenia 4
                     break;
+                case ("5"):
+                    SearchQueryCommand searchQueryCommand = new SearchQueryCommand();
+                    searchByQuestionsCommand.//categoryQueryCommandMethod
+                    break;
+                    // wejście do polecenia 5
                 default:
                     System.out.println("Niepoprawny numer. Podaj liczbę.");
             }
