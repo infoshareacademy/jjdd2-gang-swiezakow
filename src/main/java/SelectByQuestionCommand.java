@@ -1,5 +1,6 @@
 import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
 
+import java.util.List;
 import java.util.Scanner;
 
 /*Zamysł na pytania:
@@ -63,11 +64,52 @@ public class SelectByQuestionCommand {
         System.out.println("Wyszukiwanie kategorii na podstawie pytań.\n----------------------------------------------\n");
 
         Category cat = CategoryUtils.buildCategoriesAndReturnRoot();
+
+
+        List<Category> sameLevelCategories = cat.getSubcategories();
+        int size = sameLevelCategories.size();
+        boolean isFound = false;
+
+        for (int i=0; i < size; i++) {
+            Category category = sameLevelCategories.get(i);
+            boolean isChosen = askQuestion(category.getName());
+            if (!isChosen) {
+                continue;
+
+            }
+
+            boolean hasSubcategories = !category.getSubcategories().isEmpty();
+            if (hasSubcategories) {
+                //zamieniamy sameLevelCategories na category.getSubcategories()
+                sameLevelCategories = category.getSubcategories();
+                //reset i
+                i = -1; //i++ zrobi 0
+                //size sie mogl zmienic, wiec tez reset
+                size = sameLevelCategories.size();
+                continue;
+
+            } else {
+                System.out.println("Link to: " + category.getLinkUrl());
+                isFound = true;
+                break; //koniec petli
+            }
+
+        }
+
+        if (!isFound) {
+            // skoro nie wyszlismy z metody znaczy ze nie znalezlismy odpowiedzi
+            System.out.println("Nic nie pasowało, spróbuj innej kategorii lub skorzystaj z wyszukiwarki :)");
+        }
+
+
+/*
+
        // for (Typ zmienna_dla_elementu : kolekcja){
         //  przechodzi po kolei po elementach kolekcji
        // }
-        for (Category sub : cat.getSubcategories()) {
-            if (askQuestion(sub.getName())) {
+        for (Category sub : sameLevelCategories) {
+            boolean isChosen = askQuestion(sub.getName());
+            if (isChosen) {
                 //todo obsluga podkategorii..
                 System.out.println("Link to: " + sub.getLinkUrl());
                 return; //znlezlsmy to konczymy metode
@@ -76,6 +118,7 @@ public class SelectByQuestionCommand {
         }
         // skoro nie wyszlismy z metody znaczy ze nie znalezlismy odpowiedzi
         System.out.println("Nic nie pasowało, spróbuj innej kategorii lub skorzystaj z wyszukiwarki :)");
+*/
 
     }
 
