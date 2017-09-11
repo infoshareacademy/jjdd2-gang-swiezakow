@@ -41,6 +41,7 @@ public class Main {
                     categoryPickerCommand.//categoryPickerCammandMethod
                     break;
                 case("4"):
+
                     // wejście do polecenia 4
                     break;
                 default:
