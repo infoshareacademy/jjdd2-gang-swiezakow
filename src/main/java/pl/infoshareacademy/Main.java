@@ -30,7 +30,7 @@ public class Main {
             switch (linia) {
                 case ("1"):
                     SearchByQuestionsCommand searchByQuestionsCommand = new SearchByQuestionsCommand();
-                    searchByQuestionsCommand.//categorySearchByQuestionCommand
+                    //categorySearchByQuestionCommand
                     // wejscie do polecenia 1
                     break;
                 case ("2"):
@@ -40,7 +40,7 @@ public class Main {
                     break;
                 case ("3"):
                     CategoryPickerCommand categoryPickerCommand = new CategoryPickerCommand();
-                    categoryPickerCommand.//categoryPickerCammandMethod
+                    //categoryPickerCommand.//categoryPickerCammandMethod
                     // wejście do polecenia 3
                     break;
                 case("4"):
@@ -49,7 +49,7 @@ public class Main {
                     break;
                 case ("5"):
                     SearchQueryCommand searchQueryCommand = new SearchQueryCommand();
-                    searchByQuestionsCommand.//categoryQueryCommandMethod
+                    //searchByQuestionsCommand.//categoryQueryCommandMethod
                     break;
                     // wejście do polecenia 5
                 default:
