@@ -9,6 +9,8 @@ import static pl.infoshareacademy.AllegroLink.makeLink;
 public class SearchByQuestionsCommand {
 
     public void run() {
+        //Klucz | Wartosc
+        //idKategorii  | List<AllegroCategory> podkategorie
         Map<Integer, List<AllegroCategory>> idToSubcategories;
 
         AllegroCategoryLoader loader = new AllegroCategoryLoader();
@@ -19,6 +21,7 @@ public class SearchByQuestionsCommand {
         }
 
         int rootParent = 0;
+        //Zaincjalizuj glownymi kategoriami
         List<AllegroCategory> categories = idToSubcategories.get(rootParent);
 
         System.out.println("Witaj!");
