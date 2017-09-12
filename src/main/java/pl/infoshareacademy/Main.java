@@ -32,6 +32,7 @@ public class Main {
 
         ArrayList<Integer> arrayListChildrenCategories = new ArrayList<>();
 
+        Integer helper2 = 0;
 
         for (int i = 0; i < allegroCategoryTree.get(0).size(); i++) {
             arrayListChildrenCategories.add(allegroCategoryTree.get(0).get(i).getCatID());
@@ -52,6 +53,18 @@ public class Main {
                 System.out.println((allegroCategoryTree.get(helper).get(i).getCatPosition() + 1) + ". " + allegroCategoryTree.get(helper).get(i).toString() + "                    " + allegroCategoryTree.get(helper).get(i).getCatID());
         }
 
+        choosenCategory = odczyt.nextInt();
+        for (int i = 0; i < allegroCategoryTree.get(helper).size(); i++) {
+            if (choosenCategory == (allegroCategoryTree.get(helper).get(i).getCatPosition() + 1)) {
+                helper = allegroCategoryTree.get(helper).get(i).getCatID();
+            }
+
+        }
+
+        for (int i = 0; i < allegroCategoryTree.get(helper).size(); i++) {
+            arrayListChildrenCategories.add(allegroCategoryTree.get(helper).get(i).getCatID());
+            System.out.println((allegroCategoryTree.get(helper).get(i).getCatPosition() + 1) + ". " + allegroCategoryTree.get(helper).get(i).toString() + "                    " + allegroCategoryTree.get(helper).get(i).getCatID());
+        }
 
 //        while (true) {
 //            levelOfCategory = odczyt.nextInt();
