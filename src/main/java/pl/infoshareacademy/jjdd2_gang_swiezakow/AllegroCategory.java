@@ -28,4 +28,10 @@ public class AllegroCategory {
     public int getCatPosition() {
         return catPosition;
     }
+
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

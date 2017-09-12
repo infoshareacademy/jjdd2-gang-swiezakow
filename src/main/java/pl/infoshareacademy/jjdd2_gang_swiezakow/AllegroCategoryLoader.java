@@ -60,10 +60,23 @@ public class AllegroCategoryLoader {
 
         return list;
     }
-
-
-
+    public Map<Integer, List<AllegroCategory>> loadCategoryTree() throws IOException, SAXException, ParserConfigurationException {
+        Map<Integer, List<AllegroCategory>> categoryMap = new HashMap<>();
+        for(AllegroCategory category : loadAllCategories()){
+            if(!categoryMap.containsKey(category.getParent())){
+                List<AllegroCategory> list = new ArrayList<>();
+                list.add(category);
+                categoryMap.put(category.getParent(), list);
+            } else {
+                categoryMap.get(category.getParent()).add(category);
+            }
+        }
+        return categoryMap;
     }
+
+
+
+}
 
 
 

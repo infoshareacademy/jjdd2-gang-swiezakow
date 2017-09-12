@@ -40,11 +40,14 @@ public class Main {
                     break;
                 case ("3"):
                     // wejście do polecenia 3
+                    MapForChildren drzewo = new MapForChildren();
+                    drzewo.loadCategoryTree();
                     break;
                 case("4"):
                     // wejście do polecenia 4
                     CategoryParent0 categoryParent0 = new CategoryParent0();
                     categoryParent0.categoryParent0Shower();
+
                     break;
                 default:
                     System.out.println("Niepoprawny numer. Podaj liczbę.");
