@@ -20,7 +20,7 @@ public class SearchCategoryCommand {
         Map<Integer, AllegroCategory> mapa = new HashMap<>();
         while (matchedCategories == 0) {
             for (String s : searchPhrases) {
-                if(s.equals("")) {
+                if(s.length() < 3) {
                     continue;
                 }
                 for (AllegroCategory category : list) {
@@ -49,11 +49,17 @@ public class SearchCategoryCommand {
                 System.out.println("Podaj numer kategorii");
                 final int i = scanner.nextInt();
                 scanner.nextLine();
-                System.out.println(mapa.get(i).getName());
+                String link = generateLink(mapa.get(i), list, line);
+                System.out.println();
+                System.out.println("W celu przejrzenia listy produktów skorzystaj z linka:");
+                System.out.println(link);
+
             } catch (Exception e) {
                 System.out.println("Błędny numer kategorii, spróbuj jeszcze raz");
             }
         }
+
+        System.out.println();
         System.out.println("Wracasz do głównego Menu");
     }
 
@@ -64,7 +70,7 @@ public class SearchCategoryCommand {
                 noweFrazy.add(searchPhrases[i].substring(0, searchPhrases[i].length() - 1));
             }
         }
-       return noweFrazy.toArray(new String[noweFrazy.size()]);
+        return noweFrazy.toArray(new String[noweFrazy.size()]);
     }
 
     private AllegroCategory findById(List<AllegroCategory> categories, int id) {
@@ -74,5 +80,18 @@ public class SearchCategoryCommand {
             }
         }
         return null;
+    }
+    private String generateLink(AllegroCategory category, List<AllegroCategory> list, String phrase){
+        AllegroCategory parent = findById(list, category.getParent());
+        String phraseInLink = phrase.replace(" ", "-");
+        if(parent != null) {
+            String parentInLink = parent.getName().replace(" ", "-");
+            return "https://allegro.pl/kategoria/" + parentInLink
+                    + "-" + category.getParent() + "?string=" + phraseInLink;
+        } else {
+            String name = category.getName().toLowerCase().replace(" ", "-");
+            return "https://allegro.pl/kategoria/" + name
+                    + "?string=" + phraseInLink;
+        }
     }
 }
