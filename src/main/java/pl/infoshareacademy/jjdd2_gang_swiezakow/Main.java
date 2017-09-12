@@ -43,15 +43,8 @@ public class Main {
                     break;
                 case("4"):
                     // wejście do polecenia 4
-                    AllegroCategoryLoader loader = new AllegroCategoryLoader();
-                    List<AllegroCategory> lista = loader.loadAllCategories();
-
-                    for (int i = 0; i<lista.size(); i++) {
-                        if(lista.get(i).getParent() == 0) {
-                            AllegroCategory category = lista.get(i);
-                            System.out.println(category.getName());            }
-
-                    }
+                    CategoryParent0 categoryParent0 = new CategoryParent0();
+                    categoryParent0.categoryParent0Shower();
                     break;
                 default:
                     System.out.println("Niepoprawny numer. Podaj liczbę.");
