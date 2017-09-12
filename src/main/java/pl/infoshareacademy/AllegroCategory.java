@@ -31,11 +31,18 @@ public class AllegroCategory {
 
     @Override
     public String toString() {
-        return "AllegroCategory{" +
-                "catID=" + catID +
-                ", name='" + name + '\'' +
-                ", parent=" + parent +
-                ", catPosition=" + catPosition +
-                '}' + "\n";
+        return name;
     }
+
+
+
+//    @Override
+//    public String toString() {
+//        return "AllegroCategory{" +
+//                "catID=" + catID +
+//                ", name='" + name + '\'' +
+//                ", parent=" + parent +
+//                ", catPosition=" + catPosition +
+//                '}' + "\n";
+//    }
 }

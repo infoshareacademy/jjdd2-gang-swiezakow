@@ -20,10 +20,62 @@ public class Main {
 
         Set<Map.Entry<Integer, List<AllegroCategory>>> entries = allegroCategoryTree.entrySet();
 
-        for (Map.Entry<Integer, List<AllegroCategory>> categoryEntry :
-                entries) {
-            System.out.println("Key: " + categoryEntry.getKey() + "\nValue: \n" + categoryEntry.getValue());
+//        for (Map.Entry<Integer, List<AllegroCategory>> categoryEntry :
+//                entries) {
+//            System.out.println("Key: " + categoryEntry.getKey() + "\nValue: \n" + categoryEntry.getValue());
+//        }
+
+
+        ArrayList<AllegroCategory> allegroCategoryArrayList = new ArrayList<>();
+        Scanner odczyt = new Scanner(System.in);
+        Integer levelOfCategory;
+
+        ArrayList<Integer> arrayListChildrenCategories = new ArrayList<>();
+
+
+        for (int i = 0; i < allegroCategoryTree.get(0).size(); i++) {
+            arrayListChildrenCategories.add(allegroCategoryTree.get(0).get(i).getCatID());
+            System.out.println((allegroCategoryTree.get(0).get(i).getCatPosition()+1) + ". " + allegroCategoryTree.get(0).get(i).toString() +"                    " + allegroCategoryTree.get(0).get(i).getCatID());
         }
+
+        Integer helper = 1;
+        Integer choosenCategory = odczyt.nextInt();
+        for (int i = 0; i < allegroCategoryTree.get(0).size(); i++) {
+            if (choosenCategory == (allegroCategoryTree.get(0).get(i).getCatPosition() + 1)) {
+                helper = allegroCategoryTree.get(0).get(i).getCatID();
+            }
+
+        }
+
+        for (int i = 0; i < allegroCategoryTree.get(helper).size(); i++) {
+                arrayListChildrenCategories.add(allegroCategoryTree.get(helper).get(i).getCatID());
+                System.out.println((allegroCategoryTree.get(helper).get(i).getCatPosition() + 1) + ". " + allegroCategoryTree.get(helper).get(i).toString() + "                    " + allegroCategoryTree.get(helper).get(i).getCatID());
+        }
+
+
+//        while (true) {
+//            levelOfCategory = odczyt.nextInt();
+//            try {
+//                for (int i = 0; i < allegroCategoryTree.get(levelOfCategory).size(); i++) {
+//                    System.out.println(allegroCategoryTree.get(levelOfCategory).get(i).getCatID() + ". " + allegroCategoryTree.get(levelOfCategory).get(i).toString());
+//                }
+//            } catch (java.lang.NullPointerException e) {
+//                System.out.println("Koniec podkategorii");
+//            }
+//
+//        }
+//        int[] helpTable = int[allegroCategoryTree.get(levelOfCategory).size()]
+
+//        System.out.println(entries.size());
+
+
+
+
+//        for (AllegroCategory allegroCategory :
+//                allegroCategoryTree){
+//            System.out.println(allegroCategoryTree.get(levelOfCategory).get(allegroCategory).toString());
+//        }
+//        System.out.println(allegroCategoryTree.get(0).get(0).toString());
 
 
 
