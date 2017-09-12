@@ -58,7 +58,6 @@ public class SearchByQuestionsCommand {
         if (answer.toLowerCase().equals("tak") || answer.toLowerCase().equals("t")) {
             return true;
         } else if (answer.toLowerCase().equals("nie") || answer.toLowerCase().equals("n")) {
-            System.out.println("Spróbuj ponownie");
             return false;
         } else {
             System.out.println("Nieprawidłowa odpowiedź");
