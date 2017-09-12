@@ -55,6 +55,7 @@ public class SelectByQuestionCommand {
     }
 
     private List<Category> getTestCategories() {
+        //1. tworzenie drzewa na podstawie danych z allegro
         List<Category> c1subs = new ArrayList<>();
         Category c1s1 = new Category(123945, "telewizyjne", Collections.emptyList());
         Category c1s2 = new Category(110235, "sprzęt AGD", Collections.emptyList());
@@ -70,6 +71,10 @@ public class SelectByQuestionCommand {
         categories.add(c2);
         categories.add(c3);
         categories.add(c4);
+
+        //dodawanie pytan dla kategorii
+        //Map<Integer, String>
+        c2.setQuestion("Czy lubisz czytać?");
         return categories;
     }
 }
