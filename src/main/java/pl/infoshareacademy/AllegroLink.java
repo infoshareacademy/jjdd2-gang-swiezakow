@@ -1,4 +1,4 @@
-package questions;
+package pl.infoshareacademy;
 
 import java.text.Normalizer;
 

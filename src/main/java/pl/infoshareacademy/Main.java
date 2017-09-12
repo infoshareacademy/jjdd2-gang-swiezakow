@@ -30,7 +30,7 @@ public class Main {
             switch (linia) {
                 case ("1"):
                     SearchByQuestionsCommand searchByQuestionsCommand = new SearchByQuestionsCommand();
-                    //categorySearchByQuestionCommand
+                    searchByQuestionsCommand.run();
                     // wejscie do polecenia 1
                     break;
                 case ("2"):
@@ -44,6 +44,7 @@ public class Main {
                     // wejście do polecenia 3
                     break;
                 case("4"):
+
 
                     // wejście do polecenia 4
                     break;
