@@ -142,7 +142,7 @@ public class SelectByQuestionCommand {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
 
-        if (input.equals("T")) {
+        if (input.equals("T") || input.equals("t") || input.equals("tak")) {
             return true;
         } else if (input.equals("N")) {
             return false;
