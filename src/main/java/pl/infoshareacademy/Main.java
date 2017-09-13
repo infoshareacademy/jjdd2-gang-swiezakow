@@ -1,3 +1,5 @@
+package pl.infoshareacademy;
+
 import java.util.Scanner;
 
 public class Main {
@@ -9,7 +11,7 @@ public class Main {
         System.out.println("\n~~wspanialy pomagacz w zakupach internetowych~~");
         System.out.println("-----------------------------------------------\n");
         System.out.println("1. Polecenie nr 1");
-        System.out.println("2. Polecenie nr 2");
+        System.out.println("2. Szukaj produktu");
         System.out.println("3. Polecenie nr 3");
         System.out.println("4. Polecenie nr 4");
         System.out.println();
@@ -23,16 +25,24 @@ public class Main {
 
             switch (linia) {
                 case ("1"):
+
                     // wejscie do polecenia 1
                     break;
                 case ("2"):
-                    // wejście do polcenia 2
+                    SearchCategoryCommand newSearch = new SearchCategoryCommand();
+                    newSearch.handleCommand(odczyt);
                     break;
                 case ("3"):
+
                     // wejście do polecenia 3
                     break;
                 case("4"):
+
                     // wejście do polecenia 4
+                    break;
+                case ("5"):
+
+                    // wejście do polecenia 5
                     break;
                 default:
                     System.out.println("Niepoprawny numer. Podaj liczbę.");
