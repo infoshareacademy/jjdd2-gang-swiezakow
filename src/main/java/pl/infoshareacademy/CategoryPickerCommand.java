@@ -16,9 +16,6 @@ public class CategoryPickerCommand {
 
     Scanner odczyt = new Scanner(System.in);
 
-    ArrayList<Integer> arrayListChildrenCategories = new ArrayList<>();
-
-
 
     Integer choosenCategory = 0;
     Integer helper = 0;
@@ -30,8 +27,7 @@ public class CategoryPickerCommand {
     public void showCategory0Level() {
 
         for (int i = 0; i < allegroCategoryTree.get(0).size(); i++) {
-            arrayListChildrenCategories.add(allegroCategoryTree.get(0).get(i).getCatID());
-            System.out.println((allegroCategoryTree.get(0).get(i).getCatPosition()+1) + ". " + allegroCategoryTree.get(0).get(i).toString() +"                    " + allegroCategoryTree.get(0).get(i).getCatID());
+            System.out.println((allegroCategoryTree.get(0).get(i).getCatPosition()+1) + ". " + allegroCategoryTree.get(0).get(i).toString());
         }
 
         System.out.println("Co chcesz zrobic?");
@@ -43,35 +39,28 @@ public class CategoryPickerCommand {
     }
 
     public void showChildrenCategory(){
+        try {
 
-        for (int i = 0; i < allegroCategoryTree.get(0).size(); i++) {
-             if (choosenCategory == (allegroCategoryTree.get(0).get(i).getCatPosition() + 1)) {
-                helper = allegroCategoryTree.get(0).get(i).getCatID();
-        }
+            for (int i = 0; i < allegroCategoryTree.get(helper).size(); i++) {
+                if (choosenCategory == (allegroCategoryTree.get(helper).get(i).getCatPosition() + 1)) {
+                    helper = allegroCategoryTree.get(helper).get(i).getCatID();
+                }
 
-        }
-        for (int i = 0; i < allegroCategoryTree.get(helper).size(); i++) {
-            arrayListChildrenCategories.add(allegroCategoryTree.get(helper).get(i).getCatID());
-            System.out.println((allegroCategoryTree.get(helper).get(i).getCatPosition() + 1) + ". " + allegroCategoryTree.get(helper).get(i).toString() + "                    " + allegroCategoryTree.get(helper).get(i).getCatID());
-        }
+            }
 
+            for (int i = 0; i < allegroCategoryTree.get(helper).size(); i++) {
+                System.out.println((allegroCategoryTree.get(helper).get(i).getCatPosition() + 1) + ". " + allegroCategoryTree.get(helper).get(i).toString());
+            }
+
+        } catch (java.lang.NullPointerException e) {
+            System.out.println("Brak podkategorii");
+        }
         System.out.println("Co chcesz zrobic?");
 
         this.whatDoYouWnatToDo();
+        this.whatDoYouWnatToDo();
+        this.whatDoYouWnatToDo();
 
-    }
-
-    public Integer categoryMover(){
-        String userInput = odczyt.nextLine();
-        String[] userChoose = userInput.split(" ");
-
-
-        if (userChoose[0].equals(CategoryCommands.ENTER.getCommands())){
-                return Integer.parseInt(userChoose[1]);
-        }
-
-
-        return -1;
     }
 
 
@@ -91,8 +80,9 @@ public class CategoryPickerCommand {
         }
 
         if (userChoose[0].equals(CategoryCommands.BACK.getCommands())){
-            this.helper = this.allegroCategoryTree.get(helper).get(Integer.parseInt(userChoose[1])).getParent();
-            this.choosenCategory = 1;
+            this.helper = this.allegroCategoryTree.get(helper).;
+            this.choosenCategory = 0;
+            this.showChildrenCategory();
         }
 
         if (!(userChoose[0].equals(CategoryCommands.BACK.getCommands()) || userChoose[0].equals(CategoryCommands.ENTER.getCommands()) ||
