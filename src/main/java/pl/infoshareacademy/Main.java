@@ -13,7 +13,7 @@ public class Main {
         System.out.println("1. Polecenie nr 1");
         System.out.println("2. Szukaj produktu");
         System.out.println("3. Polecenie nr 3");
-        System.out.println("4. Polecenie nr 4");
+        System.out.println("4. Asystent allegro");
         System.out.println();
         System.out.println("Aby wyjść wybierz: exit");
         System.out.println();
@@ -37,8 +37,8 @@ public class Main {
                     // wejście do polecenia 3
                     break;
                 case("4"):
-
-                    // wejście do polecenia 4
+                    SearchQueryCommand searchQueryCommand = new SearchQueryCommand();
+                    searchQueryCommand.queryCommand(odczyt);
                     break;
                 case ("5"):
 

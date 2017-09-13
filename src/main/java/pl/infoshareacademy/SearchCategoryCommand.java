@@ -1,6 +1,5 @@
 package pl.infoshareacademy;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -49,26 +48,24 @@ public class SearchCategoryCommand {
             return Result.FATAL_ERROR;
         }
 
-        List<AllegroCategory> matchingCategories = searchCategory(line, allCategories);
+        AllegroCategorySearcher searcher = new AllegroCategorySearcher();
+        List<AllegroCategory> matchingCategories = searcher.searchCategory(line, allCategories);
 
-        for (int i = 0; i < matchingCategories.size(); i++){
-            printCategory(i + 1, matchingCategories.get(i), allCategories);
+        if (matchingCategories.isEmpty()) {
+            return Result.NO_RESULTS;
         }
 
-        if (!matchingCategories.isEmpty()) {
-            System.out.println("Podaj numer kategorii: ");
-            int number = readAnswer(scanner);
-            if (number > 0 && number <= matchingCategories.size()) {
-                String link = generateLink(matchingCategories.get(number - 1), allCategories, line);
-                System.out.println();
-                System.out.println("W celu przejrzenia listy produktów skorzystaj z linka:");
-                System.out.println(link);
-                return Result.SUCCESS;
-            } else {
-                return Result.BAD_NUMBER;
-            }
+        AllegroCategory category = searcher.printCategoriesAndLetUserChoose(scanner, matchingCategories, allCategories);
+        if (category == null) {
+            return Result.BAD_NUMBER;
         }
-        return Result.NO_RESULTS;
+
+        AllegroCategory parent = searcher.findById(allCategories, category.getParent());
+        String link = generateLink(category, parent, allCategories, line);
+        System.out.println();
+        System.out.println("W celu przejrzenia listy produktów skorzystaj z linka:");
+        System.out.println(link);
+        return Result.SUCCESS;
     }
 
     private boolean readYesNoAnswer(Scanner scanner) {
@@ -83,52 +80,7 @@ public class SearchCategoryCommand {
         }
     }
 
-    private int readAnswer(Scanner scanner) {
-        try {
-            return scanner.nextInt();
-        } catch (Exception e) {
-            return -1;
-        } finally {
-            scanner.nextLine();
-        }
-    }
-
-    private void printCategory(int number, AllegroCategory category, List<AllegroCategory> allCategories) {
-        int parentId = category.getParent();
-        String name = category.getName();
-
-        String parentName;
-        if (parentId != 0) {
-            AllegroCategory parent = findById(allCategories, parentId);
-            parentName = parent.getName();
-        } else {
-            parentName = "Główna kategoria";
-        }
-
-        System.out.format("%d. %s -> %s\n", number, parentName, name);
-    }
-
-    private String[] cutLastLetter(String[] searchPhrases) {
-        List<String> noweFrazy = new ArrayList<>();
-        for (int i = 0; i < searchPhrases.length; i++) {
-            if (searchPhrases[i].length() >= 4) {
-                noweFrazy.add(searchPhrases[i].substring(0, searchPhrases[i].length() - 1));
-            }
-        }
-        return noweFrazy.toArray(new String[noweFrazy.size()]);
-    }
-
-    private AllegroCategory findById(List<AllegroCategory> categories, int id) {
-        for (AllegroCategory category : categories) {
-            if(id == category.getCatID()){
-                return category;
-            }
-        }
-        return null;
-    }
-
-    private String generateLink(AllegroCategory category, List<AllegroCategory> list, String phrase){
-        AllegroCategory parent = findById(list, category.getParent());
+    private String generateLink(AllegroCategory category, AllegroCategory parent, List<AllegroCategory> list, String phrase){
         String phraseInLink = phrase.replace(" ", "-");
         if(parent != null) {
             String parentInLink = parent.getName().replace(" ", "-");
@@ -141,26 +93,5 @@ public class SearchCategoryCommand {
         }
     }
 
-    public List<AllegroCategory> searchCategory(String line, List<AllegroCategory> allCategories) {
 
-        List<AllegroCategory> matchingCategories = new ArrayList<>();
-        String[] searchPhrases = line.split(" ");
-        while (matchingCategories.isEmpty()) {
-            for (String searchPhrase : searchPhrases) {
-                if (searchPhrase.length() < 3) {
-                    continue;
-                }
-                for (AllegroCategory category : allCategories) {
-                    if (category.getName().toLowerCase().contains(searchPhrase.toLowerCase())) {
-                        matchingCategories.add(category);
-                    }
-                }
-            }
-            searchPhrases = cutLastLetter(searchPhrases);
-            if (searchPhrases.length == 0) {
-                break;
-            }
-        }
-        return matchingCategories;
-    }
 }
