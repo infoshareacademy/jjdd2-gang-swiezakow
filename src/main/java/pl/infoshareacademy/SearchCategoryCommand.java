@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class SearchCategoryCommand {
 
-    private static final String PATH_TO_XML = "Allegro_cathegories_2016-02-13.xml";
+    private static final String FILENAME = "Allegro_cathegories_2016-02-13.xml";
 
     enum Result {
         SUCCESS,
@@ -43,7 +43,7 @@ public class SearchCategoryCommand {
         String line = scanner.nextLine();
 
         AllegroCategoryLoader allegroCategoryLoader = new AllegroCategoryLoader();
-        List<AllegroCategory> allCategories = allegroCategoryLoader.loadAllCategories(PATH_TO_XML);
+        List<AllegroCategory> allCategories = allegroCategoryLoader.loadAllCategories(FILENAME);
 
         if (allCategories.isEmpty()) {
             return Result.FATAL_ERROR;

@@ -7,7 +7,6 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,8 +14,8 @@ import java.util.Map;
 
 public class AllegroCategoryLoader {
 
-    public List<AllegroCategory> loadAllCategories(String path) {
-        Document document = loadDocument(path);
+    public List<AllegroCategory> loadAllCategories(String filename) {
+        Document document = loadDocument(filename);
 
         if (document == null) {
             return new ArrayList<>();
@@ -67,12 +66,11 @@ public class AllegroCategoryLoader {
         return categoryMap;
     }
 
-    private Document loadDocument(String path) {
+    private Document loadDocument(String filename) {
         try {
-            File xmlFile = new File(path);
             DocumentBuilderFactory dbF = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbF.newDocumentBuilder();
-            return db.parse(xmlFile);
+            return db.parse(getClass().getResourceAsStream("/" + filename));
         } catch (Exception e) {
             return null;
         }
