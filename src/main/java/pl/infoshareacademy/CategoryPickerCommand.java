@@ -13,7 +13,7 @@ public class CategoryPickerCommand {
     AllegroCategoryLoader allegroCategoryLoader = new AllegroCategoryLoader();
 
     HashMap<Integer, List<AllegroCategory>> allegroCategoryTree = (HashMap<Integer, List<AllegroCategory>>) allegroCategoryLoader.loadCategoryTree();
-
+    ArrayList<Integer> choosenCategoryHistory = new ArrayList<>();
     Scanner odczyt = new Scanner(System.in);
 
 
@@ -24,26 +24,14 @@ public class CategoryPickerCommand {
     public CategoryPickerCommand() throws ParserConfigurationException, SAXException, IOException {
     }
 
-    public void showCategory0Level() {
-
-        for (int i = 0; i < allegroCategoryTree.get(0).size(); i++) {
-            System.out.println((allegroCategoryTree.get(0).get(i).getCatPosition()+1) + ". " + allegroCategoryTree.get(0).get(i).toString());
-        }
-
-        System.out.println("Co chcesz zrobic?");
-
-        this.whatDoYouWnatToDo();
-
-
-
-    }
-
+    //display the list of category, started by general
     public void showChildrenCategory(){
         try {
 
             for (int i = 0; i < allegroCategoryTree.get(helper).size(); i++) {
                 if (choosenCategory == (allegroCategoryTree.get(helper).get(i).getCatPosition() + 1)) {
                     helper = allegroCategoryTree.get(helper).get(i).getCatID();
+                    choosenCategoryHistory.add(helper);
                 }
 
             }
@@ -58,13 +46,11 @@ public class CategoryPickerCommand {
         System.out.println("Co chcesz zrobic?");
 
         this.whatDoYouWnatToDo();
-        this.whatDoYouWnatToDo();
-        this.whatDoYouWnatToDo();
-
     }
 
-
+    //method which read input from user, show next category or generate link for choosen category or back to previous category
     public void whatDoYouWnatToDo(){
+        System.out.println(choosenCategoryHistory);
         String what = odczyt.nextLine();
         String[] userChoose;
         userChoose = what.split(" ");
@@ -80,7 +66,12 @@ public class CategoryPickerCommand {
         }
 
         if (userChoose[0].equals(CategoryCommands.BACK.getCommands())){
-            this.helper = this.allegroCategoryTree.get(helper).;
+            if (choosenCategoryHistory.size()==1){
+                helper = 0;
+            } else {
+                this.helper = choosenCategoryHistory.get(choosenCategoryHistory.size() - 1);
+                choosenCategoryHistory.remove(choosenCategoryHistory.size() - 1);
+            }
             this.choosenCategory = 0;
             this.showChildrenCategory();
         }
