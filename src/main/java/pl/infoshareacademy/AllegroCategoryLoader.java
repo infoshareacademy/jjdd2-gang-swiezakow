@@ -7,6 +7,9 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -68,9 +71,11 @@ public class AllegroCategoryLoader {
 
     private Document loadDocument(String filename) {
         try {
+            File initialFile = new File(filename);
+            InputStream targetStream = new FileInputStream(initialFile);
             DocumentBuilderFactory dbF = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbF.newDocumentBuilder();
-            return db.parse(getClass().getResourceAsStream("/" + filename));
+            return db.parse(targetStream);
         } catch (Exception e) {
             return null;
         }
