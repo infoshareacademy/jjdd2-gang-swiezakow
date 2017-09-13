@@ -1,21 +1,17 @@
 package pl.infoshareacademy;
 
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
 
     public static final String KOMENDA_WYJSCIA = "exit";
 
-    public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
+    public static void main(String[] args) {
 
         System.out.println("\n~~wspanialy pomagacz w zakupach internetowych~~");
         System.out.println("-----------------------------------------------\n");
         System.out.println("1. Polecenie nr 1");
-        System.out.println("2. Polecenie nr 2");
+        System.out.println("2. Szukaj produktu");
         System.out.println("3. Polecenie nr 3");
         System.out.println("4. Polecenie nr 4");
         System.out.println();
@@ -29,18 +25,15 @@ public class Main {
 
             switch (linia) {
                 case ("1"):
-                    SearchByQuestionsCommand searchByQuestionsCommand = new SearchByQuestionsCommand();
-                    //categorySearchByQuestionCommand
+
                     // wejscie do polecenia 1
                     break;
                 case ("2"):
                     SearchCategoryCommand newSearch = new SearchCategoryCommand();
                     newSearch.handleCommand(odczyt);
-                    // wejście do polcenia 2
                     break;
                 case ("3"):
-                    CategoryPickerCommand categoryPickerCommand = new CategoryPickerCommand();
-                    //categoryPickerCommand.//categoryPickerCammandMethod
+
                     // wejście do polecenia 3
                     break;
                 case("4"):
@@ -48,10 +41,9 @@ public class Main {
                     // wejście do polecenia 4
                     break;
                 case ("5"):
-                    SearchQueryCommand searchQueryCommand = new SearchQueryCommand();
-                    //searchByQuestionsCommand.//categoryQueryCommandMethod
-                    break;
+
                     // wejście do polecenia 5
+                    break;
                 default:
                     System.out.println("Niepoprawny numer. Podaj liczbę.");
             }
