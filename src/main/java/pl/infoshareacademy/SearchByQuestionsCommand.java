@@ -33,7 +33,7 @@ public class SearchByQuestionsCommand {
             List<AllegroCategory> subcategories = idToSubcategories.get(category.getCatID());
             if (isChosen) {
                 if (null == subcategories || subcategories.isEmpty()) {
-                    System.out.println("link i koniec " + makeLink(category.getName(), category.getCatID()));
+                    System.out.println("\nInteresujący Cię produkt możesz znaleźć korzystając z poniższego linka: \n\n " + makeLink(category.getName(), category.getCatID()));
                     break;
                 } else {
                     //wymiana kategorii
@@ -43,11 +43,11 @@ public class SearchByQuestionsCommand {
                 }
             }
         }
-        System.out.println("Wracasz do głównego Menu.");
+        System.out.println("\nWracasz do głównego Menu.");
     }
 
     private void showQuestion(AllegroCategory category) {
-        System.out.println("Czy interesuje Cię kategoria " + category.getName() + "?");
+        System.out.println("\nCzy interesuje Cię kategoria " + category.getName() + "?\n");
         System.out.print("[T/N] ");
     }
 
