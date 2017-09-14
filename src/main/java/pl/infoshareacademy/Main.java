@@ -10,15 +10,7 @@ public class Main {
 
         System.out.println("\n~~wspanialy pomagacz w zakupach internetowych~~");
         System.out.println("-----------------------------------------------\n");
-        System.out.println("1. Polecenie nr 1");
-        System.out.println("2. Szukaj produktu");
-        System.out.println("3. Polecenie nr 3");
-        System.out.println("4. Polecenie nr 4");
-        System.out.println();
-        System.out.println("Aby wyjść wybierz: exit");
-        System.out.println();
-        System.out.println("Podaj numer polecenia: ");
-
+        printMenu();
         Scanner odczyt = new Scanner(System.in);
         String linia;
         while ( !(linia = odczyt.nextLine()).equals(KOMENDA_WYJSCIA) ) {
@@ -37,8 +29,8 @@ public class Main {
                     // wejście do polecenia 3
                     break;
                 case("4"):
-
-                    // wejście do polecenia 4
+                    SearchQueryCommand searchQueryCommand = new SearchQueryCommand();
+                    searchQueryCommand.queryCommand(odczyt);
                     break;
                 case ("5"):
 
@@ -47,6 +39,19 @@ public class Main {
                 default:
                     System.out.println("Niepoprawny numer. Podaj liczbę.");
             }
+            printMenu();
         }
+    }
+    private static void printMenu(){
+        System.out.println("Menu główne:");
+        System.out.println("1. Polecenie nr 1");
+        System.out.println("2. Szukaj produktu");
+        System.out.println("3. Polecenie nr 3");
+        System.out.println("4. Asystent Allegro");
+        System.out.println();
+        System.out.println("Aby wyjść wpisz: exit");
+        System.out.println();
+        System.out.println("Podaj numer polecenia: ");
+
     }
 }
