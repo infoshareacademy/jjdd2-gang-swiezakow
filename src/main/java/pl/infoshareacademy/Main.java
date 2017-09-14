@@ -30,29 +30,18 @@ public class Main {
 
             switch (linia) {
                 case ("1"):
-                    SearchByQuestionsCommand searchByQuestionsCommand = new SearchByQuestionsCommand();
-                    //searchByQuestionsCommand.//categorySearchByQuestionCommand
                     // wejscie do polecenia 1
                     break;
                 case ("2"):
-                    SearchCategoryCommand newSearch = new SearchCategoryCommand();
-                    newSearch.handleCommand(odczyt);
                     // wejście do polcenia 2
                     break;
                 case ("3"):
                     CategoryPickerCommand categoryPickerCommand = new CategoryPickerCommand();
                     categoryPickerCommand.showChildrenCategory();
-                    // wejście do polecenia 3
                     break;
                 case ("4"):
-
                     // wejście do polecenia 4
                     break;
-                case ("5"):
-                    SearchQueryCommand searchQueryCommand = new SearchQueryCommand();
-                    //searchByQuestionsCommand.//categoryQueryCommandMethod
-                    break;
-                // wejście do polecenia 5
                 default:
                     System.out.println("Niepoprawny numer. Podaj liczbę.");
             }
