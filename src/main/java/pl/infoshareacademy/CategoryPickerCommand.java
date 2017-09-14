@@ -27,16 +27,17 @@ public class CategoryPickerCommand {
     //display the list of category, started by general
     public void showChildrenCategory(){
         try {
-        System.out.println("Przeglądaj kategorie w celu wygenerowania linku do szukanego przedmiotu:");
-        System.out.println("Możesz wygenerowować link dla danej kategorii wpisując: "
-                + (char)27 +"[30;44mgenerate" + (char)27 + "[0m "
-                + (char)27 + "[30;44mnr_kategorii" + (char)27 +"[0m ");
-        System.out.println("Przejść do konkretniejszych kategorii:                  "
-                + (char)27 +"[30;44menter" + (char)27 + "[0m "
-                + (char)27 + "[30;44mnr_kategorii" + (char)27 +"[0m ");
-        System.out.println("Cofnąć się do poprzedniej kategorii:                    "
-                + (char)27 +"[30;44mback" + (char)27 +"[0m ");
-        System.out.println();
+
+            System.out.println("Przeglądaj kategorie w celu wygenerowania linku do szukanego przedmiotu:");
+            System.out.println("Możesz wygenerowować link dla danej kategorii wpisując: "
+                    + (char)27 +"[30;44mgenerate" + (char)27 + "[0m "
+                    + (char)27 + "[30;44mnr_kategorii" + (char)27 +"[0m ");
+            System.out.println("Przejść do konkretniejszych kategorii:                  "
+                    + (char)27 +"[30;44menter" + (char)27 + "[0m "
+                    + (char)27 + "[30;44mnr_kategorii" + (char)27 +"[0m ");
+            System.out.println("Cofnąć się do poprzedniej kategorii:                    "
+                    + (char)27 +"[30;44mback" + (char)27 +"[0m ");
+            System.out.println();
 
 
             for (int i = 0; i < allegroCategoryTree.get(helper).size(); i++) {
@@ -50,17 +51,17 @@ public class CategoryPickerCommand {
             for (int i = 0; i < allegroCategoryTree.get(helper).size(); i++) {
                 System.out.println((allegroCategoryTree.get(helper).get(i).getCatPosition() + 1) + ". " + allegroCategoryTree.get(helper).get(i).toString());
             }
+            System.out.println("Co chcesz zrobic?");
 
+            this.whatDoYouWnatToDo();
         } catch (java.lang.NullPointerException e) {
-            System.out.println("Brak podkategorii");
+            System.out.println((char)27 +"[31mBrak podkategorii, możesz wygenerować link lub się cofnąć" + (char)27 +"[0m ");
             choosenCategory = 0;
-            helper = this.choosenCategoryHistory.get(this.choosenCategoryHistory.size() - 3);
+            helper = this.choosenCategoryHistory.get(this.choosenCategoryHistory.size() - 2);
             this.choosenCategoryHistory.remove(this.choosenCategoryHistory.size()-1);
             this.showChildrenCategory();
         }
-        System.out.println("Co chcesz zrobic?");
 
-        this.whatDoYouWnatToDo();
     }
 
     //method which read input from user, show next category or generate link for choosen category or back to previous category
@@ -88,6 +89,7 @@ public class CategoryPickerCommand {
         }
         try {
             if (userChoose[0].equals(CategoryCommands.GENERATE.getCommands())){
+                
                 System.out.println("Wygenerowany link dla: " + userChoose[1] + ": " + this.allegroCategoryTree.get(helper).get(Integer.parseInt(userChoose[1])-1).getName());
                 //generuj link
             }
