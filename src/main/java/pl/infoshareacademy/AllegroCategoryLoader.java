@@ -4,13 +4,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
-import java.io.IOException;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,13 +17,12 @@ import java.util.Map;
 
 public class AllegroCategoryLoader {
 
-    public List<AllegroCategory> loadAllCategories() throws ParserConfigurationException, IOException, SAXException {
+    public List<AllegroCategory> loadAllCategories(String filename) {
+        Document document = loadDocument(filename);
 
-        File xmlFile = new File("Allegro_cathegories_2016-02-13.xml");
-
-        DocumentBuilderFactory dbF = DocumentBuilderFactory.newInstance();
-        DocumentBuilder db = dbF.newDocumentBuilder();
-        Document document = db.parse(xmlFile);
+        if (document == null) {
+            return new ArrayList<>();
+        }
 
         document.getDocumentElement().normalize();
         NodeList nodeList = document.getDocumentElement()
@@ -57,9 +55,9 @@ public class AllegroCategoryLoader {
         return list;
     }
 
-    public Map<Integer, List<AllegroCategory>> loadCategoryTree() throws IOException, SAXException, ParserConfigurationException {
+    public Map<Integer, List<AllegroCategory>> loadCategoryTree(String path) {
         Map<Integer, List<AllegroCategory>> categoryMap = new HashMap<>();
-        for(AllegroCategory category : loadAllCategories()){
+        for(AllegroCategory category : loadAllCategories(path)) {
             if(!categoryMap.containsKey(category.getParent())){
                 List<AllegroCategory> list = new ArrayList<>();
                 list.add(category);
@@ -69,5 +67,17 @@ public class AllegroCategoryLoader {
             }
         }
         return categoryMap;
+    }
+
+    private Document loadDocument(String filename) {
+        try {
+            File initialFile = new File(filename);
+            InputStream targetStream = new FileInputStream(initialFile);
+            DocumentBuilderFactory dbF = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbF.newDocumentBuilder();
+            return db.parse(targetStream);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
