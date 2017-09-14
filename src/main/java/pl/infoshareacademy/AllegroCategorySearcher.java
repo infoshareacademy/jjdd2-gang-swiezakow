@@ -38,7 +38,7 @@ public class AllegroCategorySearcher {
 
     public AllegroCategory findById(List<AllegroCategory> categories, int id) {
         for (AllegroCategory category : categories) {
-            if(id == category.getCatID()){
+            if (id == category.getCatID()){
                 return category;
             }
         }

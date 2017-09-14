@@ -44,9 +44,9 @@ public class SearchQueryCommand {
     private boolean tryAgain(Scanner scanner){
         System.out.println("\nCzy chcesz spróbować ponownie?");
         String answer = scanner.nextLine();
-        if(answer.toLowerCase().equals("tak")){
+        if (answer.toLowerCase().equals("tak")){
             return true;
-        } else if(answer.toLowerCase().equals("nie")){
+        } else if (answer.toLowerCase().equals("nie")){
              return false;
         } else {
             System.out.println("Niepoprawna odpowiedź, spróbuj jeszcze raz");

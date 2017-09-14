@@ -47,9 +47,9 @@ public class Main {
         System.out.println("1. Polecenie nr 1");
         System.out.println("2. Szukaj produktu");
         System.out.println("3. Polecenie nr 3");
-        System.out.println("4. Asystent allegro");
+        System.out.println("4. Asystent Allegro");
         System.out.println();
-        System.out.println("Aby wyjść wybierz: exit");
+        System.out.println("Aby wyjść wpisz: exit");
         System.out.println();
         System.out.println("Podaj numer polecenia: ");
 
