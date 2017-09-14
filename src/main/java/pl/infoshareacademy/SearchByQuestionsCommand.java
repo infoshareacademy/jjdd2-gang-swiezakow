@@ -42,7 +42,7 @@ public class SearchByQuestionsCommand {
                     //wymiana kategorii
                     categories = subcategories;
                     i = -1; // bo i++
-                    size = subcategories.size();
+                    size = subcategories.size(); // reset rozmiaru
                 }
             }
         }
