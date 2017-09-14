@@ -91,6 +91,15 @@ public class CategoryPickerCommand {
             if (userChoose[0].equals(CategoryCommands.GENERATE.getCommands())){
                 
                 System.out.println("Wygenerowany link dla: " + userChoose[1] + ": " + this.allegroCategoryTree.get(helper).get(Integer.parseInt(userChoose[1])-1).getName());
+                String phraseInLink = this.allegroCategoryTree.get(helper).get(Integer.parseInt(userChoose[1])-1).getName();
+                phraseInLink.toLowerCase();
+                phraseInLink = phraseInLink.replace('ą', 'a')
+                        .replace('ć', 'c').replace('ę','e')
+                        .replace('ł','l').replace('n','n')
+                        .replace('ó','o').replace('ś','s')
+                        .replace('ź','z').replace('ż','z')
+                        .replace(" ", "-");
+                System.out.println("https://allegro.pl/kategoria/" +phraseInLink+ "-" + this.allegroCategoryTree.get(helper).get(Integer.parseInt(userChoose[1])-1).getCatID());
                 //generuj link
             }
         } catch (java.lang.IndexOutOfBoundsException e){
@@ -102,6 +111,7 @@ public class CategoryPickerCommand {
             if (choosenCategoryHistory.size()==1){
                 helper = 0;
                 this.choosenCategory = 0;
+                this.choosenCategoryHistory.clear();
                 this.showChildrenCategory();
             } else if (choosenCategoryHistory.isEmpty()) {
                 System.out.println("Przechodzisz do głównego menu");
