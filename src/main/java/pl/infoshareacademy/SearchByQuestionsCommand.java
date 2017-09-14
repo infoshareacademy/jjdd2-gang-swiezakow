@@ -8,6 +8,9 @@ import static pl.infoshareacademy.AllegroLink.makeLink;
 
 public class SearchByQuestionsCommand {
 
+    private static String FILENAME = "Allegro_cathegories_2016-02-13.xml";
+
+
     public void run() {
         //Klucz | Wartosc
         //idKategorii  | List<AllegroCategory> podkategorie
@@ -15,7 +18,7 @@ public class SearchByQuestionsCommand {
 
         AllegroCategoryLoader loader = new AllegroCategoryLoader();
         try {
-            idToSubcategories = loader.loadCategoryTree();
+            idToSubcategories = loader.loadCategoryTree(FILENAME);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage(), e);
         }

@@ -46,7 +46,7 @@ public class Main {
     }
     private static void printMenu(){
         System.out.println("Menu główne:");
-        System.out.println("1. Polecenie nr 1");
+        System.out.println("1. Wyszukaj kategorię na podstawie serii pytań");
         System.out.println("2. Szukaj produktu");
         System.out.println("3. Polecenie nr 3");
         System.out.println("4. Asystent Allegro");
