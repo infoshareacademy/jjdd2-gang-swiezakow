@@ -16,7 +16,7 @@ public class Main {
         System.out.println("-----------------------------------------------\n");
         System.out.println("1. Polecenie nr 1");
         System.out.println("2. Szukaj produktu");
-        System.out.println("3. Polecenie nr 3");
+        System.out.println("3. Szukaj po kategorii");
         System.out.println("4. Polecenie nr 4");
         System.out.println();
         System.out.println("Aby wyjść wybierz: exit");
