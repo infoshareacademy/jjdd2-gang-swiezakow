@@ -1,12 +1,16 @@
 package pl.infoshareacademy;
 
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
 
     public static final String KOMENDA_WYJSCIA = "exit";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
 
         System.out.println("\n~~wspanialy pomagacz w zakupach internetowych~~");
         System.out.println("-----------------------------------------------\n");
@@ -33,7 +37,8 @@ public class Main {
                     newSearch.handleCommand(odczyt);
                     break;
                 case ("3"):
-
+                    CategoryPickerCommand categoryPickerCommand = new CategoryPickerCommand();
+                    categoryPickerCommand.showChildrenCategory();
                     // wejście do polecenia 3
                     break;
                 case("4"):

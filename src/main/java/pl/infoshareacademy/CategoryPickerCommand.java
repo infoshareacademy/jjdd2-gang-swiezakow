@@ -11,8 +11,8 @@ import java.util.Scanner;
 
 public class CategoryPickerCommand {
     AllegroCategoryLoader allegroCategoryLoader = new AllegroCategoryLoader();
-
-    private HashMap<Integer, List<AllegroCategory>> allegroCategoryTree = (HashMap<Integer, List<AllegroCategory>>) allegroCategoryLoader.loadCategoryTree();
+    private static final String FILENAME = "Allegro_cathegories_2016-02-13.xml";
+    private HashMap<Integer, List<AllegroCategory>> allegroCategoryTree = (HashMap<Integer, List<AllegroCategory>>) allegroCategoryLoader.loadCategoryTree(FILENAME);
     private ArrayList<Integer> choosenCategoryHistory = new ArrayList<>();
     private Scanner odczyt = new Scanner(System.in);
 
@@ -72,17 +72,18 @@ public class CategoryPickerCommand {
         userChoose = what.split(" ");
 
         if (userChoose[0].equals(CategoryCommands.ENTER.getCommands())){
-            if (Integer.parseInt(userChoose[1]) > 0 && Integer.parseInt(userChoose[1]) < this.allegroCategoryTree.get(helper).size()) {
-                choosenCategory = Integer.parseInt(userChoose[1]);
-                this.showChildrenCategory();
-            } else if (this.allegroCategoryTree.get(helper).size() == 0) {
-                System.out.println("Koniec dalszych kategorii");
-                helper = this.choosenCategoryHistory.get(this.choosenCategoryHistory.size() - 1);
-                this.choosenCategoryHistory.remove(this.choosenCategoryHistory.size() - 1);
-                this.showChildrenCategory();
-            } else {
-                System.out.println("Brak istniejącej kategorii do której chcesz wejść");
-                System.out.println("Spróbuj ponownie \n \n");
+
+            try {
+                if (Integer.parseInt(userChoose[1]) > 0 && Integer.parseInt(userChoose[1]) <= this.allegroCategoryTree.get(helper).size()) {
+                    choosenCategory = Integer.parseInt(userChoose[1]);
+                    this.showChildrenCategory();
+                } else {
+                    System.out.println("Brak istniejącej kategorii do której chcesz wejść");
+                    System.out.println("Spróbuj ponownie \n \n");
+                    this.showChildrenCategory();
+                }
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println((char) 27 + "[31mWprowadź poprawny numer kategorii" + (char) 27 +"[0m");
                 this.showChildrenCategory();
             }
 
@@ -117,7 +118,7 @@ public class CategoryPickerCommand {
                 System.out.println("Przechodzisz do głównego menu");
             }
             else {
-                this.helper = choosenCategoryHistory.get(choosenCategoryHistory.size() - 1);
+                this.helper = choosenCategoryHistory.get(choosenCategoryHistory.size() - 2);
                 choosenCategoryHistory.remove(choosenCategoryHistory.size() - 1);
                 this.choosenCategory = 0;
                 this.showChildrenCategory();
