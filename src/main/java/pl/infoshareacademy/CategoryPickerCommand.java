@@ -85,6 +85,9 @@ public class CategoryPickerCommand {
             } catch (IndexOutOfBoundsException e) {
                 System.out.println((char) 27 + "[31mWprowadź poprawny numer kategorii" + (char) 27 +"[0m");
                 this.showChildrenCategory();
+            }catch (java.lang.NumberFormatException e){
+                System.out.println((char) 27 + "[31mWprowadź komendę i numer kategorii po spacji" + (char) 27 +"[0m");
+                this.showChildrenCategory();
             }
 
         }
@@ -93,7 +96,6 @@ public class CategoryPickerCommand {
 
                 System.out.println("Wygenerowany link dla: " + userChoose[1] + ": " + this.allegroCategoryTree.get(helper).get(Integer.parseInt(userChoose[1])-1).getName());
                 String phraseInLink = this.allegroCategoryTree.get(helper).get(Integer.parseInt(userChoose[1])-1).getName();
-                phraseInLink.toLowerCase();
                 phraseInLink = phraseInLink.replace('ą', 'a')
                         .replace('ć', 'c').replace('ę','e')
                         .replace('ł','l').replace('n','n')
@@ -105,6 +107,9 @@ public class CategoryPickerCommand {
             }
         } catch (java.lang.IndexOutOfBoundsException e){
             System.out.println("Błędny numer kategorii, spróbuj ponownie \n \n \n");
+            this.showChildrenCategory();
+        } catch (java.lang.NumberFormatException e){
+            System.out.println((char) 27 + "[31mWprowadź komendę i numer kategorii po spacji" + (char) 27 +"[0m");
             this.showChildrenCategory();
         }
 

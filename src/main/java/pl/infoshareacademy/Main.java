@@ -12,16 +12,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
 
-        System.out.println("\n~~wspanialy pomagacz w zakupach internetowych~~");
-        System.out.println("-----------------------------------------------\n");
-        System.out.println("1. Polecenie nr 1");
-        System.out.println("2. Szukaj produktu");
-        System.out.println("3. Szukaj po kategorii");
-        System.out.println("4. Polecenie nr 4");
-        System.out.println();
-        System.out.println("Aby wyjść wybierz: exit");
-        System.out.println();
-        System.out.println("Podaj numer polecenia: ");
+        Main.showMenuSout();
 
         Scanner odczyt = new Scanner(System.in);
         String linia;
@@ -52,6 +43,20 @@ public class Main {
                 default:
                     System.out.println("Niepoprawny numer. Podaj liczbę.");
             }
+            Main.showMenuSout();
         }
+    }
+
+    private static void showMenuSout(){
+        System.out.println("\n~~wspanialy pomagacz w zakupach internetowych~~");
+        System.out.println("-----------------------------------------------\n");
+        System.out.println("1. Polecenie nr 1");
+        System.out.println("2. Szukaj produktu");
+        System.out.println("3. Szukaj po kategorii");
+        System.out.println("4. Polecenie nr 4");
+        System.out.println();
+        System.out.println("Aby wyjść wybierz: exit");
+        System.out.println();
+        System.out.println("Podaj numer polecenia: ");
     }
 }
