@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Main {
 
     public static final String KOMENDA_WYJSCIA = "exit";
+    private static String FILENAME = "Allegro_cathegories_2016-02-13.xml";
 
     public static void main(String[] args) {
 
@@ -18,6 +19,8 @@ public class Main {
             switch (linia) {
                 case ("1"):
 
+                    SearchByQuestionsCommand searchByQuestionsCommand = new SearchByQuestionsCommand(FILENAME);
+                    searchByQuestionsCommand.run();
                     // wejscie do polecenia 1
                     break;
                 case ("2"):
@@ -44,7 +47,7 @@ public class Main {
     }
     private static void printMenu(){
         System.out.println("Menu główne:");
-        System.out.println("1. Polecenie nr 1");
+        System.out.println("1. Wyszukaj kategorię na podstawie serii pytań");
         System.out.println("2. Szukaj produktu");
         System.out.println("3. Polecenie nr 3");
         System.out.println("4. Asystent Allegro");
@@ -52,6 +55,5 @@ public class Main {
         System.out.println("Aby wyjść wpisz: exit");
         System.out.println();
         System.out.println("Podaj numer polecenia: ");
-
     }
 }
