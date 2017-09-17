@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static final String KOMENDA_WYJSCIA = "exit";
+    private static final String KOMENDA_WYJSCIA = "exit";
     private static String FILENAME = "Allegro_cathegories_2016-02-13.xml";
 
     public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
@@ -54,7 +54,7 @@ public class Main {
         System.out.println("Menu główne:");
         System.out.println("1. Wyszukaj kategorię na podstawie serii pytań");
         System.out.println("2. Szukaj produktu");
-        System.out.println("3. Polecenie nr 3");
+        System.out.println("3. Szujaj produktu w kategoriach");
         System.out.println("4. Asystent Allegro");
         System.out.println();
         System.out.println("Aby wyjść wpisz: exit");
