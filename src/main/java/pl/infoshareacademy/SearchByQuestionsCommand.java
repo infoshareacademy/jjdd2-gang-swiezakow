@@ -7,8 +7,11 @@ import java.util.Scanner;
 import static pl.infoshareacademy.AllegroLink.makeLink;
 
 public class SearchByQuestionsCommand {
+    private String categoryFilePath;
 
-    private static String FILENAME = "Allegro_cathegories_2016-02-13.xml";
+    public SearchByQuestionsCommand(String categoryFilePath) {
+        this.categoryFilePath = categoryFilePath;
+    }
 
 
     public void run() {
@@ -18,7 +21,7 @@ public class SearchByQuestionsCommand {
 
         AllegroCategoryLoader loader = new AllegroCategoryLoader();
         try {
-            idToSubcategories = loader.loadCategoryTree(FILENAME);
+            idToSubcategories = loader.loadCategoryTree(categoryFilePath);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage(), e);
         }
@@ -46,7 +49,7 @@ public class SearchByQuestionsCommand {
                 }
             }
         }
-        System.out.println("\nWracasz do głównego Menu.");
+        System.out.println("\nWracasz do głównego Menu.\n");
     }
 
     private void showQuestion(AllegroCategory category) {

@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Main {
 
     public static final String KOMENDA_WYJSCIA = "exit";
+    private static String FILENAME = "Allegro_cathegories_2016-02-13.xml";
 
     public static void main(String[] args) {
 
@@ -18,7 +19,7 @@ public class Main {
             switch (linia) {
                 case ("1"):
 
-                    SearchByQuestionsCommand searchByQuestionsCommand = new SearchByQuestionsCommand();
+                    SearchByQuestionsCommand searchByQuestionsCommand = new SearchByQuestionsCommand(FILENAME);
                     searchByQuestionsCommand.run();
                     // wejscie do polecenia 1
                     break;
@@ -54,6 +55,5 @@ public class Main {
         System.out.println("Aby wyjść wpisz: exit");
         System.out.println();
         System.out.println("Podaj numer polecenia: ");
-
     }
 }

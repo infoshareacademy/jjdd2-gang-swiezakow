@@ -14,8 +14,4 @@ public class AllegroLink {
                 Normalizer.normalize(normalizedCategoryName, Normalizer.Form.NFD)
                         .replaceAll("[^\\p{ASCII}]", "");
     }
-
 }
-
-
-
