@@ -14,6 +14,19 @@ public class SearchCategoryCommand {
         FATAL_ERROR
     }
 
+    private AllegroCategoryLoader loader;
+    private AllegroCategorySearcher searcher;
+
+    public SearchCategoryCommand(AllegroCategoryLoader allegroCategoryLoader, AllegroCategorySearcher allegroCategorySearcher) {
+        this.loader = allegroCategoryLoader;
+        this.searcher = allegroCategorySearcher;
+    }
+
+    public SearchCategoryCommand() {
+        this.loader = new AllegroCategoryLoader();
+        this.searcher = new AllegroCategorySearcher();
+    }
+
     public void handleCommand(Scanner scanner) {
         boolean run = true;
 
@@ -30,7 +43,7 @@ public class SearchCategoryCommand {
             }
 
             System.out.println("Czy chcesz spróbować ponownie? [Tak/Nie]");
-            run = readYesNoAnswer(scanner);
+            run = readYesNoAnswer(new UserInput(scanner));
         }
 
         System.out.println();
@@ -41,14 +54,12 @@ public class SearchCategoryCommand {
         System.out.println("Czego szukasz?");
         String line = scanner.nextLine();
 
-        AllegroCategoryLoader allegroCategoryLoader = new AllegroCategoryLoader();
-        List<AllegroCategory> allCategories = allegroCategoryLoader.loadAllCategories(FILENAME);
+        List<AllegroCategory> allCategories = loader.loadAllCategories(FILENAME);
 
         if (allCategories.isEmpty()) {
             return Result.FATAL_ERROR;
         }
 
-        AllegroCategorySearcher searcher = new AllegroCategorySearcher();
         List<AllegroCategory> matchingCategories = searcher.searchCategory(line, allCategories);
 
         if (matchingCategories.isEmpty()) {
@@ -61,26 +72,26 @@ public class SearchCategoryCommand {
         }
 
         AllegroCategory parent = searcher.findById(allCategories, category.getParent());
-        String link = generateLink(category, parent, allCategories, line);
+        String link = generateLink(category, parent, line);
         System.out.println();
         System.out.println("W celu przejrzenia listy produktów skorzystaj z linka:");
         System.out.println(link);
         return Result.SUCCESS;
     }
 
-    private boolean readYesNoAnswer(Scanner scanner) {
-        String line = scanner.nextLine();
+    boolean readYesNoAnswer(UserInput userInput) {
+        String line = userInput.line();
         if ("tak".equals(line.toLowerCase())) {
             return true;
         } else if ("nie".equals(line.toLowerCase())) {
             return false;
         } else {
             System.out.println("Niepoprawna odpowiedź. [Tak/Nie]");
-            return readYesNoAnswer(scanner);
+            return readYesNoAnswer(userInput);
         }
     }
 
-    private String generateLink(AllegroCategory category, AllegroCategory parent, List<AllegroCategory> list, String phrase){
+    String generateLink(AllegroCategory category, AllegroCategory parent, String phrase){
         String phraseInLink = phrase.replace(" ", "-");
         if(parent != null) {
             String parentInLink = parent.getName().replace(" ", "-");
@@ -92,6 +103,4 @@ public class SearchCategoryCommand {
                     + "?string=" + phraseInLink;
         }
     }
-
-
 }
