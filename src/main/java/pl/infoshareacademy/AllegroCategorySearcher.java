@@ -1,8 +1,10 @@
 package pl.infoshareacademy;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class AllegroCategorySearcher {
 
@@ -78,13 +80,12 @@ public class AllegroCategorySearcher {
         return matchingCategories;
     }
 
-    private String[] cutLastLetter(String[] searchPhrases) {
-        List<String> noweFrazy = new ArrayList<>();
-        for (int i = 0; i < searchPhrases.length; i++) {
-            if (searchPhrases[i].length() >= 4) {
-                noweFrazy.add(searchPhrases[i].substring(0, searchPhrases[i].length() - 1));
-            }
-        }
+    String[] cutLastLetter(String[] searchPhrases) {
+        List<String> noweFrazy = Arrays.stream(searchPhrases)
+                .filter(s -> s.length() >= 4)
+                .map(s -> s.substring(0, s.length() - 1))
+                .collect(Collectors.toList());
+
         return noweFrazy.toArray(new String[noweFrazy.size()]);
     }
 }
