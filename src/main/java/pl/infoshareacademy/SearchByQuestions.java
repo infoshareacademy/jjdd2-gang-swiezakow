@@ -9,8 +9,22 @@ public class SearchByQuestions {
     }
 
     public SearchResult chooseCategory(int categoryId) {
+        boolean hasSubcategories = catalog.hasSubcategories(categoryId);
+        if (hasSubcategories) {
+            //AllegroCategory = First subcategory
+            //return new SearchResult(...)
+
+        }
+
+        //Return link
         AllegroCategory category = catalog.findCategoryById(categoryId);
-        boolean isLink = !catalog.hasSubcategories(categoryId);
-        return new SearchResult(category.getName(), category.getCatID(), isLink);
+        return new SearchResult(category.getName(), category.getCatID(), true);
+    }
+
+    public SearchResult omitCategory(int categoryId) {
+        //1. istnieje kolejna na tym smamym poziomie
+        //2. nie istnieje kolejna ale jest parent
+        //3. nie istnieje kolejna i nie ma parenta
+        return null;
     }
 }
