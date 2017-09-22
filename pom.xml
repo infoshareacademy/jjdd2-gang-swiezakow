@@ -6,6 +6,19 @@
     <groupId>pl.infoshareacademy.gangswiezakow</groupId>
     <artifactId>zakupy</artifactId>
     <version>1.0.0</version>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.8.4</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <properties>
         <java.build.version>1.8</java.build.version>
