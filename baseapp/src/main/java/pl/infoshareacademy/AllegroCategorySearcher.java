@@ -1,10 +1,15 @@
 package pl.infoshareacademy;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class AllegroCategorySearcher {
+
+    private static final Logger logger = LogManager.getLogger(AllegroCategorySearcher.class);
 
     public AllegroCategory printCategoriesAndLetUserChoose(Scanner scanner, List<AllegroCategory> matchingCategories, List<AllegroCategory> allCategories) {
         for (int i = 0; i < matchingCategories.size(); i++){
@@ -33,12 +38,14 @@ public class AllegroCategorySearcher {
             parentName = "Główna kategoria";
         }
 
+        logger.debug("Parent name = " + parentName);
         System.out.format("%d. %s -> %s\n", number, parentName, name);
     }
 
     public AllegroCategory findById(List<AllegroCategory> categories, int id) {
         for (AllegroCategory category : categories) {
             if (id == category.getCatID()){
+                logger.debug("returned category: " + category + " with id " + category.getCatID());
                 return category;
             }
         }
@@ -49,6 +56,7 @@ public class AllegroCategorySearcher {
         try {
             return scanner.nextInt();
         } catch (Exception e) {
+            logger.error("caught an exception during reading an answer");
             return -1;
         } finally {
             scanner.nextLine();
@@ -59,9 +67,13 @@ public class AllegroCategorySearcher {
 
         List<AllegroCategory> matchingCategories = new ArrayList<>();
         String[] searchPhrases = line.split(" ");
+
+        logger.debug("searching phrase has " + searchPhrases.length + " words");
+
         while (matchingCategories.isEmpty()) {
             for (String searchPhrase : searchPhrases) {
                 if (searchPhrase.length() < 3) {
+                    logger.debug("searching phrase length < 3");
                     continue;
                 }
                 for (AllegroCategory category : allCategories) {
@@ -70,10 +82,18 @@ public class AllegroCategorySearcher {
                     }
                 }
             }
-            searchPhrases = cutLastLetter(searchPhrases);
-            if (searchPhrases.length == 0) {
+
+            if (!matchingCategories.isEmpty()) {
+                logger.debug("Found " + matchingCategories.size() + " results!");
                 break;
             }
+
+            searchPhrases = cutLastLetter(searchPhrases);
+            if (searchPhrases.length == 0) {
+                logger.warn("aborting search - too short word");
+                break;
+            }
+            logger.debug("matching categories list was empty");
         }
         return matchingCategories;
     }
@@ -85,6 +105,8 @@ public class AllegroCategorySearcher {
                 noweFrazy.add(searchPhrases[i].substring(0, searchPhrases[i].length() - 1));
             }
         }
+
+        logger.debug("result of cutting last letter: " + String.join(", ", noweFrazy));
         return noweFrazy.toArray(new String[noweFrazy.size()]);
     }
 }
