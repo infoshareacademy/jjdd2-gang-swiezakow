@@ -4,51 +4,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>pl.infoshareacademy.gangswiezakow</groupId>
-    <artifactId>zakupy</artifactId>
+    <artifactId>zakupy-parent</artifactId>
     <version>1.0.0</version>
+    <packaging>pom</packaging>
 
-    <properties>
-        <java.build.version>1.8</java.build.version>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>1.10.19</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <!-- Build an executable JAR -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>pl.infoshareacademy.Main</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${java.build.version}</source>
-                    <target>${java.build.version}</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+    <modules>
+        <module>baseapp</module>
+        <module>webapp</module>
+    </modules>
 
 </project>
