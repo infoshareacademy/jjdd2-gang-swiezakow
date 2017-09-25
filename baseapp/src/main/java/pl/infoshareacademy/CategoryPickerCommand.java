@@ -8,17 +8,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class CategoryPickerCommand {
-    private AllegroCategoryLoader allegroCategoryLoader = new AllegroCategoryLoader();
-    private static final String FILENAME = "Allegro_cathegories_2016-02-13.xml";
-    private HashMap<Integer, List<AllegroCategory>> allegroCategoryTree = (HashMap<Integer, List<AllegroCategory>>) allegroCategoryLoader.loadCategoryTree(FILENAME);
-    private ArrayList<Integer> choosenCategoryHistory = new ArrayList<>();
-    private Scanner inputReader = new Scanner(System.in);
+    AllegroCategoryLoader allegroCategoryLoader = new AllegroCategoryLoader();
+    static final String FILENAME = "Allegro_cathegories_2016-02-13.xml";
+    HashMap<Integer, List<AllegroCategory>> allegroCategoryTree = (HashMap<Integer, List<AllegroCategory>>) allegroCategoryLoader.loadCategoryTree(FILENAME);
+    ArrayList<Integer> choosenCategoryHistory = new ArrayList<>();
+    Scanner inputReader = new Scanner(System.in);
 
 
-    private Integer choosenCategory = 0;
-    private Integer helper = 0;
+    Integer choosenCategory = 0;
+    Integer helper = 0;
 
     public CategoryPickerCommand() throws ParserConfigurationException, SAXException, IOException {
     }
@@ -26,6 +27,7 @@ public class CategoryPickerCommand {
     //display the list of category, started by general
     public void showChildrenCategory(){
         try {
+
             this.showAllOptions();
 
 
@@ -34,12 +36,12 @@ public class CategoryPickerCommand {
                     helper = allegroCategoryTree.get(helper).get(i).getCatID();
                     choosenCategoryHistory.add(helper);
                 }
-
             }
 
             for (int i = 0; i < allegroCategoryTree.get(helper).size(); i++) {
                 System.out.println((allegroCategoryTree.get(helper).get(i).getCatPosition() + 1) + ". " + allegroCategoryTree.get(helper).get(i).toString());
             }
+
             System.out.println("Co chcesz zrobic?");
 
             this.veryficationUserInput();
