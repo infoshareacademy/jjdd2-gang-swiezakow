@@ -34,11 +34,13 @@ public class SearchByQuestions {
 
         //2. nie istnieje kolejna ale jest parent
         AllegroCategory category = catalog.findCategoryById(categoryId);
-        if (category.getParent() != catalog.ROOT_CATEGORY_ID) {
-            AllegroCategory nextParent = catalog.findSibling(category.getParent());
-            if (nextParent != null) {
-                return new SearchResult(nextParent.getName(), nextParent.getCatID(), false);
+        while (category.getParent() != catalog.ROOT_CATEGORY_ID) {
+            AllegroCategory sibling = catalog.findSibling(category.getParent());
+            if (sibling != null) {
+                return new SearchResult(sibling.getName(), sibling.getCatID(), false);
             }
+            // idz do parenta parenta
+            category = catalog.findCategoryById(category.getParent());
         }
 
         //3. nie istnieje kolejna i nie ma parenta

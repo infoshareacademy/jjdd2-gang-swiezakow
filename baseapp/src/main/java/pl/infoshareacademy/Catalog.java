@@ -11,8 +11,6 @@ public class Catalog {
     private Map<Integer, List<AllegroCategory>> idToSubcategories = Collections.emptyMap();
     private Map<Integer, AllegroCategory> idToCategory = Collections.emptyMap();
 
-    public Catalog() {}
-
     public static Catalog catalogForFile(String categoryFilePath) {
         AllegroCategoryLoader loader = new AllegroCategoryLoader();
         return catalogForMap(loader.loadCategoryTree(categoryFilePath));
