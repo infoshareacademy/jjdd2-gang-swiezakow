@@ -1,5 +1,8 @@
 package pl.infoshareacademy;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -7,27 +10,19 @@ import java.util.Scanner;
 import static pl.infoshareacademy.AllegroLink.makeLink;
 
 public class SearchByQuestionsCommand {
+
+    private static final Logger logger = LogManager.getLogger(SearchByQuestionsCommand.class);
+
     private String categoryFilePath;
 
     public SearchByQuestionsCommand(String categoryFilePath) {
         this.categoryFilePath = categoryFilePath;
     }
 
-
     public void run() {
-        //Klucz | Wartosc
-        //idKategorii  | List<AllegroCategory> podkategorie
-        Map<Integer, List<AllegroCategory>> idToSubcategories;
-
         AllegroCategoryLoader loader = new AllegroCategoryLoader();
-        try {
-            idToSubcategories = loader.loadCategoryTree(categoryFilePath);
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage(), e);
-        }
-
+        Map<Integer, List<AllegroCategory>> idToSubcategories = loader.loadCategoryTree(categoryFilePath);
         int rootParent = 0;
-        //Zaincjalizuj glownymi kategoriami
         List<AllegroCategory> categories = idToSubcategories.get(rootParent);
 
         System.out.println("Witaj!");
@@ -40,12 +35,12 @@ public class SearchByQuestionsCommand {
             if (isChosen) {
                 if (null == subcategories || subcategories.isEmpty()) {
                     System.out.println("\nInteresujący Cię produkt możesz znaleźć korzystając z poniższego linka: \n\n " + makeLink(category.getName(), category.getCatID()));
+                    logger.debug("Searching has ended");
                     break;
                 } else {
-                    //wymiana kategorii
                     categories = subcategories;
-                    i = -1; // bo i++
-                    size = subcategories.size(); // reset rozmiaru
+                    i = -1;
+                    size = subcategories.size();
                 }
             }
         }
@@ -62,11 +57,15 @@ public class SearchByQuestionsCommand {
         Scanner scanner = new Scanner(System.in);
         answer = scanner.nextLine();
         if (answer.toLowerCase().equals("tak") || answer.toLowerCase().equals("t")) {
+            logger.info("User has entered 'yes'");
             return true;
         } else if (answer.toLowerCase().equals("nie") || answer.toLowerCase().equals("n")) {
+            logger.info("User has entered 'no'");
             return false;
         } else {
             System.out.println("Nieprawidłowa odpowiedź");
+            logger.info("User has entered: " + answer);
+            logger.warn("User has entered wrong answer");
             return readAnswer();
         }
     }

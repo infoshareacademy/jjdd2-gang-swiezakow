@@ -1,9 +1,14 @@
 package pl.infoshareacademy;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.List;
 import java.util.Scanner;
 
 public class SearchQueryCommand {
+
+    private static final Logger logger = LogManager.getLogger(SearchQueryCommand.class);
 
     private static String FILENAME = "Allegro_cathegories_2016-02-13.xml";
 
@@ -31,6 +36,7 @@ public class SearchQueryCommand {
 
         if (category == null) {
             System.out.println("Nie znaleziono odpowiedniej kategorii");
+            logger.info("no matching categories info");
             return true;
         } else {
             AllegroCategory parent = searcher.findById(allCategories, category.getParent());
@@ -45,10 +51,13 @@ public class SearchQueryCommand {
         System.out.println("\nCzy chcesz spróbować ponownie?");
         String answer = scanner.nextLine();
         if (answer.toLowerCase().equals("tak")){
+            logger.info("User has entered 'yes'");
             return true;
         } else if (answer.toLowerCase().equals("nie")){
+            logger.info("User has entered 'no'");
              return false;
         } else {
+            logger.warn("User has entered wrong answer");
             System.out.println("Niepoprawna odpowiedź, spróbuj jeszcze raz");
             return tryAgain(scanner);
         }

@@ -1,5 +1,7 @@
 package pl.infoshareacademy;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -12,6 +14,9 @@ public class Main {
     private static String FILENAME = "Allegro_cathegories_2016-02-13.xml";
 
     public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
+        System.setProperty("log4j.configurationFile", "log4j2.xml");
+        Logger log = LogManager.getLogger(Main.class);
+        log.info("Application has up-started");
 
         System.out.println("\n~~wspanialy pomagacz w zakupach internetowych~~");
         System.out.println("-----------------------------------------------\n");
@@ -19,13 +24,12 @@ public class Main {
         Scanner odczyt = new Scanner(System.in);
         String linia;
         while ( !(linia = odczyt.nextLine()).equals(KOMENDA_WYJSCIA) ) {
+            log.debug("User has chosen " + linia);
 
             switch (linia) {
                 case ("1"):
-
                     SearchByQuestionsCommand searchByQuestionsCommand = new SearchByQuestionsCommand(FILENAME);
                     searchByQuestionsCommand.run();
-                    // wejscie do polecenia 1
                     break;
                 case ("2"):
                     SearchCategoryCommand newSearch = new SearchCategoryCommand();
@@ -34,22 +38,22 @@ public class Main {
                 case ("3"):
                     CategoryPickerCommand categoryPickerCommand = new CategoryPickerCommand();
                     categoryPickerCommand.showChildrenCategory();
-                    // wejście do polecenia 3
                     break;
                 case("4"):
                     SearchQueryCommand searchQueryCommand = new SearchQueryCommand();
                     searchQueryCommand.queryCommand(odczyt);
                     break;
-                case ("5"):
-
-                    // wejście do polecenia 5
-                    break;
                 default:
+                    log.info("The chosen number doesn't exist");
+
                     System.out.println("Niepoprawny numer. Podaj liczbę.");
             }
+            log.debug("menu has been printed");
             printMenu();
         }
+        log.info("User has entered 'exit'");
     }
+
     private static void printMenu(){
         System.out.println("Menu główne:");
         System.out.println("1. Wyszukaj kategorię na podstawie serii pytań");

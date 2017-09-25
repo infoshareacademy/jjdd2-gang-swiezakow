@@ -1,12 +1,21 @@
 package pl.infoshareacademy;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.text.Normalizer;
 
 public class AllegroLink {
+
+    private static final Logger logger = LogManager.getLogger(AllegroLink.class);
+
     public static String makeLink(String categoryName, int categoryId) {
         String normalizedCategoryName = categoryName.replace(' ', '-');
         String normalizedCategoryNameNoAccents = removeAccents(normalizedCategoryName);
-        return String.format("https://allegro.pl/kategoria/%s-%d", normalizedCategoryNameNoAccents, categoryId);
+
+        String link = String.format("https://allegro.pl/kategoria/%s-%d", normalizedCategoryNameNoAccents, categoryId);
+        logger.info("returned link: " + link + " for category: " + categoryName + " id: " + categoryId);
+        return link;
     }
 
     private static String removeAccents(String normalizedCategoryName) {

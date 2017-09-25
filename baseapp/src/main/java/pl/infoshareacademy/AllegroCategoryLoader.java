@@ -1,5 +1,7 @@
 package pl.infoshareacademy;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -18,41 +20,49 @@ import java.util.Map;
 
 public class AllegroCategoryLoader {
 
+    private static final Logger logger = LogManager.getLogger(AllegroCategoryLoader.class);
+
     public List<AllegroCategory> loadAllCategories(String filename) {
         Document document = loadDocument(filename);
-
-        if (document == null) {
-            return new ArrayList<>();
-        }
-
-        document.getDocumentElement().normalize();
-        NodeList nodeList = document.getDocumentElement()
-                .getChildNodes().item(1)
-                .getChildNodes().item(1)
-                .getChildNodes().item(1)
-                .getChildNodes();
-
         List<AllegroCategory> list = new ArrayList<>();
 
-        for (int i = 0; i < nodeList.getLength(); i++) {
-            Node node = nodeList.item(i);
-
-            if (node.getNodeType() == Node.ELEMENT_NODE) {
-                Element element = (Element) node;
-                String sid = element.getElementsByTagName("ns1:catId").item(0).getTextContent();
-                String sname = element.getElementsByTagName("ns1:catName").item(0).getTextContent();
-                String sposition = element.getElementsByTagName("ns1:catPosition").item(0).getTextContent();
-                String sparent = element.getElementsByTagName("ns1:catParent").item(0).getTextContent();
-
-                int id = Integer.parseInt(sid);
-                int parentId = Integer.parseInt(sparent);
-                int position = Integer.parseInt(sposition);
-
-                AllegroCategory acategory = new AllegroCategory(id, sname, parentId, position);
-
-                list.add(acategory);
-            }
+        if (document == null) {
+            logger.error("no file found");
+            logger.warn("returned empty list");
+            return new ArrayList<>();
         }
+        try {
+            document.getDocumentElement().normalize();
+            NodeList nodeList = document.getDocumentElement()
+                    .getChildNodes().item(1)
+                    .getChildNodes().item(1)
+                    .getChildNodes().item(1)
+                    .getChildNodes();
+
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                Node node = nodeList.item(i);
+
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) node;
+                    String sid = element.getElementsByTagName("ns1:catId").item(0).getTextContent();
+                    String sname = element.getElementsByTagName("ns1:catName").item(0).getTextContent();
+                    String sposition = element.getElementsByTagName("ns1:catPosition").item(0).getTextContent();
+                    String sparent = element.getElementsByTagName("ns1:catParent").item(0).getTextContent();
+
+                    int id = Integer.parseInt(sid);
+                    int parentId = Integer.parseInt(sparent);
+                    int position = Integer.parseInt(sposition);
+
+                    AllegroCategory acategory = new AllegroCategory(id, sname, parentId, position);
+
+                    list.add(acategory);
+                }
+            }
+        } catch (Exception e){
+            logger.error("caught an exception during loading all categories", e);
+
+        }
+        logger.debug("returned category list with " + list.size() + " elements");
         return list;
     }
 
@@ -67,6 +77,7 @@ public class AllegroCategoryLoader {
                 categoryMap.get(category.getParent()).add(category);
             }
         }
+        logger.debug("returned category map with " + categoryMap.size() + " elements");
         return categoryMap;
     }
 
@@ -78,6 +89,8 @@ public class AllegroCategoryLoader {
             DocumentBuilder db = dbF.newDocumentBuilder();
             return db.parse(targetStream);
         } catch (Exception e) {
+            logger.error("caught an exception during loading document", e);
+            logger.warn("returned null");
             return null;
         }
     }
