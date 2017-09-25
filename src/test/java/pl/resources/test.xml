@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="https://webapi.allegro.pl/service.php">
+   <SOAP-ENV:Body>
+      <ns1:doGetCatsDataResponse>
+         <ns1:catsList>
+            <ns1:item>
+               <ns1:catId>26013</ns1:catId>
+               <ns1:catName>Antyki i Sztuka</ns1:catName>
+               <ns1:catParent>0</ns1:catParent>
+               <ns1:catPosition>0</ns1:catPosition>
+               <ns1:catIsProductCatalogueEnabled>0</ns1:catIsProductCatalogueEnabled>
+            </ns1:item>
+            <ns1:item>
+               <ns1:catId>98553</ns1:catId>
+               <ns1:catName>Bilety</ns1:catName>
+               <ns1:catParent>0</ns1:catParent>
+               <ns1:catPosition>1</ns1:catPosition>
+               <ns1:catIsProductCatalogueEnabled>0</ns1:catIsProductCatalogueEnabled>
+            </ns1:item>
+            <ns1:item>
+               <ns1:catId>64477</ns1:catId>
+               <ns1:catName>Biuro i Reklama</ns1:catName>
+               <ns1:catParent>0</ns1:catParent>
+               <ns1:catPosition>2</ns1:catPosition>
+               <ns1:catIsProductCatalogueEnabled>0</ns1:catIsProductCatalogueEnabled>
+            </ns1:item>
+            </ns1:catsList>
+         <ns1:verKey>1455240568</ns1:verKey>
+         <ns1:verStr>1.2.25</ns1:verStr>
+      </ns1:doGetCatsDataResponse>
+   </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

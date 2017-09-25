@@ -13,6 +13,28 @@ public class AllegroCategory {
         this.catPosition = catPosition;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AllegroCategory that = (AllegroCategory) o;
+
+        if (catID != that.catID) return false;
+        if (parent != that.parent) return false;
+        if (catPosition != that.catPosition) return false;
+        return name != null ? name.equals(that.name) : that.name == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = catID;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + parent;
+        result = 31 * result + catPosition;
+        return result;
+    }
+
     public int getCatID() {
         return catID;
     }
