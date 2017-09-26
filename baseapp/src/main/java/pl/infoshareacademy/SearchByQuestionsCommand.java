@@ -1,12 +1,15 @@
 package pl.infoshareacademy;
 
-import java.util.List;
-import java.util.Map;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Scanner;
 
 import static pl.infoshareacademy.AllegroLink.makeLink;
 
 public class SearchByQuestionsCommand {
+    private static final Logger LOGGER = LogManager.getLogger(SearchByQuestionsCommand.class);
+
     private String categoryFilePath;
 
     public SearchByQuestionsCommand(String categoryFilePath) {
@@ -25,15 +28,19 @@ public class SearchByQuestionsCommand {
         while (true) {
             if (result == null) {
                 System.out.println("\nNiestety nie mamy kategorii która Cię interesuje.\n");
+                LOGGER.debug("no suitable category");
                 break;
             } else if (result.isLink()) {
                 System.out.println("\nInteresujący Cię produkt możesz znaleźć korzystając z poniższego linka: \n\n " + makeLink(result.getCategoryName(), result.getCategoryId()));
+                LOGGER.debug("link for category found");
                 break;
             } else {
                 showQuestion(result);
                 int categoryId = result.getCategoryId();
                 boolean isChosen = readAnswer();
                 result = isChosen ? searchByQuestions.chooseCategory(categoryId) : searchByQuestions.omitCategory(categoryId);
+                LOGGER.debug(isChosen ? "user selected yes" : "user selected no");
+
             }
         }
 
