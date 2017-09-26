@@ -13,47 +13,35 @@ public class SearchByQuestionsCommand {
         this.categoryFilePath = categoryFilePath;
     }
 
-
     public void run() {
-        //Klucz | Wartosc
-        //idKategorii  | List<AllegroCategory> podkategorie
-        Map<Integer, List<AllegroCategory>> idToSubcategories;
-
-        AllegroCategoryLoader loader = new AllegroCategoryLoader();
-        try {
-            idToSubcategories = loader.loadCategoryTree(categoryFilePath);
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage(), e);
-        }
-
-        int rootParent = 0;
-        //Zaincjalizuj glownymi kategoriami
-        List<AllegroCategory> categories = idToSubcategories.get(rootParent);
+        //Zadaj pytanie dla glownej kategorii
+        Catalog catalog = Catalog.catalogForFile(categoryFilePath);
+        SearchByQuestions searchByQuestions = new SearchByQuestions(catalog);
 
         System.out.println("Witaj!");
 
-        for (int i = 0, size = categories.size(); i < size; i++) {
-            AllegroCategory category = categories.get(i);
-            showQuestion(category);
-            boolean isChosen = readAnswer();
-            List<AllegroCategory> subcategories = idToSubcategories.get(category.getCatID());
-            if (isChosen) {
-                if (null == subcategories || subcategories.isEmpty()) {
-                    System.out.println("\nInteresujący Cię produkt możesz znaleźć korzystając z poniższego linka: \n\n " + makeLink(category.getName(), category.getCatID()));
-                    break;
-                } else {
-                    //wymiana kategorii
-                    categories = subcategories;
-                    i = -1; // bo i++
-                    size = subcategories.size(); // reset rozmiaru
-                }
+        SearchResult result = searchByQuestions.chooseCategory(Catalog.ROOT_CATEGORY_ID);
+
+        while (true) {
+            if (result == null) {
+                System.out.println("\nNiestety nie mamy kategorii która Cię interesuje.\n");
+                break;
+            } else if (result.isLink()) {
+                System.out.println("\nInteresujący Cię produkt możesz znaleźć korzystając z poniższego linka: \n\n " + makeLink(result.getCategoryName(), result.getCategoryId()));
+                break;
+            } else {
+                showQuestion(result);
+                int categoryId = result.getCategoryId();
+                boolean isChosen = readAnswer();
+                result = isChosen ? searchByQuestions.chooseCategory(categoryId) : searchByQuestions.omitCategory(categoryId);
             }
         }
+
         System.out.println("\nWracasz do głównego Menu.\n");
     }
 
-    private void showQuestion(AllegroCategory category) {
-        System.out.println("\nCzy interesuje Cię kategoria " + category.getName() + "?\n");
+    private void showQuestion(SearchResult searchResult) {
+        System.out.println("\nCzy interesuje Cię kategoria " + searchResult.getCategoryName() + "?\n");
         System.out.print("[T/N] ");
     }
 
