@@ -26,7 +26,7 @@ public class SearchByQuestions {
     }
 
     public SearchResult omitCategory(int categoryId) {
-        //1. istnieje kolejna na tym smamym poziomie
+        //1. istnieje kolejna na tym samym poziomie
         AllegroCategory nextCategory = catalog.findSibling(categoryId);
         if (nextCategory != null) {
             return new SearchResult(nextCategory.getName(), nextCategory.getCatID(), false);

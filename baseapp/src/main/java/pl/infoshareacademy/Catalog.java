@@ -31,9 +31,9 @@ public class Catalog {
 
         idToCategory = new HashMap<>();
         //Wszystkie listy podkategorii zawieraja wszystkie kategorie
-        //kazda z nich zapisujemy pod id w idToCategorys
+        //kazda z nich zapisujemy pod id w idToCategory
         for (Map.Entry<Integer, List<AllegroCategory>> entry : idToSubcategories.entrySet()) {
-            List<AllegroCategory> subcategories  = entry.getValue();
+            List<AllegroCategory> subcategories = entry.getValue();
             for (AllegroCategory category : subcategories) {
                 idToCategory.put(category.getCatID(), category);
             }
