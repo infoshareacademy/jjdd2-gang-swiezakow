@@ -24,7 +24,7 @@ public class SearchByQuestionsCommand {
 
         while (true) {
             if (result == null) {
-                System.out.println("\nNiestety nie mamy kategorii ktora pasuje.\n");
+                System.out.println("\nNiestety nie mamy kategorii która Cię interesuje.\n");
                 break;
             } else if (result.isLink()) {
                 System.out.println("\nInteresujący Cię produkt możesz znaleźć korzystając z poniższego linka: \n\n " + makeLink(result.getCategoryName(), result.getCategoryId()));
