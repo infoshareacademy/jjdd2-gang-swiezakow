@@ -6,7 +6,7 @@ public class Configuration {
     private String linkForSCC1;
     private String linkForSCC2;
     private String linkForAL;
-    private Integer minPhraseLength;
+    private int minPhraseLength;
 
     public Configuration() { }
 
@@ -22,7 +22,7 @@ public class Configuration {
         return linkForCPC;
     }
 
-    public Integer getMinPhraseLength() {
+    public int getMinPhraseLength() {
         return minPhraseLength;
     }
 
