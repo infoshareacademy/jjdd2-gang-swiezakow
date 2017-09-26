@@ -33,7 +33,7 @@ public class Main {
                     break;
                 case ("3"):
                     CategoryPickerCommand categoryPickerCommand = new CategoryPickerCommand();
-                    categoryPickerCommand.showChildrenCategory();
+                    categoryPickerCommand.showMainCategories();
                     // wejście do polecenia 3
                     break;
                 case("4"):

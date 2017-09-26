@@ -33,4 +33,26 @@ public class AllegroCategory {
     public String toString() {
         return name;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AllegroCategory that = (AllegroCategory) o;
+
+        if (catID != that.catID) return false;
+        if (parent != that.parent) return false;
+        if (catPosition != that.catPosition) return false;
+        return name.equals(that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = catID;
+        result = 31 * result + name.hashCode();
+        result = 31 * result + parent;
+        result = 31 * result + catPosition;
+        return result;
+    }
 }
