@@ -11,9 +11,12 @@ import java.util.Scanner;
 public class Main {
 
     private static final String KOMENDA_WYJSCIA = "exit";
-    private static String FILENAME = "Allegro_cathegories_2016-02-13.xml";
 
     public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
+        ConfigurationLoader.loadConfiguration();
+
+        Configuration config = ConfigurationLoader.getConfiguration();
+
         System.setProperty("log4j.configurationFile", "log4j2.xml");
         Logger log = LogManager.getLogger(Main.class);
         log.info("Application has up-started");
@@ -28,11 +31,11 @@ public class Main {
 
             switch (linia) {
                 case ("1"):
-                    SearchByQuestionsCommand searchByQuestionsCommand = new SearchByQuestionsCommand(FILENAME);
+                    SearchByQuestionsCommand searchByQuestionsCommand = new SearchByQuestionsCommand(config.getFilePath());
                     searchByQuestionsCommand.run();
                     break;
                 case ("2"):
-                    SearchCategoryCommand newSearch = new SearchCategoryCommand();
+                    SearchCategoryCommand newSearch = new SearchCategoryCommand(config.getFilePath());
                     newSearch.handleCommand(odczyt);
                     break;
                 case ("3"):
@@ -40,7 +43,7 @@ public class Main {
                     categoryPickerCommand.showChildrenCategory();
                     break;
                 case("4"):
-                    SearchQueryCommand searchQueryCommand = new SearchQueryCommand();
+                    SearchQueryCommand searchQueryCommand = new SearchQueryCommand(config.getFilePath());
                     searchQueryCommand.queryCommand(odczyt);
                     break;
                 default:

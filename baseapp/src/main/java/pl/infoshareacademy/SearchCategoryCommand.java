@@ -8,8 +8,14 @@ import java.util.Scanner;
 
 public class SearchCategoryCommand {
 
-    private static final String FILENAME = "Allegro_cathegories_2016-02-13.xml";
+    private final String filename;
     private static final Logger logger = LogManager.getLogger(SearchCategoryCommand.class);
+    private Configuration config = ConfigurationLoader.getConfiguration();
+
+    public SearchCategoryCommand(String filename) {
+        this.filename = filename;
+    }
+
     enum Result {
         SUCCESS,
         NO_RESULTS,
@@ -48,7 +54,7 @@ public class SearchCategoryCommand {
         logger.info("User has entered " + line);
 
         AllegroCategoryLoader allegroCategoryLoader = new AllegroCategoryLoader();
-        List<AllegroCategory> allCategories = allegroCategoryLoader.loadAllCategories(FILENAME);
+        List<AllegroCategory> allCategories = allegroCategoryLoader.loadAllCategories(config.getFilePath());
 
         if (allCategories.isEmpty()) {
             logger.error("received empty list from AllegroCategoryLoader ");
@@ -79,6 +85,7 @@ public class SearchCategoryCommand {
     }
 
     private boolean readYesNoAnswer(Scanner scanner) {
+
         String line = scanner.nextLine();
         if ("tak".equals(line.toLowerCase())) {
             logger.info("User has entered 'yes'");
@@ -93,17 +100,15 @@ public class SearchCategoryCommand {
         }
     }
 
-    private String generateLink(AllegroCategory category, AllegroCategory parent, String phrase){
+    private String generateLink(AllegroCategory category, AllegroCategory parent, String phrase) {
         String phraseInLink = phrase.replace(" ", "-");
         logger.info("generating link for " + category + " and "+ parent + " and "+ phrase);
         if(parent != null) {
             String parentInLink = parent.getName().replace(" ", "-");
-            return "https://allegro.pl/kategoria/" + parentInLink
-                    + "-" + category.getParent() + "?string=" + phraseInLink;
+            return String.format(config.getLinkForSCC1(), parentInLink, category.getParent(), phraseInLink);
         } else {
             String name = category.getName().toLowerCase().replace(" ", "-");
-            return "https://allegro.pl/kategoria/" + name
-                    + "?string=" + phraseInLink;
+            return String.format(config.getLinkForSCC2(), name, phraseInLink);
         }
     }
 

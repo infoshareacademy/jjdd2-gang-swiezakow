@@ -10,7 +10,11 @@ public class SearchQueryCommand {
 
     private static final Logger logger = LogManager.getLogger(SearchQueryCommand.class);
 
-    private static String FILENAME = "Allegro_cathegories_2016-02-13.xml";
+    private String filename;
+
+    public SearchQueryCommand(String filename){
+        this.filename = filename;
+    }
 
     public void queryCommand(Scanner scanner) {
         boolean result = true;
@@ -22,14 +26,15 @@ public class SearchQueryCommand {
         System.out.println("Wracasz do głównego menu");
     }
 
-    private boolean searchQuery(Scanner scanner){
+    private boolean searchQuery(Scanner scanner) {
+
         System.out.println("Czego szukasz?");
         String line = scanner.nextLine();
 
         AllegroCategoryLoader loader = new AllegroCategoryLoader();
         AllegroCategorySearcher searcher = new AllegroCategorySearcher();
 
-        List<AllegroCategory> allCategories = loader.loadAllCategories(FILENAME);
+        List<AllegroCategory> allCategories = loader.loadAllCategories(filename);
         List<AllegroCategory> categories = searcher.searchCategory(line, allCategories);
 
         AllegroCategory category = searcher.printCategoriesAndLetUserChoose(scanner, categories, allCategories);
