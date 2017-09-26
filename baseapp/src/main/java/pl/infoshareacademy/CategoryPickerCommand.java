@@ -18,11 +18,10 @@ public class CategoryPickerCommand {
     private Configuration config = ConfigurationLoader.getConfiguration();
 
     private AllegroCategoryLoader allegroCategoryLoader = new AllegroCategoryLoader();
-    private static final String FILENAME = "Allegro_cathegories_2016-02-13.xml";
-    private HashMap<Integer, List<AllegroCategory>> allegroCategoryTree = (HashMap<Integer, List<AllegroCategory>>) allegroCategoryLoader.loadCategoryTree(FILENAME);
+    private final String filename;
+    private HashMap<Integer, List<AllegroCategory>> allegroCategoryTree;
     private ArrayList<Integer> choosenCategoryHistory = new ArrayList<>();
     private Scanner inputReader = new Scanner(System.in);
-
 
     private Integer choosenCategory = 0;
     private Integer helper = 0;
@@ -43,7 +42,9 @@ public class CategoryPickerCommand {
         this.helper = helper;
     }
 
-    public CategoryPickerCommand() throws ParserConfigurationException, SAXException, IOException {
+    public CategoryPickerCommand(String filename) throws ParserConfigurationException, SAXException, IOException {
+        this.filename = filename;
+        allegroCategoryTree = (HashMap<Integer, List<AllegroCategory>>) allegroCategoryLoader.loadCategoryTree(filename);
     }
 
     public void showChildrenCategory() {

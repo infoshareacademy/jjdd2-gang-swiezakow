@@ -39,7 +39,7 @@ public class Main {
                     newSearch.handleCommand(odczyt);
                     break;
                 case ("3"):
-                    CategoryPickerCommand categoryPickerCommand = new CategoryPickerCommand();
+                    CategoryPickerCommand categoryPickerCommand = new CategoryPickerCommand(config.getFilePath());
                     categoryPickerCommand.showChildrenCategory();
                     break;
                 case("4"):
