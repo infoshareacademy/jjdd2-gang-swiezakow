@@ -15,12 +15,13 @@ public class CategoryPickerCommand {
 
     private static final Logger logger = LogManager.getLogger(CategoryPickerCommand.class);
 
+    private Configuration config = ConfigurationLoader.getConfiguration();
+
     private AllegroCategoryLoader allegroCategoryLoader = new AllegroCategoryLoader();
-    private static final String FILENAME = "Allegro_cathegories_2016-02-13.xml";
-    private HashMap<Integer, List<AllegroCategory>> allegroCategoryTree = (HashMap<Integer, List<AllegroCategory>>) allegroCategoryLoader.loadCategoryTree(FILENAME);
+    private final String filename;
+    private HashMap<Integer, List<AllegroCategory>> allegroCategoryTree;
     private ArrayList<Integer> choosenCategoryHistory = new ArrayList<>();
     private Scanner inputReader = new Scanner(System.in);
-
 
     private Integer choosenCategory = 0;
     private Integer helper = 0;
@@ -41,10 +42,12 @@ public class CategoryPickerCommand {
         this.helper = helper;
     }
 
-    public CategoryPickerCommand() throws ParserConfigurationException, SAXException, IOException {
+    public CategoryPickerCommand(String filename) throws ParserConfigurationException, SAXException, IOException {
+        this.filename = filename;
+        allegroCategoryTree = (HashMap<Integer, List<AllegroCategory>>) allegroCategoryLoader.loadCategoryTree(filename);
     }
 
-    public void showChildrenCategory(){
+    public void showChildrenCategory() {
         try {
             this.showAllOptions();
 
@@ -74,7 +77,7 @@ public class CategoryPickerCommand {
         }
 
     }
-    private void veryficationUserInput(){
+    private void veryficationUserInput() {
         System.out.println(this.choosenCategoryHistory);
         String inputHelper = inputReader.nextLine();
         logger.info("User has entered " + inputHelper);
@@ -96,7 +99,7 @@ public class CategoryPickerCommand {
         }
     }
 
-    private void responseForEnter(String[] userChoose){
+    private void responseForEnter(String[] userChoose) {
         if (userChoose[0].equals(CategoryCommands.ENTER.getCommands())){
 
             try {
@@ -134,7 +137,7 @@ public class CategoryPickerCommand {
                         .replace('ó','o').replace('ś','s')
                         .replace('ź','z').replace('ż','z')
                         .replace(" ", "-");
-                String link = "https://allegro.pl/kategoria/" +phraseInLink+ "-" + this.allegroCategoryTree.get(getHelper()).get(Integer.parseInt(userChoose[1])-1).getCatID();
+                String link = String.format(config.getLinkForCPC(), phraseInLink, this.allegroCategoryTree.get(getHelper()).get(Integer.parseInt(userChoose[1])-1).getCatID());
                 logger.info("returned link: " + link);
                 System.out.println(link);
             }

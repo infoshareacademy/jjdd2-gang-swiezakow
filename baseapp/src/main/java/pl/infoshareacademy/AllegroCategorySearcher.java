@@ -11,6 +11,8 @@ public class AllegroCategorySearcher {
 
     private static final Logger logger = LogManager.getLogger(AllegroCategorySearcher.class);
 
+    private Configuration config = ConfigurationLoader.getConfiguration();
+
     public AllegroCategory printCategoriesAndLetUserChoose(Scanner scanner, List<AllegroCategory> matchingCategories, List<AllegroCategory> allCategories) {
         for (int i = 0; i < matchingCategories.size(); i++){
             printCategory(i + 1, matchingCategories.get(i), allCategories);
@@ -72,8 +74,8 @@ public class AllegroCategorySearcher {
 
         while (matchingCategories.isEmpty()) {
             for (String searchPhrase : searchPhrases) {
-                if (searchPhrase.length() < 3) {
-                    logger.debug("searching phrase length < 3");
+                if (searchPhrase.length() < config.getMinPhraseLength()) {
+                    logger.debug("searching phrase length < " + config.getMinPhraseLength());
                     continue;
                 }
                 for (AllegroCategory category : allCategories) {
@@ -101,7 +103,7 @@ public class AllegroCategorySearcher {
     private String[] cutLastLetter(String[] searchPhrases) {
         List<String> noweFrazy = new ArrayList<>();
         for (int i = 0; i < searchPhrases.length; i++) {
-            if (searchPhrases[i].length() >= 4) {
+            if (searchPhrases[i].length() > config.getMinPhraseLength()) {
                 noweFrazy.add(searchPhrases[i].substring(0, searchPhrases[i].length() - 1));
             }
         }
