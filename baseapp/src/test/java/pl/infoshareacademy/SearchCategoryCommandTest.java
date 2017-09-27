@@ -27,9 +27,10 @@ public class SearchCategoryCommandTest {
 
     @Before
     public void setUp() throws Exception {
+        ConfigurationLoader.loadConfiguration();
         loader = Mockito.mock(AllegroCategoryLoader.class);
         searcher = Mockito.mock(AllegroCategorySearcher.class);
-        searchCategoryCommand = new SearchCategoryCommand(loader, searcher);
+        searchCategoryCommand = new SearchCategoryCommand("cokolwiek", loader, searcher);
     }
 
     @Test

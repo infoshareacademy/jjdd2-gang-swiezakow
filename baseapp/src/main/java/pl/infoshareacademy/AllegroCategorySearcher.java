@@ -100,7 +100,7 @@ public class AllegroCategorySearcher {
         return matchingCategories;
     }
 
-    private String[] cutLastLetter(String[] searchPhrases) {
+    String[] cutLastLetter(String[] searchPhrases) {
         List<String> noweFrazy = new ArrayList<>();
         for (int i = 0; i < searchPhrases.length; i++) {
             if (searchPhrases[i].length() > config.getMinPhraseLength()) {

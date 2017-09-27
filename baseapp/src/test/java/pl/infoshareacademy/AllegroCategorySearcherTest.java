@@ -1,6 +1,7 @@
 package pl.infoshareacademy;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -9,6 +10,11 @@ import java.util.List;
 public class AllegroCategorySearcherTest {
 
     private AllegroCategorySearcher allegroCategorySearcher = new AllegroCategorySearcher();
+
+    @Before
+    public void setUp() throws Exception {
+        ConfigurationLoader.loadConfiguration();
+    }
 
     @Test
     public void testCutingLastLetter() {

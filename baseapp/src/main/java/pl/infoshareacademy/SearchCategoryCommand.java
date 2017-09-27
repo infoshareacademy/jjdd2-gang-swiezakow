@@ -8,13 +8,7 @@ import java.util.Scanner;
 
 public class SearchCategoryCommand {
 
-    private final String filename;
     private static final Logger logger = LogManager.getLogger(SearchCategoryCommand.class);
-    private Configuration config = ConfigurationLoader.getConfiguration();
-
-    public SearchCategoryCommand(String filename) {
-        this.filename = filename;
-    }
 
     enum Result {
         SUCCESS,
@@ -23,15 +17,19 @@ public class SearchCategoryCommand {
         FATAL_ERROR
     }
 
-    private AllegroCategoryLoader loader;
-    private AllegroCategorySearcher searcher;
+    private final Configuration config = ConfigurationLoader.getConfiguration();
+    private final String filename;
+    private final AllegroCategoryLoader loader;
+    private final AllegroCategorySearcher searcher;
 
-    public SearchCategoryCommand(AllegroCategoryLoader allegroCategoryLoader, AllegroCategorySearcher allegroCategorySearcher) {
+    public SearchCategoryCommand(String filename, AllegroCategoryLoader allegroCategoryLoader, AllegroCategorySearcher allegroCategorySearcher) {
+        this.filename = filename;
         this.loader = allegroCategoryLoader;
         this.searcher = allegroCategorySearcher;
     }
 
-    public SearchCategoryCommand() {
+    public SearchCategoryCommand(String filename) {
+        this.filename = filename;
         this.loader = new AllegroCategoryLoader();
         this.searcher = new AllegroCategorySearcher();
     }
