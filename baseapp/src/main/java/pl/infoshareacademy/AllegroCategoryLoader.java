@@ -1,5 +1,7 @@
 package pl.infoshareacademy;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -18,23 +20,24 @@ import java.util.Map;
 
 public class AllegroCategoryLoader {
 
+    private static final Logger logger = LogManager.getLogger(AllegroCategoryLoader.class);
+
     public List<AllegroCategory> loadAllCategories(String filename) {
+        Document document = loadDocument(filename);
         List<AllegroCategory> list = new ArrayList<>();
 
+        if (document == null) {
+            logger.error("no file found");
+            logger.warn("returned empty list");
+            return new ArrayList<>();
+        }
         try {
-            Document document = loadDocument(filename);
-
-            if (document == null) {
-                return list;
-            }
-
             document.getDocumentElement().normalize();
             NodeList nodeList = document.getDocumentElement()
                     .getChildNodes().item(1)
-                    .getChildNodes().item(1) // check if has children?
+                    .getChildNodes().item(1)
                     .getChildNodes().item(1)
                     .getChildNodes();
-
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Node node = nodeList.item(i);
@@ -55,10 +58,11 @@ public class AllegroCategoryLoader {
                     list.add(acategory);
                 }
             }
-        } catch (Exception e) {
-            // zalogowac
-        }
+        } catch (Exception e){
+            logger.error("caught an exception during loading all categories", e);
 
+        }
+        logger.debug("returned category list with " + list.size() + " elements");
         return list;
     }
 
@@ -73,6 +77,7 @@ public class AllegroCategoryLoader {
                 categoryMap.get(category.getParent()).add(category);
             }
         }
+        logger.debug("returned category map with " + categoryMap.size() + " elements");
         return categoryMap;
     }
 
@@ -84,8 +89,9 @@ public class AllegroCategoryLoader {
             DocumentBuilder db = dbF.newDocumentBuilder();
             return db.parse(targetStream);
         } catch (Exception e) {
+            logger.error("caught an exception during loading document", e);
+            logger.warn("returned null");
             return null;
         }
-
     }
 }
