@@ -20,13 +20,24 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
-    </dependencies>
+        <dependency>
+            <groupId>pl.infoshareacademy.gangswiezakow</groupId>
+            <artifactId>zakupy-parent</artifactId>
+            <version>1.0.0</version>
+        </dependency>
 
+    </dependencies>
+    <properties>
+        <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
+        <version.war.plugin>3.0.0</version.war.plugin>
+    </properties>
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
+                <version>${version.war.plugin}</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -42,6 +53,11 @@
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>${version.wildfly.maven.plugin}</version>
             </plugin>
         </plugins>
     </build>
