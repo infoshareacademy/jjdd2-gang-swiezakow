@@ -33,8 +33,16 @@ public class CategoryPickerCommandTest {
     public void checkLinkGenerator() {
         List<AllegroCategory> allegroCategories = categoryPickerCommand.showChildrenCategory(0);
         String linkTest = categoryPickerCommand.generateLink(allegroCategories.get(3));
-        String link = "https://allegro.pl/kategoria/"
-        Assert.assertEquals();
+        String link = "https://allegro.pl/kategoria/Bizuteria-i-Zegarki-19732";
+        Assert.assertTrue(link.equals(linkTest));
     }
 
+    @Test
+    public void checkLinkGeneratorNull() {
+        List<AllegroCategory> allegroCategories = categoryPickerCommand.showChildrenCategory(0);
+        AllegroCategory fakeAllegroCategory = null;
+        String linkTest = categoryPickerCommand.generateLink(fakeAllegroCategory);
+        String link = "Błąd";
+        Assert.assertTrue(link.equals(linkTest));
+    }
 }
