@@ -17,45 +17,39 @@ import java.util.List;
 import java.util.Map;
 
 public class AllegroCategoryLoader {
-
     public List<AllegroCategory> loadAllCategories(String filename) {
-        Document document = loadDocument(filename);
-
-        if (document == null) {
-            return new ArrayList<>();
-        }
-
-        document.getDocumentElement().normalize();
-        NodeList nodeList = document.getDocumentElement()
-                .getChildNodes().item(1)
-                .getChildNodes().item(1)
-                .getChildNodes().item(1)
-                .getChildNodes();
-
         List<AllegroCategory> list = new ArrayList<>();
-
-        for (int i = 0; i < nodeList.getLength(); i++) {
-            Node node = nodeList.item(i);
-
-            if (node.getNodeType() == Node.ELEMENT_NODE) {
-                Element element = (Element) node;
-                String sid = element.getElementsByTagName("ns1:catId").item(0).getTextContent();
-                String sname = element.getElementsByTagName("ns1:catName").item(0).getTextContent();
-                String sposition = element.getElementsByTagName("ns1:catPosition").item(0).getTextContent();
-                String sparent = element.getElementsByTagName("ns1:catParent").item(0).getTextContent();
-
-                int id = Integer.parseInt(sid);
-                int parentId = Integer.parseInt(sparent);
-                int position = Integer.parseInt(sposition);
-
-                AllegroCategory acategory = new AllegroCategory(id, sname, parentId, position);
-
-                list.add(acategory);
+        try {
+            Document document = loadDocument(filename);
+            if (document == null) {
+                return list;
             }
+            document.getDocumentElement().normalize();
+            NodeList nodeList = document.getDocumentElement()
+                    .getChildNodes().item(1)
+                    .getChildNodes().item(1) // check if has children?
+                    .getChildNodes().item(1)
+                    .getChildNodes();
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                Node node = nodeList.item(i);
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) node;
+                    String sid = element.getElementsByTagName("ns1:catId").item(0).getTextContent();
+                    String sname = element.getElementsByTagName("ns1:catName").item(0).getTextContent();
+                    String sposition = element.getElementsByTagName("ns1:catPosition").item(0).getTextContent();
+                    String sparent = element.getElementsByTagName("ns1:catParent").item(0).getTextContent();
+                    int id = Integer.parseInt(sid);
+                    int parentId = Integer.parseInt(sparent);
+                    int position = Integer.parseInt(sposition);
+                    AllegroCategory acategory = new AllegroCategory(id, sname, parentId, position);
+                    list.add(acategory);
+                }
+            }
+        } catch (Exception e) {
+            // zalogowac
         }
         return list;
     }
-
     public Map<Integer, List<AllegroCategory>> loadCategoryTree(String path) {
         Map<Integer, List<AllegroCategory>> categoryMap = new HashMap<>();
         for(AllegroCategory category : loadAllCategories(path)) {
@@ -69,7 +63,6 @@ public class AllegroCategoryLoader {
         }
         return categoryMap;
     }
-
     private Document loadDocument(String filename) {
         try {
             File initialFile = new File(filename);

@@ -1,0 +1,138 @@
+16:18:49.416 [main] DEBUG pl.infoshareacademy.SearchByQuestions - returning a link for category 2000
+16:18:49.420 [main] DEBUG pl.infoshareacademy.SearchByQuestions - looking for ancestor with successor
+16:18:49.420 [main] DEBUG pl.infoshareacademy.SearchByQuestions - checking category with id 2000
+16:18:49.420 [main] DEBUG pl.infoshareacademy.SearchByQuestions - successor with id 1001 found
+16:18:49.421 [main] DEBUG pl.infoshareacademy.SearchByQuestions - looking for ancestor with successor
+16:18:49.421 [main] DEBUG pl.infoshareacademy.SearchByQuestions - no further categories
+16:18:49.422 [main] DEBUG pl.infoshareacademy.SearchByQuestions - navigating to subcategory 2000 of category 1000
+16:18:49.423 [main] DEBUG pl.infoshareacademy.SearchByQuestions - ignoring category 1000
+16:18:49.508 [main] DEBUG pl.infoshareacademy.Catalog - for id = 3 null was returned
+16:18:49.509 [main] WARN  pl.infoshareacademy.Catalog - could not find category with id = 3
+16:18:49.509 [main] DEBUG pl.infoshareacademy.Catalog - for id = 1 1 was returned
+16:18:49.510 [main] DEBUG pl.infoshareacademy.Catalog - category with id= 0 subcategories: [1, 2]
+16:18:49.510 [main] DEBUG pl.infoshareacademy.Catalog -  category with id= 22 has subcategories
+16:18:49.511 [main] DEBUG pl.infoshareacademy.Catalog - for id = 3 null was returned
+16:18:49.511 [main] DEBUG pl.infoshareacademy.Catalog - for id = 2 2 was returned
+16:18:49.512 [main] DEBUG pl.infoshareacademy.Catalog - for id = 222 222 was returned
+16:18:49.512 [main] WARN  pl.infoshareacademy.Catalog - no categories
+16:18:49.512 [main] DEBUG pl.infoshareacademy.Catalog - for id = 1 null was returned
+16:18:49.513 [main] DEBUG pl.infoshareacademy.Catalog - for id = 11 11 was returned
+16:18:49.513 [main] DEBUG pl.infoshareacademy.Catalog - category with id= 1 subcategories: [11]
+16:18:49.513 [main] INFO  pl.infoshareacademy.Catalog - category with id = 11 has no successor
+16:18:49.514 [main] DEBUG pl.infoshareacademy.Catalog - category with id= 11 has no subcategories
+16:18:49.514 [main] DEBUG pl.infoshareacademy.Catalog - category with id= 2 subcategories: [22]
+16:24:54.284 [main] DEBUG pl.infoshareacademy.SearchByQuestions - returning a link for category 2000
+16:24:54.288 [main] DEBUG pl.infoshareacademy.SearchByQuestions - looking for ancestor with successor
+16:24:54.289 [main] DEBUG pl.infoshareacademy.SearchByQuestions - checking category with id 2000
+16:24:54.289 [main] DEBUG pl.infoshareacademy.SearchByQuestions - successor with id 1001 found
+16:24:54.290 [main] DEBUG pl.infoshareacademy.SearchByQuestions - looking for ancestor with successor
+16:24:54.290 [main] DEBUG pl.infoshareacademy.SearchByQuestions - no further categories
+16:24:54.291 [main] DEBUG pl.infoshareacademy.SearchByQuestions - navigating to subcategory 2000 of category 1000
+16:24:54.292 [main] DEBUG pl.infoshareacademy.SearchByQuestions - ignoring category 1000
+16:24:54.379 [main] DEBUG pl.infoshareacademy.Catalog - for id = 3 null was returned
+16:24:54.379 [main] WARN  pl.infoshareacademy.Catalog - could not find category with id = 3
+16:24:54.380 [main] DEBUG pl.infoshareacademy.Catalog - for id = 1 1 was returned
+16:24:54.380 [main] DEBUG pl.infoshareacademy.Catalog - category with id= 0 subcategories: [1, 2]
+16:24:54.381 [main] DEBUG pl.infoshareacademy.Catalog -  category with id= 22 has subcategories
+16:24:54.381 [main] DEBUG pl.infoshareacademy.Catalog - for id = 3 null was returned
+16:24:54.382 [main] DEBUG pl.infoshareacademy.Catalog - for id = 2 2 was returned
+16:24:54.382 [main] DEBUG pl.infoshareacademy.Catalog - for id = 222 222 was returned
+16:24:54.383 [main] WARN  pl.infoshareacademy.Catalog - no categories
+16:24:54.383 [main] DEBUG pl.infoshareacademy.Catalog - for id = 1 null was returned
+16:24:54.384 [main] DEBUG pl.infoshareacademy.Catalog - for id = 11 11 was returned
+16:24:54.384 [main] DEBUG pl.infoshareacademy.Catalog - category with id= 1 subcategories: [11]
+16:24:54.384 [main] INFO  pl.infoshareacademy.Catalog - category with id = 11 has no successor
+16:24:54.384 [main] DEBUG pl.infoshareacademy.Catalog - category with id= 11 has no subcategories
+16:24:54.385 [main] DEBUG pl.infoshareacademy.Catalog - category with id= 2 subcategories: [22]
+16:27:01.876 [main] DEBUG pl.infoshareacademy.SearchByQuestions - returning a link for category 2000
+16:27:01.882 [main] DEBUG pl.infoshareacademy.SearchByQuestions - looking for ancestor with successor
+16:27:01.882 [main] DEBUG pl.infoshareacademy.SearchByQuestions - checking category with id 2000
+16:27:01.883 [main] DEBUG pl.infoshareacademy.SearchByQuestions - successor with id 1001 found
+16:27:01.884 [main] DEBUG pl.infoshareacademy.SearchByQuestions - looking for ancestor with successor
+16:27:01.884 [main] DEBUG pl.infoshareacademy.SearchByQuestions - no further categories
+16:27:01.885 [main] DEBUG pl.infoshareacademy.SearchByQuestions - navigating to subcategory 2000 of category 1000
+16:27:01.886 [main] DEBUG pl.infoshareacademy.SearchByQuestions - ignoring category 1000
+16:27:01.985 [main] DEBUG pl.infoshareacademy.Catalog - for id = 3 null was returned
+16:27:01.986 [main] WARN  pl.infoshareacademy.Catalog - could not find category with id = 3
+16:27:01.986 [main] DEBUG pl.infoshareacademy.Catalog - for id = 1 1 was returned
+16:27:01.987 [main] DEBUG pl.infoshareacademy.Catalog - category with id= 0 subcategories: [1, 2]
+16:27:01.987 [main] DEBUG pl.infoshareacademy.Catalog -  category with id= 22 has subcategories
+16:27:01.988 [main] DEBUG pl.infoshareacademy.Catalog - for id = 3 null was returned
+16:27:01.989 [main] DEBUG pl.infoshareacademy.Catalog - for id = 2 2 was returned
+16:27:01.989 [main] DEBUG pl.infoshareacademy.Catalog - for id = 222 222 was returned
+16:27:01.990 [main] WARN  pl.infoshareacademy.Catalog - no categories
+16:27:01.990 [main] DEBUG pl.infoshareacademy.Catalog - for id = 1 null was returned
+16:27:01.991 [main] DEBUG pl.infoshareacademy.Catalog - for id = 11 11 was returned
+16:27:01.991 [main] DEBUG pl.infoshareacademy.Catalog - category with id= 1 subcategories: [11]
+16:27:01.991 [main] INFO  pl.infoshareacademy.Catalog - category with id = 11 has no successor
+16:27:01.992 [main] DEBUG pl.infoshareacademy.Catalog - category with id= 11 has no subcategories
+16:27:01.992 [main] DEBUG pl.infoshareacademy.Catalog - category with id= 2 subcategories: [22]
+16:29:26.549 [main] DEBUG pl.infoshareacademy.SearchByQuestions - returning a link for category 2000
+16:29:26.554 [main] DEBUG pl.infoshareacademy.SearchByQuestions - looking for ancestor with successor
+16:29:26.554 [main] DEBUG pl.infoshareacademy.SearchByQuestions - checking category with id 2000
+16:29:26.554 [main] DEBUG pl.infoshareacademy.SearchByQuestions - successor with id 1001 found
+16:29:26.556 [main] DEBUG pl.infoshareacademy.SearchByQuestions - looking for ancestor with successor
+16:29:26.556 [main] DEBUG pl.infoshareacademy.SearchByQuestions - no further categories
+16:29:26.557 [main] DEBUG pl.infoshareacademy.SearchByQuestions - navigating to subcategory 2000 of category 1000
+16:29:26.557 [main] DEBUG pl.infoshareacademy.SearchByQuestions - ignoring category 1000
+16:29:26.656 [main] DEBUG pl.infoshareacademy.Catalog - for id = 3 null was returned
+16:29:26.656 [main] WARN  pl.infoshareacademy.Catalog - could not find category with id = 3
+16:29:26.659 [main] DEBUG pl.infoshareacademy.Catalog - for id = 1 1 was returned
+16:29:26.659 [main] DEBUG pl.infoshareacademy.Catalog - category with id= 0 subcategories: [1, 2]
+16:29:26.660 [main] DEBUG pl.infoshareacademy.Catalog -  category with id= 22 has subcategories
+16:29:26.661 [main] DEBUG pl.infoshareacademy.Catalog - for id = 3 null was returned
+16:29:26.661 [main] DEBUG pl.infoshareacademy.Catalog - for id = 2 2 was returned
+16:29:26.662 [main] DEBUG pl.infoshareacademy.Catalog - for id = 222 222 was returned
+16:29:26.664 [main] WARN  pl.infoshareacademy.Catalog - no categories
+16:29:26.664 [main] DEBUG pl.infoshareacademy.Catalog - for id = 1 null was returned
+16:29:26.665 [main] DEBUG pl.infoshareacademy.Catalog - for id = 11 11 was returned
+16:29:26.665 [main] DEBUG pl.infoshareacademy.Catalog - category with id= 1 subcategories: [11]
+16:29:26.665 [main] INFO  pl.infoshareacademy.Catalog - category with id = 11 has no successor
+16:29:26.666 [main] DEBUG pl.infoshareacademy.Catalog - category with id= 11 has no subcategories
+16:29:26.667 [main] DEBUG pl.infoshareacademy.Catalog - category with id= 2 subcategories: [22]
+16:30:23.160 [main] DEBUG pl.infoshareacademy.SearchByQuestions - returning a link for category 2000
+16:30:23.164 [main] DEBUG pl.infoshareacademy.SearchByQuestions - looking for ancestor with successor
+16:30:23.165 [main] DEBUG pl.infoshareacademy.SearchByQuestions - checking category with id 2000
+16:30:23.165 [main] DEBUG pl.infoshareacademy.SearchByQuestions - successor with id 1001 found
+16:30:23.165 [main] DEBUG pl.infoshareacademy.SearchByQuestions - looking for ancestor with successor
+16:30:23.166 [main] DEBUG pl.infoshareacademy.SearchByQuestions - no further categories
+16:30:23.166 [main] DEBUG pl.infoshareacademy.SearchByQuestions - navigating to subcategory 2000 of category 1000
+16:30:23.167 [main] DEBUG pl.infoshareacademy.SearchByQuestions - ignoring category 1000
+16:30:23.267 [main] DEBUG pl.infoshareacademy.Catalog - for id = 3 null was returned
+16:30:23.267 [main] WARN  pl.infoshareacademy.Catalog - could not find category with id = 3
+16:30:23.268 [main] DEBUG pl.infoshareacademy.Catalog - for id = 1 1 was returned
+16:30:23.268 [main] DEBUG pl.infoshareacademy.Catalog - category with id= 0 subcategories: [1, 2]
+16:30:23.269 [main] DEBUG pl.infoshareacademy.Catalog -  category with id= 22 has subcategories
+16:30:23.270 [main] DEBUG pl.infoshareacademy.Catalog - for id = 3 null was returned
+16:30:23.271 [main] DEBUG pl.infoshareacademy.Catalog - for id = 2 2 was returned
+16:30:23.271 [main] DEBUG pl.infoshareacademy.Catalog - for id = 222 222 was returned
+16:30:23.272 [main] WARN  pl.infoshareacademy.Catalog - no categories
+16:30:23.272 [main] DEBUG pl.infoshareacademy.Catalog - for id = 1 null was returned
+16:30:23.272 [main] DEBUG pl.infoshareacademy.Catalog - for id = 11 11 was returned
+16:30:23.273 [main] DEBUG pl.infoshareacademy.Catalog - category with id= 1 subcategories: [11]
+16:30:23.274 [main] INFO  pl.infoshareacademy.Catalog - category with id = 11 has no successor
+16:30:23.275 [main] DEBUG pl.infoshareacademy.Catalog - category with id= 11 has no subcategories
+16:30:23.276 [main] DEBUG pl.infoshareacademy.Catalog - category with id= 2 subcategories: [22]
+16:31:20.185 [main] DEBUG pl.infoshareacademy.SearchByQuestions - returning a link for category 2000
+16:31:20.190 [main] DEBUG pl.infoshareacademy.SearchByQuestions - looking for ancestor with successor
+16:31:20.190 [main] DEBUG pl.infoshareacademy.SearchByQuestions - checking category with id 2000
+16:31:20.190 [main] DEBUG pl.infoshareacademy.SearchByQuestions - successor with id 1001 found
+16:31:20.191 [main] DEBUG pl.infoshareacademy.SearchByQuestions - looking for ancestor with successor
+16:31:20.191 [main] DEBUG pl.infoshareacademy.SearchByQuestions - no further categories
+16:31:20.192 [main] DEBUG pl.infoshareacademy.SearchByQuestions - navigating to subcategory 2000 of category 1000
+16:31:20.193 [main] DEBUG pl.infoshareacademy.SearchByQuestions - ignoring category 1000
+16:31:20.286 [main] DEBUG pl.infoshareacademy.Catalog - for id = 3 null was returned
+16:31:20.286 [main] WARN  pl.infoshareacademy.Catalog - could not find category with id = 3
+16:31:20.287 [main] DEBUG pl.infoshareacademy.Catalog - for id = 1 1 was returned
+16:31:20.287 [main] DEBUG pl.infoshareacademy.Catalog - category with id= 0 subcategories: [1, 2]
+16:31:20.288 [main] DEBUG pl.infoshareacademy.Catalog -  category with id= 22 has subcategories
+16:31:20.288 [main] DEBUG pl.infoshareacademy.Catalog - for id = 3 null was returned
+16:31:20.289 [main] DEBUG pl.infoshareacademy.Catalog - for id = 2 2 was returned
+16:31:20.289 [main] DEBUG pl.infoshareacademy.Catalog - for id = 222 222 was returned
+16:31:20.290 [main] WARN  pl.infoshareacademy.Catalog - no categories
+16:31:20.290 [main] DEBUG pl.infoshareacademy.Catalog - for id = 1 null was returned
+16:31:20.291 [main] DEBUG pl.infoshareacademy.Catalog - for id = 11 11 was returned
+16:31:20.291 [main] DEBUG pl.infoshareacademy.Catalog - category with id= 1 subcategories: [11]
+16:31:20.292 [main] INFO  pl.infoshareacademy.Catalog - category with id = 11 has no successor
+16:31:20.292 [main] DEBUG pl.infoshareacademy.Catalog - category with id= 11 has no subcategories
+16:31:20.293 [main] DEBUG pl.infoshareacademy.Catalog - category with id= 2 subcategories: [22]
