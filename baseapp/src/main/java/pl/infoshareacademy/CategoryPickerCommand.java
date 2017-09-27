@@ -24,19 +24,24 @@ public class CategoryPickerCommand {
         if (allegroCategoryTree.get(selectedCategory) == null) {
             return new ArrayList<>();
         } else {
-            return allegroCategoryTree.get(selectedCategory).stream().collect(Collectors.toList());
+            return allegroCategoryTree.get(selectedCategory);
         }
     }
 
     public String generateLink(AllegroCategory allegroCategory) {
-        String phraseInLink = allegroCategory.getName()
-                .replace('ć', 'c').replace('ę', 'e')
-                .replace('ł', 'l').replace('n', 'n')
-                .replace('ó', 'o').replace('ś', 's')
-                .replace('ź', 'z').replace('ż', 'z')
-                .replace(" ", "-");
 
-        return ("https://allegro.pl/kategoria/" + phraseInLink + "-" + allegroCategory.getCatID());
+        if (allegroCategory == null) {
+            return "Błąd";
+        } else {
+            String phraseInLink = allegroCategory.getName()
+                    .replace('ć', 'c').replace('ę', 'e')
+                    .replace('ł', 'l').replace('n', 'n')
+                    .replace('ó', 'o').replace('ś', 's')
+                    .replace('ź', 'z').replace('ż', 'z')
+                    .replace(" ", "-");
+
+            return ("https://allegro.pl/kategoria/" + phraseInLink + "-" + allegroCategory.getCatID());
+        }
     }
 
 }

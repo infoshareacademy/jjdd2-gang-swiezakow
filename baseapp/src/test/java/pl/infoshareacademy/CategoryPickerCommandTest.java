@@ -16,11 +16,25 @@ public class CategoryPickerCommandTest {
     }
 
     @Test
-    public void showMainCategoryTest() {
+    public void childrenContainObject() {
 
-        List<AllegroCategory> allegroCategories = categoryPickerCommand.showMainCategories();
+        List<AllegroCategory> allegroCategories = categoryPickerCommand.showChildrenCategory(0);
         AllegroCategory allegroCategory = new AllegroCategory(64477, "Biuro i Reklama", 0, 2);
         Assert.assertTrue(allegroCategory.equals(allegroCategories.get(2)));
+    }
+
+    @Test
+    public void childrenNotContainObject() {
+        List<AllegroCategory> allegroCategories = categoryPickerCommand.showChildrenCategory(999999);
+        Assert.assertTrue(allegroCategories.isEmpty());
+    }
+
+    @Test
+    public void checkLinkGenerator() {
+        List<AllegroCategory> allegroCategories = categoryPickerCommand.showChildrenCategory(0);
+        String linkTest = categoryPickerCommand.generateLink(allegroCategories.get(3));
+        String link = "https://allegro.pl/kategoria/"
+        Assert.assertEquals();
     }
 
 }

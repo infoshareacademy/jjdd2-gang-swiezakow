@@ -33,7 +33,7 @@ public class Main {
                     break;
                 case ("3"):
                     CategoryPickerCommand categoryPickerCommand = new CategoryPickerCommand();
-                    categoryPickerCommand.showMainCategories();
+                    categoryPickerCommand.showChildrenCategory(0).forEach(AllegroCategory -> System.out.println(AllegroCategory.getName()));
                     // wejście do polecenia 3
                     break;
                 case("4"):
