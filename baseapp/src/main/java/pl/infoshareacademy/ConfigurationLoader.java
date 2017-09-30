@@ -24,7 +24,7 @@ public class ConfigurationLoader {
             configuration = objectMapper.reader(Configuration.class).readValue(
                     Configuration.class.getResourceAsStream(path));
         } catch (IOException e) {
-            logger.error("caught an exception during loading file");
+            logger.error("caught an exception during loading file", e);
             throw new RuntimeException(e);
         }
     }
