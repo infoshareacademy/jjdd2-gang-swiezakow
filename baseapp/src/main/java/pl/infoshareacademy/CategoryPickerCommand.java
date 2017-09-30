@@ -8,22 +8,25 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class CategoryPickerCommand {
-    AllegroCategoryLoader allegroCategoryLoader = new AllegroCategoryLoader();
-    static final String FILENAME = "C:\\Users\\bogum\\Documents\\git\\jjdd2-gang-swiezakow\\baseapp\\src\\main\\resources\\Allegro_cathegories_2016-02-13.xml";
-    Map<Integer, List<AllegroCategory>> allegroCategoryTree = allegroCategoryLoader.loadCategoryTree(FILENAME);
+    AllegroCategoryLoader loader;
+    Configuration configuration;
 
-    public CategoryPickerCommand() throws ParserConfigurationException, SAXException, IOException {
+    Map<Integer, List<AllegroCategory>> allegroCategoryTree;
+
+    public CategoryPickerCommand(String filename) throws ParserConfigurationException, SAXException, IOException {
+        this.loader = new AllegroCategoryLoader();
+        allegroCategoryTree = loader.loadCategoryTree(filename);
+        configuration = new Configuration();
     }
 
     public List<AllegroCategory> showChildrenCategory(Integer selectedCategory) {
         try {
             if (allegroCategoryTree.get(selectedCategory) == null) {
                 return new ArrayList<>();
-            } else {
-                return allegroCategoryTree.get(selectedCategory);
             }
-        } catch (java.lang.IndexOutOfBoundsException e){
-            return new  ArrayList<>();
+            return allegroCategoryTree.get(selectedCategory);
+        } catch (java.lang.IndexOutOfBoundsException e) {
+            return new ArrayList<>();
         }
     }
 
@@ -39,7 +42,9 @@ public class CategoryPickerCommand {
                     .replace('ź', 'z').replace('ż', 'z')
                     .replace(" ", "-");
 
-            return ("https://allegro.pl/kategoria/" + phraseInLink + "-" + allegroCategory.getCatID());
+            return String.format(configuration.getLinkForCPC(), phraseInLink, allegroCategory.getCatID());
+
+            //return ("%d. %s -> %s\\n\", number, parentName, name" + phraseInLink + "-" + allegroCategory.getCatID());
         }
     }
 

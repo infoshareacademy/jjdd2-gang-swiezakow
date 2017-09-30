@@ -9,7 +9,8 @@ import java.io.IOException;
 import java.util.List;
 
 public class CategoryPickerCommandTest {
-    CategoryPickerCommand categoryPickerCommand = new CategoryPickerCommand();
+    public final String FILENAME = "test.xml";
+    CategoryPickerCommand categoryPickerCommand = new CategoryPickerCommand(FILENAME);
 
     public CategoryPickerCommandTest() throws IOException, SAXException, ParserConfigurationException {
     }
@@ -31,8 +32,8 @@ public class CategoryPickerCommandTest {
     @Test
     public void checkLinkGenerator() {
         List<AllegroCategory> allegroCategories = categoryPickerCommand.showChildrenCategory(0);
-        String linkTest = categoryPickerCommand.generateLink(allegroCategories.get(3));
-        String link = "https://allegro.pl/kategoria/Bizuteria-i-Zegarki-19732";
+        String linkTest = categoryPickerCommand.generateLink(allegroCategories.get(1));
+        String link = "https://allegro.pl/kategoria/Bilety-98553";
         Assert.assertTrue(link.equals(linkTest));
     }
 
