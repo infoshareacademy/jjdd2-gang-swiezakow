@@ -40,7 +40,9 @@ public class Main {
                     break;
                 case ("3"):
                     CategoryPickerCommand categoryPickerCommand = new CategoryPickerCommand(config.getFilePath());
-                    // wejście do polecenia 3
+                    //Only demo without user console interface
+                    System.out.println(categoryPickerCommand.showChildrenCategory(13));
+                    System.out.println(categoryPickerCommand.generateLink(categoryPickerCommand.showChildrenCategory(0).get(1)));
                     break;
                 case("4"):
                     SearchQueryCommand searchQueryCommand = new SearchQueryCommand(config.getFilePath());
