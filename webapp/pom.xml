@@ -15,6 +15,7 @@
 
     <properties>
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
+        <version.war.plugin>3.0.0</version.war.plugin>
     </properties>
 
     <dependencies>
@@ -26,15 +27,11 @@
         </dependency>
         <dependency>
             <groupId>pl.infoshareacademy.gangswiezakow</groupId>
-            <artifactId>zakupy-parent</artifactId>
+            <artifactId>zakupy</artifactId>
             <version>1.0.0</version>
         </dependency>
-
     </dependencies>
-    <properties>
-        <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
-        <version.war.plugin>3.0.0</version.war.plugin>
-    </properties>
+
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>

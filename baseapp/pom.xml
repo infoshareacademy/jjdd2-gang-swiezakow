@@ -11,6 +11,7 @@
 
     <artifactId>zakupy</artifactId>
     <version>1.0.0</version>
+    <packaging>jar</packaging>
 
     <properties>
         <java.build.version>1.8</java.build.version>
@@ -63,6 +64,11 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>23.0</version>
+        </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>RELEASE</version>
         </dependency>
     </dependencies>
 
