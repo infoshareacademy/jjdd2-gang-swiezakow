@@ -6,11 +6,12 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyMap;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class CatalogTest {
     public static final AllegroCategory CATEGORY_1 = new AllegroCategory(1, "1", 0, 0);
@@ -39,7 +40,6 @@ public class CatalogTest {
         idToSubcategories.put(2, asList(CATEGORY_22));
         //22 -> 222
         idToSubcategories.put(22, asList(CATEGORY_222));
-
         catalog = Catalog.catalogForMap(idToSubcategories);
     }
 
@@ -48,218 +48,109 @@ public class CatalogTest {
         //given
         int categoryId = 1;
         AllegroCategory expected = null;
-
         //when
         AllegroCategory actual = Catalog.catalogForMap(emptyMap()).findCategoryById(categoryId);
+        //then
+        assertThat(actual, is(expected));
+    }
 
+    @Test
+    public void noCategoryWhenCategoryNotInCatalog() {
+        //given
+        int categoryId = 3;
+        AllegroCategory expected = null;
+        //when
+        AllegroCategory actual = catalog.findCategoryById(categoryId);
+        //then
+        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void leafCategoryInCatalog() {
+        //given
+        int categoryId = 222;
+        AllegroCategory expected = CATEGORY_222;
+        //when
+        AllegroCategory actual = catalog.findCategoryById(categoryId);
+        //then
+        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void mainCategoryInCatalog() {
+        //given
+        int categoryId = 2;
+        AllegroCategory expected = CATEGORY_2;
+        //when
+        AllegroCategory actual = catalog.findCategoryById(categoryId);
         //then
         assertThat(actual, is(expected));
     }
 
     @Test
 
-    public void noCategoryWhenCategoryNotInCatalog() {
-
-//given
-
-        int categoryId = 3;
-
-        AllegroCategory expected = null;
-
-
-//when
-
-        AllegroCategory actual = catalog.findCategoryById(categoryId);
-
-
-//then
-
-        assertThat(actual, is(expected));
-
-    }
-
-
-    @Test
-
-    public void leafCategoryInCatalog() {
-
-//given
-
-        int categoryId = 222;
-
-        AllegroCategory expected = CATEGORY_222;
-
-
-//when
-
-        AllegroCategory actual = catalog.findCategoryById(categoryId);
-
-
-//then
-
-        assertThat(actual, is(expected));
-
-    }
-
-
-    @Test
-
-    public void mainCategoryInCatalog() {
-
-//given
-
-        int categoryId = 2;
-
-        AllegroCategory expected = CATEGORY_2;
-
-
-//when
-
-        AllegroCategory actual = catalog.findCategoryById(categoryId);
-
-
-//then
-
-        assertThat(actual, is(expected));
-
-    }
-
-
-    @Test
-
     public void category2hasSubcategory22() {
-
-//given
-
+        //given
         int categoryId = 2;
-
         List<AllegroCategory> expected = asList(CATEGORY_22);
-
-
-//when
-
+        //when
         List<AllegroCategory> actual = catalog.getSubcategories(categoryId);
-
-
-//then
-
+        //then
         assertThat(actual, is(expected));
-
     }
 
-
     @Test
-
     public void category1hasSibling2() {
-
-//given
-
+        //given
         int categoryId = 1;
-
-        AllegroCategory expected = CATEGORY_2;
-
-
-//when
-
-        AllegroCategory actual = catalog.findSibling(categoryId);
-
-
-//then
-
+        Optional<AllegroCategory> expected = Optional.of(CATEGORY_2);
+        //when
+        Optional<AllegroCategory> actual = catalog.findSibling(categoryId);
+        //then
         assertThat(actual, is(expected));
-
     }
 
-
     @Test
-
     public void category11hasNoSibling() {
-
-//given
-
+        //given
         int categoryId = 11;
-
-        AllegroCategory expected = null;
-
-
-//when
-
-        AllegroCategory actual = catalog.findSibling(categoryId);
-
-
-//then
-
+        Optional<AllegroCategory> expected = Optional.empty();
+        //when
+        Optional<AllegroCategory> actual = catalog.findSibling(categoryId);
+        //then
         assertThat(actual, is(expected));
-
     }
 
-
     @Test
-
     public void category22hasSubcategories() {
-
-//given
-
+        //given
         int categoryId = 22;
-
         boolean expected = true;
-
-
-//when
-
+        //when
         boolean actual = catalog.hasSubcategories(categoryId);
-
-
-//then
-
+        //then
         assertThat(actual, is(expected));
-
     }
 
-
     @Test
-
     public void category11hasNoSubcategories() {
-
-//given
-
+        //given
         int categoryId = 11;
-
         boolean expected = false;
-
-
-//when
-
+        //when
         boolean actual = catalog.hasSubcategories(categoryId);
-
-
-//then
-
+        //then
         assertThat(actual, is(expected));
-
     }
-
 
     @Test
-
     public void noSiblingForNonExistentCategory() {
-
-//given
-
+        //given
         int categoryId = 3;
-
-        AllegroCategory expected = null;
-
-
-//when
-
-        AllegroCategory actual = catalog.findSibling(categoryId);
-
-
-//then
-
+        Optional<AllegroCategory> expected = Optional.empty();
+        //when
+        Optional<AllegroCategory> actual = catalog.findSibling(categoryId);
+        //then
         assertThat(actual, is(expected));
-
     }
-
 }

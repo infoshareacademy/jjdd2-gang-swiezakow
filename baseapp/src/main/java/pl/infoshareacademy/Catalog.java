@@ -3,10 +3,7 @@ package pl.infoshareacademy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Catalog {
     private static final Logger LOGGER = LogManager.getLogger(Catalog.class);
@@ -64,11 +61,11 @@ public class Catalog {
         return result;
     }
 
-    public AllegroCategory findSibling(int categoryId) {
+    public Optional<AllegroCategory> findSibling(int categoryId) {
         AllegroCategory category = findCategoryById(categoryId);
         if (category == null) {
             LOGGER.warn("could not find category with id = {}", categoryId);
-            return null;
+            return Optional.empty();
         }
 
         int parentId = category.getParent();
@@ -76,10 +73,10 @@ public class Catalog {
         int currentCategoryIndex = parentSubcategories.indexOf(category);
         int nextCategoryIndex = currentCategoryIndex + 1;
         if (nextCategoryIndex < parentSubcategories.size()) {
-            return parentSubcategories.get(nextCategoryIndex);
+            return Optional.of(parentSubcategories.get(nextCategoryIndex));
         } else {
             LOGGER.info("category with id = {} has no successor", categoryId);
-            return null;
+            return Optional.empty();
         }
     }
 }

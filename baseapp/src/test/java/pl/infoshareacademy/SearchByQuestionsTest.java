@@ -1,12 +1,11 @@
 package pl.infoshareacademy;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -61,14 +60,14 @@ public class SearchByQuestionsTest {
         //given
         int categoryId = MAIN_CATEGORY.getCatID();
         Catalog mockCatalog = mock(Catalog.class);
-        when(mockCatalog.findSibling(categoryId)).thenReturn(null);
+        when(mockCatalog.findSibling(categoryId)).thenReturn(Optional.empty());
         when(mockCatalog.findCategoryById(categoryId)).thenReturn(MAIN_CATEGORY);
 
         SearchByQuestions searchByQuestions = new SearchByQuestions(mockCatalog);
-        SearchResult expected = null;
+        Optional<SearchResult> expected = Optional.empty();
 
         //when
-        SearchResult actual = searchByQuestions.omitCategory(categoryId);
+        Optional<SearchResult> actual = searchByQuestions.omitCategory(categoryId);
 
         //then
         assertThat(actual, is(expected));
@@ -79,15 +78,15 @@ public class SearchByQuestionsTest {
         //given
         int categoryId = MAIN_SUBCATEGORY.getCatID();
         Catalog mockCatalog = mock(Catalog.class);
-        when(mockCatalog.findSibling(categoryId)).thenReturn(null);
+        when(mockCatalog.findSibling(categoryId)).thenReturn(Optional.empty());
         when(mockCatalog.findCategoryById(categoryId)).thenReturn(MAIN_SUBCATEGORY);
-        when(mockCatalog.findSibling(MAIN_CATEGORY.getCatID())).thenReturn(MAIN_CATEGORY_2);
+        when(mockCatalog.findSibling(MAIN_CATEGORY.getCatID())).thenReturn(Optional.of(MAIN_CATEGORY_2));
 
         SearchByQuestions searchByQuestions = new SearchByQuestions(mockCatalog);
-        SearchResult expected = RESULT_MAIN_CATEGORY_2;
+        Optional<SearchResult> expected = Optional.of(RESULT_MAIN_CATEGORY_2);
 
         //when
-        SearchResult actual = searchByQuestions.omitCategory(categoryId);
+        Optional<SearchResult> actual = searchByQuestions.omitCategory(categoryId);
 
         //then
         assertThat(actual, is(expected));
@@ -97,13 +96,13 @@ public class SearchByQuestionsTest {
     public void returnNextSameLevelCategoryWhenOmittedHasNext() {
         int categoryId = MAIN_CATEGORY.getCatID();
         Catalog mockCatalog = mock(Catalog.class);
-        when(mockCatalog.findSibling(categoryId)).thenReturn(MAIN_CATEGORY_2);
+        when(mockCatalog.findSibling(categoryId)).thenReturn(Optional.of(MAIN_CATEGORY_2));
 
         SearchByQuestions searchByQuestions = new SearchByQuestions(mockCatalog);
-        SearchResult expected = RESULT_MAIN_CATEGORY_2;
+        Optional<SearchResult> expected = Optional.of(RESULT_MAIN_CATEGORY_2);
 
         //when
-        SearchResult actual = searchByQuestions.omitCategory(categoryId);
+        Optional<SearchResult> actual = searchByQuestions.omitCategory(categoryId);
 
         //then
         assertThat(actual, is(expected));

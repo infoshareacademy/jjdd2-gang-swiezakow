@@ -4,6 +4,8 @@ package pl.infoshareacademy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Optional;
+
 public class SearchByQuestions {
     private static final Logger LOGGER = LogManager.getLogger(SearchByQuestions.class);
 
@@ -34,13 +36,13 @@ public class SearchByQuestions {
         return result;
     }
 
-    public SearchResult omitCategory(int categoryId) {
+    public Optional<SearchResult> omitCategory(int categoryId) {
         //1. istnieje kolejna na tym samym poziomie
-        AllegroCategory nextCategory = catalog.findSibling(categoryId);
-        if (nextCategory != null) {
-            SearchResult result = new SearchResult(nextCategory.getName(), nextCategory.getCatID(), false);
+        Optional<AllegroCategory> nextCategory = catalog.findSibling(categoryId);
+        if (nextCategory.isPresent()) {
+            SearchResult result = new SearchResult(nextCategory.get().getName(), nextCategory.get().getCatID(), false);
             LOGGER.debug("ignoring category {}", categoryId);
-            return result;
+            return Optional.of(result);
         }
 
         //2. nie istnieje kolejna ale jest parent
@@ -48,11 +50,11 @@ public class SearchByQuestions {
         LOGGER.debug("looking for ancestor with successor");
         while (category.getParent() != catalog.ROOT_CATEGORY_ID) {
             LOGGER.debug("checking category with id {}", categoryId);
-            AllegroCategory sibling = catalog.findSibling(category.getParent());
-            if (sibling != null) {
-                SearchResult result = new SearchResult(sibling.getName(), sibling.getCatID(), false);
-                LOGGER.debug("successor with id {} found", sibling.getCatID());
-                return result;
+            Optional<AllegroCategory> sibling = catalog.findSibling(category.getParent());
+            if (sibling.isPresent()) {
+                SearchResult result = new SearchResult(sibling.get().getName(), sibling.get().getCatID(), false);
+                LOGGER.debug("successor with id {} found", sibling.get().getCatID());
+                return Optional.of(result);
             }
             // idz do parenta parenta
             category = catalog.findCategoryById(category.getParent());
@@ -60,6 +62,6 @@ public class SearchByQuestions {
 
         //3. nie istnieje kolejna i nie ma parenta
         LOGGER.debug("no further categories");
-        return null;
+        return Optional.empty();
     }
 }

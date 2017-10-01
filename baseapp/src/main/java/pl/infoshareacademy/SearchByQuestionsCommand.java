@@ -3,6 +3,7 @@ package pl.infoshareacademy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 import static pl.infoshareacademy.AllegroLink.makeLink;
@@ -23,22 +24,22 @@ public class SearchByQuestionsCommand {
 
         System.out.println("Witaj!");
 
-        SearchResult result = searchByQuestions.chooseCategory(Catalog.ROOT_CATEGORY_ID);
+        Optional<SearchResult> result = Optional.of(searchByQuestions.chooseCategory(Catalog.ROOT_CATEGORY_ID));
 
         while (true) {
-            if (result == null) {
+            if (!result.isPresent()) {
                 System.out.println("\nNiestety nie mamy kategorii która Cię interesuje.\n");
                 LOGGER.debug("no suitable category");
                 break;
-            } else if (result.isLink()) {
-                System.out.println("\nInteresujący Cię produkt możesz znaleźć korzystając z poniższego linka: \n\n " + makeLink(result.getCategoryName(), result.getCategoryId()));
+            } else if (result.get().isLink()) {
+                System.out.println("\nInteresujący Cię produkt możesz znaleźć korzystając z poniższego linka: \n\n " + makeLink(result.get().getCategoryName(), result.get().getCategoryId()));
                 LOGGER.debug("link for category found");
                 break;
             } else {
-                showQuestion(result);
-                int categoryId = result.getCategoryId();
+                showQuestion(result.get());
+                int categoryId = result.get().getCategoryId();
                 boolean isChosen = readAnswer();
-                result = isChosen ? searchByQuestions.chooseCategory(categoryId) : searchByQuestions.omitCategory(categoryId);
+                result = isChosen ? Optional.of(searchByQuestions.chooseCategory(categoryId)) : searchByQuestions.omitCategory(categoryId);
                 LOGGER.debug(isChosen ? "user selected yes" : "user selected no");
 
             }
