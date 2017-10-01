@@ -13,6 +13,10 @@
     <version>1.0.0</version>
     <packaging>war</packaging>
 
+    <properties>
+        <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>javax</groupId>
