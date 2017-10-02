@@ -1,5 +1,6 @@
 package pl.infoshareacademy;
 
+import com.google.common.annotations.VisibleForTesting;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -8,19 +9,30 @@ import java.util.Scanner;
 
 public class SearchCategoryCommand {
 
-    private final String filename;
     private static final Logger logger = LogManager.getLogger(SearchCategoryCommand.class);
-    private Configuration config = ConfigurationLoader.getConfiguration();
-
-    public SearchCategoryCommand(String filename) {
-        this.filename = filename;
-    }
 
     enum Result {
         SUCCESS,
         NO_RESULTS,
         BAD_NUMBER,
         FATAL_ERROR
+    }
+
+    private final Configuration config = ConfigurationLoader.getConfiguration();
+    private final String filename;
+    private final AllegroCategoryLoader loader;
+    private final AllegroCategorySearcher searcher;
+
+    public SearchCategoryCommand(String filename, AllegroCategoryLoader allegroCategoryLoader, AllegroCategorySearcher allegroCategorySearcher) {
+        this.filename = filename;
+        this.loader = allegroCategoryLoader;
+        this.searcher = allegroCategorySearcher;
+    }
+
+    public SearchCategoryCommand(String filename) {
+        this.filename = filename;
+        this.loader = new AllegroCategoryLoader();
+        this.searcher = new AllegroCategorySearcher();
     }
 
     public void handleCommand(Scanner scanner) {
@@ -41,7 +53,7 @@ public class SearchCategoryCommand {
             }
 
             System.out.println("Czy chcesz spróbować ponownie? [Tak/Nie]");
-            run = readYesNoAnswer(scanner);
+            run = readYesNoAnswer(new UserInput(scanner));
         }
 
         System.out.println();
@@ -53,15 +65,13 @@ public class SearchCategoryCommand {
         String line = scanner.nextLine();
         logger.info("User has entered " + line);
 
-        AllegroCategoryLoader allegroCategoryLoader = new AllegroCategoryLoader();
-        List<AllegroCategory> allCategories = allegroCategoryLoader.loadAllCategories(config.getFilePath());
+        List<AllegroCategory> allCategories = loader.loadAllCategories(config.getFilePath());
 
         if (allCategories.isEmpty()) {
             logger.error("received empty list from AllegroCategoryLoader ");
             return Result.FATAL_ERROR;
         }
 
-        AllegroCategorySearcher searcher = new AllegroCategorySearcher();
         List<AllegroCategory> matchingCategories = searcher.searchCategory(line, allCategories);
 
         if (matchingCategories.isEmpty()) {
@@ -84,9 +94,8 @@ public class SearchCategoryCommand {
         return Result.SUCCESS;
     }
 
-    private boolean readYesNoAnswer(Scanner scanner) {
-
-        String line = scanner.nextLine();
+    boolean readYesNoAnswer(UserInput userInput) {
+        String line = userInput.line();
         if ("tak".equals(line.toLowerCase())) {
             logger.info("User has entered 'yes'");
             return true;
@@ -96,11 +105,12 @@ public class SearchCategoryCommand {
         } else {
             System.out.println("Niepoprawna odpowiedź. [Tak/Nie]");
             logger.warn("User has entered wrong answer");
-            return readYesNoAnswer(scanner);
+            return readYesNoAnswer(userInput);
         }
     }
 
-    private String generateLink(AllegroCategory category, AllegroCategory parent, String phrase) {
+    @VisibleForTesting
+    String generateLink(AllegroCategory category, AllegroCategory parent, String phrase){
         String phraseInLink = phrase.replace(" ", "-");
         logger.info("generating link for " + category + " and "+ parent + " and "+ phrase);
         if(parent != null) {
@@ -111,6 +121,4 @@ public class SearchCategoryCommand {
             return String.format(config.getLinkForSCC2(), name, phraseInLink);
         }
     }
-
-
 }
