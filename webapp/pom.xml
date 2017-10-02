@@ -21,11 +21,10 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>pl.infoshareacademy.gangswiezakow</groupId>
-            <artifactId>zakupy-parent</artifactId>
-            <version>1.0.0</version>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.9.0</version>
         </dependency>
-
     </dependencies>
     <properties>
         <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
