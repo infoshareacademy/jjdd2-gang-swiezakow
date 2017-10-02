@@ -1,23 +1,21 @@
 package pl.infoshareacademy;
 
-import org.junit.AfterClass;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public class CategoryPickerCommandTest {
 
-    public final String FILENAME = "test.xml";
-    CategoryPickerCommand categoryPickerCommand = new CategoryPickerCommand(FILENAME);
+    private final String FILENAME = "test.xml";
+    private CategoryPickerCommand categoryPickerCommand;
 
-    public CategoryPickerCommandTest() throws IOException, SAXException, ParserConfigurationException {
+    @Before
+    public void setUp() throws Exception {
+        ConfigurationLoader.loadConfiguration();
+        categoryPickerCommand = new CategoryPickerCommand(CategoryPickerCommand.class.getResource("/" + FILENAME).getPath());
     }
 
     @Test
@@ -44,7 +42,6 @@ public class CategoryPickerCommandTest {
 
     @Test
     public void checkLinkGeneratorNull() {
-        List<AllegroCategory> allegroCategories = categoryPickerCommand.showChildrenCategory(0);
         AllegroCategory fakeAllegroCategory = null;
         String linkTest = categoryPickerCommand.generateLink(fakeAllegroCategory);
         String link = "Błąd";

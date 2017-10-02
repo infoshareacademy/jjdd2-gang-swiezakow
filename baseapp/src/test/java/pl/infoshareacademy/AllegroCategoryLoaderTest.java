@@ -1,35 +1,27 @@
 package pl.infoshareacademy;
 
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.verify;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class AllegroCategoryLoaderTest  {
     private static String FILENAME = "test.xml";
     private static String FILENAME2 = "empty.xml";
-    private List<AllegroCategory> test1() {      // stworzenie listy
-        AllegroCategory allegroCategory = new AllegroCategory(26013, "Antyki i Sztuka", 0, 0);  // dodadnie  1 obiektu
+
+    private List<AllegroCategory> test1() {
+        AllegroCategory allegroCategory = new AllegroCategory(26013, "Antyki i Sztuka", 0, 0);
         AllegroCategory allegroCategory2 = new AllegroCategory(98553, "Bilety", 0, 1);
         AllegroCategory allegroCategory3 = new AllegroCategory(64477, "Biuro i Reklama", 0, 2);
-        List<AllegroCategory> lista = Arrays.asList(allegroCategory, allegroCategory2, allegroCategory3);        //dodanie do listy 3 obiektow
-        return lista;
+        return Arrays.asList(allegroCategory, allegroCategory2, allegroCategory3);
     }
     private Map<Integer, List<AllegroCategory>> mapa1() {
         Map<Integer, List<AllegroCategory>> fakeMap = new HashMap<>();
@@ -68,7 +60,3 @@ public class AllegroCategoryLoaderTest  {
         assertEquals( mapa1(), resulat);
     }
 }
-
-
-
-
