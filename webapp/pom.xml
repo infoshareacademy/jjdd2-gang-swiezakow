@@ -13,12 +13,22 @@
     <version>1.0.0</version>
     <packaging>war</packaging>
 
+    <properties>
+        <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
+        <version.war.plugin>3.0.0</version.war.plugin>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>pl.infoshareacademy.gangswiezakow</groupId>
+            <artifactId>zakupy</artifactId>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -31,10 +41,7 @@
             <version>1.0.0</version>
         </dependency>
     </dependencies>
-    <properties>
-        <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
-        <version.war.plugin>3.0.0</version.war.plugin>
-    </properties>
+
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>

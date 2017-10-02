@@ -4,18 +4,21 @@ package pl.infoshareacademy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 import java.util.Optional;
 
+@Stateless
 public class SearchByQuestions {
     private static final Logger LOGGER = LogManager.getLogger(SearchByQuestions.class);
 
+    @Inject
     private Catalog catalog;
 
-    public SearchByQuestions(Catalog catalog) {
-        this.catalog = catalog;
+    public SearchByQuestions() {
     }
 
-    public void setCatalog(Catalog catalog) {
+    public SearchByQuestions(Catalog catalog) {
         this.catalog = catalog;
     }
 
@@ -31,6 +34,9 @@ public class SearchByQuestions {
 
         //2 nie ma podkategorii
         AllegroCategory category = catalog.findCategoryById(categoryId);
+        if (category == null) {
+            return new SearchResult("Err", 0, false);
+        }
         SearchResult result = new SearchResult(category.getName(), category.getCatID(), true);
         LOGGER.debug("returning a link for category {}", categoryId);
         return result;
@@ -48,7 +54,7 @@ public class SearchByQuestions {
         //2. nie istnieje kolejna ale jest parent
         AllegroCategory category = catalog.findCategoryById(categoryId);
         LOGGER.debug("looking for ancestor with successor");
-        while (category.getParent() != catalog.ROOT_CATEGORY_ID) {
+        while (category.getParent() != Catalog.ROOT_CATEGORY_ID) {
             LOGGER.debug("checking category with id {}", categoryId);
             Optional<AllegroCategory> sibling = catalog.findSibling(category.getParent());
             if (sibling.isPresent()) {

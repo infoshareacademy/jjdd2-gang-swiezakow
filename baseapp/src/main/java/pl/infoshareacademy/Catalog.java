@@ -3,14 +3,41 @@ package pl.infoshareacademy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.ejb.Singleton;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
+@Singleton
 public class Catalog {
     private static final Logger LOGGER = LogManager.getLogger(Catalog.class);
     public static final int ROOT_CATEGORY_ID = 0;
 
     private Map<Integer, List<AllegroCategory>> idToSubcategories = Collections.emptyMap();
     private Map<Integer, AllegroCategory> idToCategory = Collections.emptyMap();
+
+    public Catalog() {
+        ConfigurationLoader.loadConfiguration();
+        Configuration config = ConfigurationLoader.getConfiguration();
+        String categoryFilePath = config.getFilePath();
+
+        if (!Files.exists(Paths.get(categoryFilePath))) {
+            LOGGER.error("Categories not found under {}. Putting default ones there.", categoryFilePath);
+            try (InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("Allegro_cathegories_2016-02-13.xml")) {
+                Files.copy(is, Paths.get(categoryFilePath));
+            } catch (IOException e) {
+                LOGGER.error("Error while storing categories under {}", categoryFilePath, e);
+            }
+        }
+
+        LOGGER.info("Loading categories from {}", categoryFilePath);
+        AllegroCategoryLoader loader = new AllegroCategoryLoader();
+        idToSubcategories = loader.loadCategoryTree(categoryFilePath);
+        initIdToCategory();
+        LOGGER.info("Loaded {} categories", idToCategory.size());
+    }
 
     public static Catalog catalogForFile(String categoryFilePath) {
         AllegroCategoryLoader loader = new AllegroCategoryLoader();
