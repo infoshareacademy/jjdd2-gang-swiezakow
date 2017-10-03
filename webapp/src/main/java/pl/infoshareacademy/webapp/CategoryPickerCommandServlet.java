@@ -2,7 +2,7 @@ package pl.infoshareacademy.webapp;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import pl.infoshareacademy.CategoryPickerCommand;
+import pl.infoshareacademy.beans.CategoryPickerCommandLocal;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -18,7 +18,7 @@ public class CategoryPickerCommandServlet extends HttpServlet {
     private static final Logger logger = LogManager.getLogger(CategoryPickerCommandServlet.class);
 
     @Inject
-    CategoryPickerCommand categoryPickerCommand;
+    CategoryPickerCommandLocal categoryPickerCommandLocal;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,6 +31,7 @@ public class CategoryPickerCommandServlet extends HttpServlet {
         writer.println("<html>");
         writer.println("<body>");
         writer.println("siema");
+        writer.println("\"" + categoryPickerCommandLocal.testDependencyInjection() + "\"");
 
         writer.println("<button type=\"submit\">Send</button>");
         writer.println("</form>");

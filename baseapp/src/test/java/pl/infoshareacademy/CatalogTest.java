@@ -46,7 +46,7 @@ public class CatalogTest {
     @Test
     public void noCategoryWhenEmptyCatalog() {
         //given
-        int categoryId = 1;
+        int categoryId = 0;
         AllegroCategory expected = null;
         //when
         AllegroCategory actual = Catalog.catalogForMap(emptyMap()).findCategoryById(categoryId);

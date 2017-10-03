@@ -3,14 +3,18 @@ package pl.infoshareacademy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
+import pl.infoshareacademy.beans.CategoryPickerCommandLocal;
 
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class CategoryPickerCommand {
+@Stateless
+public class CategoryPickerCommand implements CategoryPickerCommandLocal {
     private static final Logger logger = LogManager.getLogger(CategoryPickerCommand.class);
 
     AllegroCategoryLoader loader;
@@ -48,6 +52,10 @@ public class CategoryPickerCommand {
             logger.info("successfully generated link for: " + allegroCategory.getName());
             return phraseInLink;
         }
+    }
+
+    public String testDependencyInjection(){
+        return "successfull";
     }
 
 }

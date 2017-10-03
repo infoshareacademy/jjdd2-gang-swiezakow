@@ -10,7 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-@Singleton
+@javax.inject.Singleton
 public class Catalog {
     private static final Logger LOGGER = LogManager.getLogger(Catalog.class);
     public static final int ROOT_CATEGORY_ID = 0;
