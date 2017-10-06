@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Optional;
 
-@WebServlet("/form")
+@WebServlet("/form1")
 public class SearchByQuestionsServlet extends HttpServlet {
 
     @Inject
@@ -55,8 +55,10 @@ public class SearchByQuestionsServlet extends HttpServlet {
 
         //3. Przygotowanie wyjcia
         String output;
+        String returnCommand;
+
         if (!isResultPresent) {
-            output = "Nie udalo znalezc sie poszukiwanego rezultatu.";
+            output = "Niestety nie udało się znaleźć interesującej Cię kategorii";
         } else {
             String foundCategoryName = searchResult.getCategoryName();
             int foundCategoryId = searchResult.getCategoryId();
@@ -64,14 +66,20 @@ public class SearchByQuestionsServlet extends HttpServlet {
 
             if (isLink) {
                 String link = AllegroLink.makeLink(foundCategoryName, foundCategoryId);
-                output = "Czy chodzi ci o kategorię " + foundCategoryName + ". Link to <a href=" + link + ">" + link + "</a>";
+                output = "<p> Link do kategorii " + foundCategoryName + "</p>" + "<a href=" + link + ">" + link + "</a>" +
+                        " <p><a href=\"javascript:history.back()\">Poprzednia kategoria</a></p>" +
+                        " <p><a href=\"form\">Powrót do pierwszej kategorii</a></p>" +
+                        " <p><a href=\"main\">Strona główna</a></p>";
             } else {
-                output = "Czy jesteś zainteresowany produktami z kategorii " + foundCategoryName + "?<br/>" +
+                output = "<p>Czy jesteś zainteresowany produktami z kategorii " + foundCategoryName + "?<br/></p>" +
                         "<form method=\"GET\"> " +
                         "   <input type=\"hidden\" name=\"categoryId\" value=\"" + foundCategoryId + "\"/>" +
                         "   <input type=\"submit\" name=\"theAnswer\" value=\"Tak\"/>" +
                         "   <input type=\"submit\" name=\"theAnswer\" value=\"Nie\"/>" +
-                        "</form>";
+                        "</form>" +
+                        "   <p><a href=\"javascript:history.back()\">Poprzednia kategoria</a></p>" +
+                        "   <p><a href=\"form\">Powrót do pierwszej kategorii</a></p>" +
+                        "   <p><a href=\"main\">Strona główna</a></p>";
             }
         }
 
