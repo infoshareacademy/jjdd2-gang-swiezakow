@@ -109,8 +109,7 @@ public class SearchCategoryCommand {
         }
     }
 
-    @VisibleForTesting
-    String generateLink(AllegroCategory category, AllegroCategory parent, String phrase){
+    public String generateLink(AllegroCategory category, AllegroCategory parent, String phrase){
         String phraseInLink = phrase.replace(" ", "-");
         logger.info("generating link for " + category + " and "+ parent + " and "+ phrase);
         if(parent != null) {
