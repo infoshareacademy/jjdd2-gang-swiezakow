@@ -30,6 +30,9 @@ public class ConfigurationLoader {
     }
 
     public static Configuration getConfiguration() {
+        if (configuration == null) {
+            loadConfiguration();
+        }
         return configuration;
     }
 
