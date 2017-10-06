@@ -3,9 +3,9 @@ package pl.infoshareacademy;
 import java.util.Objects;
 
 public class SearchResult {
-    private boolean isLink;
-    private String categoryName;
-    private int categoryId;
+    private final boolean isLink;
+    private final String categoryName;
+    private final int categoryId;
 
     public SearchResult(String name, int catID, boolean isLink) {
         this.isLink = isLink;
