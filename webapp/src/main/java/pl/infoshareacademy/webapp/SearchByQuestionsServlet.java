@@ -68,7 +68,7 @@ public class SearchByQuestionsServlet extends HttpServlet {
                 String link = AllegroLink.makeLink(foundCategoryName, foundCategoryId);
                 output = "<p> Link do kategorii " + foundCategoryName + "</p>" + "<a href=" + link + ">" + link + "</a>" +
                         " <p><a href=\"javascript:history.back()\">Poprzednia kategoria</a></p>" +
-                        " <p><a href=\"form\">Powrót do pierwszej kategorii</a></p>" +
+                        " <p><a href=\"form1\">Powrót do pierwszej kategorii</a></p>" +
                         " <p><a href=\"main\">Strona główna</a></p>";
             } else {
                 output = "<p>Czy jesteś zainteresowany produktami z kategorii " + foundCategoryName + "?<br/></p>" +
@@ -78,7 +78,7 @@ public class SearchByQuestionsServlet extends HttpServlet {
                         "   <input type=\"submit\" name=\"theAnswer\" value=\"Nie\"/>" +
                         "</form>" +
                         "   <p><a href=\"javascript:history.back()\">Poprzednia kategoria</a></p>" +
-                        "   <p><a href=\"form\">Powrót do pierwszej kategorii</a></p>" +
+                        "   <p><a href=\"form1\">Powrót do pierwszej kategorii</a></p>" +
                         "   <p><a href=\"main\">Strona główna</a></p>";
             }
         }
