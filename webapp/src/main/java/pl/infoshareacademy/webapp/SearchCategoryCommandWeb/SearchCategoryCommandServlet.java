@@ -1,7 +1,6 @@
 package pl.infoshareacademy.webapp.SearchCategoryCommandWeb;
 
 import com.google.common.base.Joiner;
-import com.google.common.base.Optional;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 import pl.infoshareacademy.AllegroCategory;
@@ -17,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @WebServlet("/searchCategoryCommand")
 public class SearchCategoryCommandServlet extends HttpServlet {
@@ -25,6 +25,8 @@ public class SearchCategoryCommandServlet extends HttpServlet {
     private final ImageFileParser parser = new ImageFileParser();
     private final FileConfiguration fileConfiguration = parser.loadingImageFile();
     private final SearchCategoryCommand categoryCommand = new SearchCategoryCommand("");
+    private final MainCategory main = new MainCategory();
+    private final ImageUrl imUrl = new ImageUrl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -59,13 +61,14 @@ public class SearchCategoryCommandServlet extends HttpServlet {
         List<Card> cards = new ArrayList<Card>();
 
         for (AllegroCategory categoryResult : categoryResults) {
-            Optional<AllegroCategory> mainCategory = getMainCategory(categoryResult, allegroCategories);
+
+            Optional<AllegroCategory> mainCategory = main.getMainCategory(categoryResult, allegroCategories);
             List<AllegroCategory> allParents = getAllParentsCategory(categoryResult, allegroCategories);
 
             String imageUrl;
             if (mainCategory.isPresent()) {
                 int catID = mainCategory.get().getCatID();
-                imageUrl = getImageUrl(picturesList, catID);
+                imageUrl = imUrl.getImageUrl(picturesList, catID);
             } else {
                 imageUrl = "";
             }
@@ -74,29 +77,6 @@ public class SearchCategoryCommandServlet extends HttpServlet {
             cards.add(card);
         }
         return cards;
-    }
-
-    private String getImageUrl(List<CategoryPicture> picturesList, int catID) {
-        for (CategoryPicture picture : picturesList) {
-            if (picture.getId() == catID) {
-                return picture.getUrl();
-            }
-        }
-        return "";
-    }
-
-    private Optional<AllegroCategory> getMainCategory(AllegroCategory categoryResult, List<AllegroCategory> allCategories) {
-        if (categoryResult.getParent() == 0) {
-            return Optional.of(categoryResult);
-        } else {
-            int parent = categoryResult.getParent();
-            for (AllegroCategory allCategory : allCategories) {
-                if (allCategory.getCatID() == parent) {
-                    return getMainCategory(allCategory, allCategories);
-                }
-            }
-        }
-        return Optional.absent();
     }
 
     private List<AllegroCategory> getAllParentsCategory(AllegroCategory categoryResult, List<AllegroCategory> list){
