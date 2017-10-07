@@ -1,4 +1,4 @@
-package pl.infoshareacademy.webapp.SearchCategoryCommandWeb;
+package pl.infoshareacademy.webapp.searchCategoryCommandWeb;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

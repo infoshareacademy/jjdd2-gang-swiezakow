@@ -1,4 +1,4 @@
-package pl.infoshareacademy.webapp.SearchQueryCommandWeb;
+package pl.infoshareacademy.webapp.searchQueryCommandWeb;
 
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
@@ -6,11 +6,11 @@ import pl.infoshareacademy.AllegroCategory;
 import pl.infoshareacademy.AllegroCategoryLoader;
 import pl.infoshareacademy.AllegroCategorySearcher;
 
-import pl.infoshareacademy.webapp.SearchCategoryCommandWeb.CategoryPicture;
-import pl.infoshareacademy.webapp.SearchCategoryCommandWeb.FileConfiguration;
-import pl.infoshareacademy.webapp.SearchCategoryCommandWeb.ImageFileParser;
-import pl.infoshareacademy.webapp.SearchCategoryCommandWeb.ImageUrl;
-import pl.infoshareacademy.webapp.SearchCategoryCommandWeb.MainCategory;
+import pl.infoshareacademy.webapp.searchCategoryCommandWeb.CategoryPicture;
+import pl.infoshareacademy.webapp.searchCategoryCommandWeb.FileConfiguration;
+import pl.infoshareacademy.webapp.searchCategoryCommandWeb.ImageFileParser;
+import pl.infoshareacademy.webapp.searchCategoryCommandWeb.ImageUrl;
+import pl.infoshareacademy.webapp.searchCategoryCommandWeb.MainCategory;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

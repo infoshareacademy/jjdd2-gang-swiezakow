@@ -1,4 +1,4 @@
-package pl.infoshareacademy.webapp.SearchQueryCommandWeb;
+package pl.infoshareacademy.webapp.searchQueryCommandWeb;
 
 public class QueryCard {
     private final String backgroundUrl;
