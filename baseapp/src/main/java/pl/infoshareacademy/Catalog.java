@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.ejb.Singleton;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -23,13 +24,24 @@ public class Catalog {
         Configuration config = ConfigurationLoader.getConfiguration();
         String categoryFilePath = config.getFilePath();
 
-        if (!Files.exists(Paths.get(categoryFilePath))) {
+        try {
+            updateCatalog(categoryFilePath);
+        } catch (FileNotFoundException e) {
             LOGGER.error("Categories not found under {}. Putting default ones there.", categoryFilePath);
             try (InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("Allegro_cathegories_2016-02-13.xml")) {
                 Files.copy(is, Paths.get(categoryFilePath));
-            } catch (IOException e) {
+                updateCatalog(categoryFilePath);
+            } catch (IOException ioe) {
                 LOGGER.error("Error while storing categories under {}", categoryFilePath, e);
+                throw new RuntimeException("Cannot determine path for categories xml file. Issue with file " + categoryFilePath);
             }
+        }
+    }
+
+    public void updateCatalog(String categoryFilePath) throws FileNotFoundException {
+        if (!Files.exists(Paths.get(categoryFilePath))) {
+            LOGGER.error("File not fount {}", categoryFilePath);
+            throw new FileNotFoundException("File " + categoryFilePath + " not found");
         }
 
         LOGGER.info("Loading categories from {}", categoryFilePath);
@@ -37,6 +49,7 @@ public class Catalog {
         idToSubcategories = loader.loadCategoryTree(categoryFilePath);
         initIdToCategory();
         LOGGER.info("Loaded {} categories", idToCategory.size());
+
     }
 
     public static Catalog catalogForFile(String categoryFilePath) {

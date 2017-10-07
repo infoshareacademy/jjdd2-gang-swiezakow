@@ -1,5 +1,7 @@
 package pl.infoshareacademy.webapp;
 
+import org.jtwig.JtwigModel;
+import org.jtwig.JtwigTemplate;
 import pl.infoshareacademy.AllegroLink;
 import pl.infoshareacademy.SearchByQuestions;
 import pl.infoshareacademy.SearchResult;
@@ -11,10 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Optional;
 
-@WebServlet("/form1")
+@WebServlet("SearchByQuestions")
 public class SearchByQuestionsServlet extends HttpServlet {
 
     @Inject
@@ -53,12 +54,12 @@ public class SearchByQuestionsServlet extends HttpServlet {
             }
         }
 
-        //3. Przygotowanie wyjcia
         String output;
-        String returnCommand;
 
         if (!isResultPresent) {
-            output = "Niestety nie udało się znaleźć interesującej Cię kategorii";
+            JtwigTemplate template = JtwigTemplate.classpathTemplate("html/SearchByQuestions/searchByQuestionsNoCategory.html");
+            JtwigModel model = JtwigModel.newModel();
+            output = template.render(model);
         } else {
             String foundCategoryName = searchResult.getCategoryName();
             int foundCategoryId = searchResult.getCategoryId();
@@ -66,25 +67,22 @@ public class SearchByQuestionsServlet extends HttpServlet {
 
             if (isLink) {
                 String link = AllegroLink.makeLink(foundCategoryName, foundCategoryId);
-                output = "<p> Link do kategorii " + foundCategoryName + "</p>" + "<a href=" + link + ">" + link + "</a>" +
-                        " <p><a href=\"javascript:history.back()\">Poprzednia kategoria</a></p>" +
-                        " <p><a href=\"form1\">Powrót do pierwszej kategorii</a></p>" +
-                        " <p><a href=\"main\">Strona główna</a></p>";
+                JtwigTemplate template = JtwigTemplate.classpathTemplate("html/SearchByQuestions/searchByQuestionsLink.html");
+                JtwigModel model = JtwigModel.newModel()
+                        .with("link", link);
+                output = template.render(model);
             } else {
-                output = "<p>Czy jesteś zainteresowany produktami z kategorii " + foundCategoryName + "?<br/></p>" +
-                        "<form method=\"GET\"> " +
-                        "   <input type=\"hidden\" name=\"categoryId\" value=\"" + foundCategoryId + "\"/>" +
-                        "   <input type=\"submit\" name=\"theAnswer\" value=\"Tak\"/>" +
-                        "   <input type=\"submit\" name=\"theAnswer\" value=\"Nie\"/>" +
-                        "</form>" +
-                        "   <p><a href=\"javascript:history.back()\">Poprzednia kategoria</a></p>" +
-                        "   <p><a href=\"form1\">Powrót do pierwszej kategorii</a></p>" +
-                        "   <p><a href=\"main\">Strona główna</a></p>";
+                JtwigTemplate template = JtwigTemplate.classpathTemplate("html/SearchByQuestions/searchByQuestionsForm.html");
+                JtwigModel model = JtwigModel.newModel()
+                        .with("categoryName", foundCategoryName)
+                        .with("categoryId", foundCategoryId);
+                output = template.render(model);
             }
         }
 
-        //4. wyswietlanie
-        PrintWriter writer = resp.getWriter();
-        writer.write("<html><head><meta charset=\"utf-8\" /></head><title>Search By Questions</title><body>" + output + "</body></html>");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("html/SearchByQuestions/searchByQuestions.html");
+        JtwigModel model = JtwigModel.newModel()
+                .with("output", output);
+        template.render(model, resp.getOutputStream());
     }
 }
