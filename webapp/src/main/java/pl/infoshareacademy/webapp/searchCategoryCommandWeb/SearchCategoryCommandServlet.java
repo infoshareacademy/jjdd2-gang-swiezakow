@@ -1,6 +1,8 @@
 package pl.infoshareacademy.webapp.searchCategoryCommandWeb;
 
 import com.google.common.base.Joiner;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 import pl.infoshareacademy.AllegroCategory;
@@ -20,6 +22,8 @@ import java.util.Optional;
 
 @WebServlet("/searchCategoryCommand")
 public class SearchCategoryCommandServlet extends HttpServlet {
+    private static final Logger logger = LogManager.getLogger(SearchCategoryCommandServlet.class);
+
     private final AllegroCategoryLoader loader = new AllegroCategoryLoader();
     private final AllegroCategorySearcher searcher = new AllegroCategorySearcher();
     private final ImageFileParser parser = new ImageFileParser();
@@ -32,9 +36,11 @@ public class SearchCategoryCommandServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String[] terms = req.getParameterMap().get("searchTerm");
         if (terms == null || terms.length == 0) {
+            logger.info("Category terms was not provided");
             renderPage(resp, "", "");
         } else {
             String searchTerm = terms[0];
+            logger.info("SearchTerm = " + searchTerm);
             List<Card> results = findCategories(searchTerm);
             StringBuilder allCards = new StringBuilder();
             for (Card result : results) {
@@ -69,13 +75,17 @@ public class SearchCategoryCommandServlet extends HttpServlet {
             if (mainCategory.isPresent()) {
                 int catID = mainCategory.get().getCatID();
                 imageUrl = imUrl.getImageUrl(picturesList, catID);
+                logger.debug("returned imageUrl = " + imageUrl);
             } else {
+                logger.warn("main category was not found");
+                logger.debug("returned empty imageUrl");
                 imageUrl = "";
             }
 
             Card card = new Card(allParents, imageUrl);
             cards.add(card);
         }
+        logger.debug("returned " + cards.size() + " cards");
         return cards;
     }
 
@@ -92,6 +102,7 @@ public class SearchCategoryCommandServlet extends HttpServlet {
                 }
             }
         }
+        logger.debug("returned " + allParentCategory.size() + " for category " + categoryResult.getCatID());
         return allParentCategory;
     }
 

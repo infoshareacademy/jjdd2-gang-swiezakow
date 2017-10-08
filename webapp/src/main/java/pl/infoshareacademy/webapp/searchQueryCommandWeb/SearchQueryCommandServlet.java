@@ -1,11 +1,12 @@
 package pl.infoshareacademy.webapp.searchQueryCommandWeb;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 import pl.infoshareacademy.AllegroCategory;
 import pl.infoshareacademy.AllegroCategoryLoader;
 import pl.infoshareacademy.AllegroCategorySearcher;
-
 import pl.infoshareacademy.webapp.searchCategoryCommandWeb.CategoryPicture;
 import pl.infoshareacademy.webapp.searchCategoryCommandWeb.FileConfiguration;
 import pl.infoshareacademy.webapp.searchCategoryCommandWeb.ImageFileParser;
@@ -23,6 +24,8 @@ import java.util.Optional;
 
 @WebServlet("/searchQueryCommand")
 public class SearchQueryCommandServlet extends HttpServlet {
+    private static final Logger logger = LogManager.getLogger(SearchQueryCommandServlet.class);
+
     private final AllegroCategoryLoader loader = new AllegroCategoryLoader();
     private final AllegroCategorySearcher searcher = new AllegroCategorySearcher();
     private final ImageFileParser fileParser = new ImageFileParser();
@@ -34,9 +37,11 @@ public class SearchQueryCommandServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String[] terms = req.getParameterMap().get("searchTerm");
         if (terms == null || terms.length == 0) {
+            logger.info("searchTerm was not provided");
             renderPage(resp, "", "");
         } else {
             String searchTerm = terms[0];
+            logger.debug("searchTerm = " + searchTerm);
             List<QueryCard> results = findCategory(searchTerm);
             StringBuilder allCards = new StringBuilder();
             for (QueryCard card : results) {
@@ -82,12 +87,14 @@ public class SearchQueryCommandServlet extends HttpServlet {
                 imUrl = imageUrl.getImageUrl(pictures, catId);
                 imName = mainCategory.get().getName();
             } else {
+                logger.warn("main category was not found");
                 imUrl = "";
                 imName= "";
             }
             QueryCard card = new QueryCard(imUrl, imName, phrase);
             cards.add(card);
         }
+        logger.debug("returned " + cards.size() + " cards");
         return cards;
     }
 

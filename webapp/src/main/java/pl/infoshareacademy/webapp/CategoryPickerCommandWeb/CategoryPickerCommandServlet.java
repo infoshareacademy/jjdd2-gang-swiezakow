@@ -1,5 +1,7 @@
 package pl.infoshareacademy.webapp.CategoryPickerCommandWeb;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 import pl.infoshareacademy.AllegroCategory;
@@ -24,6 +26,8 @@ import java.util.Optional;
 
 @WebServlet("/categoryPickerCommand")
 public class CategoryPickerCommandServlet extends HttpServlet {
+    private static final Logger logger = LogManager.getLogger(CategoryPickerCommandServlet.class);
+
     private final AllegroCategoryLoader loader = new AllegroCategoryLoader();
     private final ImageUrl imUrl = new ImageUrl();
     private final ImageFileParser parser = new ImageFileParser();
@@ -35,9 +39,12 @@ public class CategoryPickerCommandServlet extends HttpServlet {
         String[] catIds = req.getParameterMap().get("catId");
         int catId;
         if(catIds == null || catIds.length == 0) {
+            logger.info("Category ID was not provided");
+            logger.debug("Set ID: 0");
             catId = 0;
         } else {
             catId = Integer.parseInt(catIds[0]);
+            logger.debug("Category id = " + catId);
         }
         List<PickerCommandCard> pickerCommandCards = showMainCategories(catId);
         StringBuilder allCards = new StringBuilder();
@@ -74,12 +81,15 @@ public class CategoryPickerCommandServlet extends HttpServlet {
         List<AllegroCategory> categories = categoryTree.get(id);
 
         if (categories != null) {
+            logger.info("Categories list was not empty");
             for (AllegroCategory category : categories) {
                 Optional<AllegroCategory> mainCategory = this.mainCategory.getMainCategory(category, allCategories);
                 int mainCatId = mainCategory.isPresent() ? mainCategory.get().getCatID() : 0;
-
+                logger.debug("MainCategoryId = " + mainCatId);
                 int catID = category.getCatID();
+                logger.debug("Category ID = " +catID);
                 String name = category.getName();
+                logger.debug("Category name = " +name);
                 boolean lastCategory = !categoryTree.containsKey(catID);
 
                 PickerCommandCard card = new PickerCommandCard(lastCategory, catID, name,
