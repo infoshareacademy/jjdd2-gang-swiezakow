@@ -69,6 +69,7 @@ public class Catalog {
     private void initIdToCategory() {
         if (idToSubcategories == null || idToSubcategories.isEmpty()) {
             LOGGER.warn("no categories");
+            idToCategory = Collections.emptyMap();
             return;
         }
 
