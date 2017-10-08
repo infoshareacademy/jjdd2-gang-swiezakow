@@ -26,19 +26,22 @@ public class UploadFile extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html;charset=UTF-8");
-        PrintWriter writer = resp.getWriter();
-        writer.println("<!DOCTYPE html>");
-        writer.println("<html>");
-        writer.println("<body>");
-        writer.println("<form action=\"index\" method=\"post\" enctype=\"multipart/form-data\">");
-        writer.println("<p>Select the XML file with data: ");
-        writer.println("<input type=\"file\" name=\"fileXML\"/>");
-        writer.println("</p>");
-        writer.println("<button type=\"submit\">Send</button>");
-        writer.println("</form>");
-        writer.println("</body>");
-        writer.println("</html>");
+        //resp.setContentType("text/html;charset=UTF-8");
+        //PrintWriter writer = resp.getWriter();
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("html/uploadFile.html");
+        JtwigModel model = JtwigModel.newModel();
+        template.render(model, resp.getOutputStream());
+//        writer.println("<!DOCTYPE html>");
+//        writer.println("<html>");
+//        writer.println("<body>");
+//        writer.println("<form action=\"index\" method=\"post\" enctype=\"multipart/form-data\">");
+//        writer.println("<p>Select the XML file with data: ");
+//        writer.println("<input type=\"file\" name=\"fileXML\"/>");
+//        writer.println("</p>");
+//        writer.println("<button type=\"submit\">Send</button>");
+//        writer.println("</form>");
+//        writer.println("</body>");
+//        writer.println("</html>");
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
