@@ -107,13 +107,7 @@ public class SearchCategoryCommandServlet extends HttpServlet {
     private String getParentLinks(List<AllegroCategory> parents, String searchTerm) {
         List<String> list = new ArrayList<String>();
         for (int i = parents.size() - 1; i >= 0; i--) {
-            String url;
-            if (i != parents.size() - 1) {
-                url = categoryCommand.generateLink(parents.get(i), parents.get(i + 1), searchTerm);
-            } else {
-                url = categoryCommand.generateLink(parents.get(i), null, searchTerm);
-            }
-
+            String url = categoryCommand.generateLink(parents.get(i), searchTerm);
             String aLink = String.format("<a style=\"color: white; text-shadow: 2px 2px 2px #333333;\" href=\"%s\">%s</a>",
                     url, parents.get(i).toString().toUpperCase());
             list.add(aLink);

@@ -39,9 +39,9 @@ public class SearchCategoryCommandTest {
         AllegroCategory allegroCategoryParent = new AllegroCategory(2, "parent Name", 0, 2);
         String phrase = "przykładowa fraza";
 
-        String link = searchCategoryCommand.generateLink(allegroCategory, allegroCategoryParent, phrase);
+        String link = searchCategoryCommand.generateLink(allegroCategory, phrase);
 
-        assertEquals("https://allegro.pl/kategoria/parent-Name-2?string=przykładowa-fraza", link);
+        assertEquals("https://allegro.pl/kategoria/name-1?string=przykładowa-fraza", link);
     }
 
     @Test
@@ -50,9 +50,9 @@ public class SearchCategoryCommandTest {
         AllegroCategory parent = null;
         String phrase = "przykładowa fraza";
 
-        String link = searchCategoryCommand.generateLink(allegroCategory, parent, phrase);
+        String link = searchCategoryCommand.generateLink(allegroCategory, phrase);
 
-        assertEquals("https://allegro.pl/kategoria/category-name?string=przykładowa-fraza", link);
+        assertEquals("https://allegro.pl/kategoria/category-name-1?string=przykładowa-fraza", link);
     }
 
     @Test

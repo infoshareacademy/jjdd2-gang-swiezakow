@@ -1,6 +1,5 @@
 package pl.infoshareacademy;
 
-import com.google.common.annotations.VisibleForTesting;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -85,8 +84,7 @@ public class SearchCategoryCommand {
             return Result.BAD_NUMBER;
         }
 
-        AllegroCategory parent = searcher.findById(allCategories, category.getParent());
-        String link = generateLink(category, parent, line);
+        String link = generateLink(category, line);
         System.out.println();
         System.out.println("W celu przejrzenia listy produktów skorzystaj z linka:");
         System.out.println(link);
@@ -109,15 +107,10 @@ public class SearchCategoryCommand {
         }
     }
 
-    public String generateLink(AllegroCategory category, AllegroCategory parent, String phrase){
+    public String generateLink(AllegroCategory category, String phrase){
         String phraseInLink = phrase.replace(" ", "-");
-        logger.info("generating link for " + category + " and "+ parent + " and "+ phrase);
-        if(parent != null) {
-            String parentInLink = parent.getName().replace(" ", "-");
-            return String.format(config.getLinkForSCC1(), parentInLink, category.getParent(), phraseInLink);
-        } else {
-            String name = category.getName().toLowerCase().replace(" ", "-");
-            return String.format(config.getLinkForSCC2(), name, phraseInLink);
-        }
+        logger.info("generating link for " + category + " and "+ phrase);
+        String name = category.getName().toLowerCase().replace(" ", "-");
+        return String.format(config.getLinkForSCC(), name, category.getCatID(), phraseInLink);
     }
 }
