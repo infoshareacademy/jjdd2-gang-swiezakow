@@ -3,19 +3,14 @@ package pl.infoshareacademy;
 public class Configuration {
     private String filePath;
     private String linkForCPC;
-    private String linkForSCC1;
-    private String linkForSCC2;
+    private String linkForSCC;
     private String linkForAL;
     private int minPhraseLength;
 
     public Configuration() { }
 
-    public String getLinkForSCC2() {
-        return linkForSCC2;
-    }
-
-    public String getLinkForSCC1() {
-        return linkForSCC1;
+    public String getLinkForSCC() {
+        return linkForSCC;
     }
 
     public String getLinkForCPC() {
