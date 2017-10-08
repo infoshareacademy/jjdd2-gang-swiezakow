@@ -7,12 +7,16 @@ import org.jtwig.JtwigTemplate;
 import pl.infoshareacademy.AllegroCategory;
 import pl.infoshareacademy.AllegroCategoryLoader;
 import pl.infoshareacademy.AllegroLink;
+import pl.infoshareacademy.webapp.dao.StatisticsBean;
+import pl.infoshareacademy.webapp.entities.Statistics;
 import pl.infoshareacademy.webapp.searchCategoryCommandWeb.CategoryPicture;
 import pl.infoshareacademy.webapp.searchCategoryCommandWeb.FileConfiguration;
 import pl.infoshareacademy.webapp.searchCategoryCommandWeb.ImageFileParser;
 import pl.infoshareacademy.webapp.searchCategoryCommandWeb.ImageUrl;
 import pl.infoshareacademy.webapp.searchCategoryCommandWeb.MainCategory;
+import pl.infoshareacademy.webapp.statistics.StatisticEvents;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -34,8 +39,12 @@ public class CategoryPickerCommandServlet extends HttpServlet {
     private final FileConfiguration fileConfiguration = parser.loadingImageFile();
     private final MainCategory mainCategory = new MainCategory();
 
+    @Inject
+    private StatisticsBean statisticsBean;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        statisticsBean.addStatistics(new Statistics(StatisticEvents.CATEGORY2_ENTRY.toString(), ""));
         String[] catIds = req.getParameterMap().get("catId");
         int catId;
         if(catIds == null || catIds.length == 0) {
@@ -45,6 +54,7 @@ public class CategoryPickerCommandServlet extends HttpServlet {
         } else {
             catId = Integer.parseInt(catIds[0]);
             logger.debug("Category id = " + catId);
+            statisticsBean.addStatistics(new Statistics(StatisticEvents.CATEGORY2_CHOICE.toString(), catIds[0]));
         }
         List<PickerCommandCard> pickerCommandCards = showMainCategories(catId);
         StringBuilder allCards = new StringBuilder();
