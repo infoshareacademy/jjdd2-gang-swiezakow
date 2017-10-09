@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,7 +41,7 @@ public class SearchCategoryCommandServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        statisticsBean.addStatistics(new Statistics(StatisticEvents.CATEGORY3_ENTRY.toString(), ""));
+        statisticsBean.saveStatistics(new Statistics(StatisticEvents.CATEGORY3_ENTRY.toString(), ""));
 
         String[] terms = req.getParameterMap().get("searchTerm");
         if (terms == null || terms.length == 0) {
@@ -52,7 +51,7 @@ public class SearchCategoryCommandServlet extends HttpServlet {
             String searchTerm = terms[0];
             logger.info("SearchTerm = " + searchTerm);
 
-            statisticsBean.addStatistics(new Statistics(StatisticEvents.CATEGORY3_SEARCH.toString(), searchTerm));
+            statisticsBean.saveStatistics(new Statistics(StatisticEvents.CATEGORY3_SEARCH.toString(), searchTerm));
 
             List<Card> results = findCategories(searchTerm);
             StringBuilder allCards = new StringBuilder();

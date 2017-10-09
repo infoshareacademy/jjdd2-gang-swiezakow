@@ -12,7 +12,7 @@ public class StatisticsBean {
     @PersistenceContext(unitName = "zakupyunit")
     private EntityManager em;
 
-    public void addStatistics(Statistics stats) {
+    public void saveStatistics(Statistics stats) {
         em.persist(stats);
     }
 }

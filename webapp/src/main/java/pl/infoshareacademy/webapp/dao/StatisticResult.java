@@ -2,8 +2,8 @@ package pl.infoshareacademy.webapp.dao;
 
 public class StatisticResult {
 
-    private String name;
-    private Integer number;
+    private final String name;
+    private final Integer number;
 
     public StatisticResult(String name, Integer number) {
         this.name = name;

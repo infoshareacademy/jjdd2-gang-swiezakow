@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
 import java.util.Optional;
 
 @WebServlet("SearchByQuestions")
@@ -37,7 +36,7 @@ public class SearchByQuestionsServlet extends HttpServlet {
         String categoryStringId = req.getParameter("categoryId");
 
         if (categoryStringId == null || theAnswer == null) {
-            statisticsBean.addStatistics(new Statistics(StatisticEvents.CATEGORY1_ENTRY.toString(), ""));
+            statisticsBean.saveStatistics(new Statistics(StatisticEvents.CATEGORY1_ENTRY.toString(), ""));
             categoryStringId = "0";
             theAnswer = "Tak";
 
@@ -71,7 +70,7 @@ public class SearchByQuestionsServlet extends HttpServlet {
             boolean isLink = searchResult.isLink();
 
             if (isLink) {
-                statisticsBean.addStatistics(new Statistics(StatisticEvents.CATEGORY1_CHOICE.toString(), ""+foundCategoryId));
+                statisticsBean.saveStatistics(new Statistics(StatisticEvents.CATEGORY1_CHOICE.toString(), "" + foundCategoryId));
                 String link = AllegroLink.makeLink(foundCategoryName, foundCategoryId);
                 JtwigTemplate template = JtwigTemplate.classpathTemplate("html/SearchByQuestions/searchByQuestionsLink.html");
                 JtwigModel model = JtwigModel.newModel()
