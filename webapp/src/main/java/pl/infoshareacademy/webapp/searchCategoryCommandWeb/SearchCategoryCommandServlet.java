@@ -9,7 +9,11 @@ import pl.infoshareacademy.AllegroCategory;
 import pl.infoshareacademy.AllegroCategoryLoader;
 import pl.infoshareacademy.AllegroCategorySearcher;
 import pl.infoshareacademy.SearchCategoryCommand;
+import pl.infoshareacademy.webapp.dao.StatisticsBean;
+import pl.infoshareacademy.webapp.entities.Statistics;
+import pl.infoshareacademy.webapp.statistics.StatisticEvents;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,8 +36,13 @@ public class SearchCategoryCommandServlet extends HttpServlet {
     private final MainCategory main = new MainCategory();
     private final ImageUrl imUrl = new ImageUrl();
 
+    @Inject
+    private StatisticsBean statisticsBean;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        statisticsBean.saveStatistics(new Statistics(StatisticEvents.CATEGORY3_ENTRY.toString(), ""));
+
         String[] terms = req.getParameterMap().get("searchTerm");
         if (terms == null || terms.length == 0) {
             logger.info("Category terms was not provided");
@@ -41,6 +50,9 @@ public class SearchCategoryCommandServlet extends HttpServlet {
         } else {
             String searchTerm = terms[0];
             logger.info("SearchTerm = " + searchTerm);
+
+            statisticsBean.saveStatistics(new Statistics(StatisticEvents.CATEGORY3_SEARCH.toString(), searchTerm));
+
             List<Card> results = findCategories(searchTerm);
             StringBuilder allCards = new StringBuilder();
             for (Card result : results) {

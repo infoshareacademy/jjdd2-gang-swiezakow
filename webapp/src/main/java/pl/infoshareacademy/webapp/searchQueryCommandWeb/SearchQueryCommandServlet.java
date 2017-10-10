@@ -7,12 +7,16 @@ import org.jtwig.JtwigTemplate;
 import pl.infoshareacademy.AllegroCategory;
 import pl.infoshareacademy.AllegroCategoryLoader;
 import pl.infoshareacademy.AllegroCategorySearcher;
+import pl.infoshareacademy.webapp.dao.StatisticsBean;
+import pl.infoshareacademy.webapp.entities.Statistics;
 import pl.infoshareacademy.webapp.searchCategoryCommandWeb.CategoryPicture;
 import pl.infoshareacademy.webapp.searchCategoryCommandWeb.FileConfiguration;
 import pl.infoshareacademy.webapp.searchCategoryCommandWeb.ImageFileParser;
 import pl.infoshareacademy.webapp.searchCategoryCommandWeb.ImageUrl;
 import pl.infoshareacademy.webapp.searchCategoryCommandWeb.MainCategory;
+import pl.infoshareacademy.webapp.statistics.StatisticEvents;
 
+import javax.inject.Inject;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,8 +37,13 @@ public class SearchQueryCommandServlet extends HttpServlet {
     private final MainCategory main = new MainCategory();
     private final ImageUrl imageUrl = new ImageUrl();
 
+    @Inject
+    private StatisticsBean statisticsBean;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        statisticsBean.saveStatistics(new Statistics(StatisticEvents.CATEGORY4_ENTRY.toString(), ""));
+
         String[] terms = req.getParameterMap().get("searchTerm");
         if (terms == null || terms.length == 0) {
             logger.info("searchTerm was not provided");
@@ -42,6 +51,8 @@ public class SearchQueryCommandServlet extends HttpServlet {
         } else {
             String searchTerm = terms[0];
             logger.debug("searchTerm = " + searchTerm);
+            statisticsBean.saveStatistics(new Statistics(StatisticEvents.CATEGORY4_SEARCH.toString(), searchTerm));
+
             List<QueryCard> results = findCategory(searchTerm);
             StringBuilder allCards = new StringBuilder();
             for (QueryCard card : results) {
