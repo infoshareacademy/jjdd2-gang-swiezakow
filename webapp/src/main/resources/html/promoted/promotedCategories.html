@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Niunia</title>
+</head>
+<body>
+<form action="/webapp/promoted" method="get">
+{% for category in categories %}
+    <input type="checkbox" name="id" value="{{ category.getCatID() }}"
+           {% if (selectedIds.contains(category.getCatID())) %} checked {% endif %}
+    >
+    <a href="/webapp/promoted?parentid={{ category.getCatID() }}">{{ category.getName() }}</a>
+    <br/>
+{% endfor %}
+<input type="submit" name="save" value="Zapisz">
+<input type="hidden" name="parentid" value="{{ actualId }}">
+</form>
+</body>
+</html>
