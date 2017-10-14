@@ -70,7 +70,7 @@ public class SearchByQuestionsServlet extends HttpServlet {
             boolean isLink = searchResult.isLink();
 
             if (isLink) {
-                statisticsBean.saveStatistics(new Statistics(StatisticEvents.CATEGORY1_CHOICE.toString(), ""+foundCategoryId));
+                statisticsBean.saveStatistics(new Statistics(StatisticEvents.CATEGORY1_CHOICE.toString(), "" + foundCategoryId));
                 String link = AllegroLink.makeLink(foundCategoryName, foundCategoryId);
                 JtwigTemplate template = JtwigTemplate.classpathTemplate("html/SearchByQuestions/searchByQuestionsLink.html");
                 JtwigModel model = JtwigModel.newModel()
