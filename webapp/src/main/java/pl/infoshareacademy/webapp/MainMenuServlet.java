@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
 
 @WebServlet("/main")
 public class MainMenuServlet extends HttpServlet {
@@ -24,7 +23,7 @@ public class MainMenuServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        statisticsBean.addStatistics(new Statistics(StatisticEvents.MENU_ENTRY.toString(), ""));
+        statisticsBean.saveStatistics(new Statistics(StatisticEvents.MENU_ENTRY.toString(), ""));
 
         resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");

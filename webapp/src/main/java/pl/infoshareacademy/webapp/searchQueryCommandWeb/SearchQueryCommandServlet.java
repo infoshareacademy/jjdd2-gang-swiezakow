@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,7 +42,7 @@ public class SearchQueryCommandServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        statisticsBean.addStatistics(new Statistics(StatisticEvents.CATEGORY4_ENTRY.toString(), ""));
+        statisticsBean.saveStatistics(new Statistics(StatisticEvents.CATEGORY4_ENTRY.toString(), ""));
 
         String[] terms = req.getParameterMap().get("searchTerm");
         if (terms == null || terms.length == 0) {
@@ -52,7 +51,7 @@ public class SearchQueryCommandServlet extends HttpServlet {
         } else {
             String searchTerm = terms[0];
             logger.debug("searchTerm = " + searchTerm);
-            statisticsBean.addStatistics(new Statistics(StatisticEvents.CATEGORY4_SEARCH.toString(), searchTerm));
+            statisticsBean.saveStatistics(new Statistics(StatisticEvents.CATEGORY4_SEARCH.toString(), searchTerm));
 
             List<QueryCard> results = findCategory(searchTerm);
             StringBuilder allCards = new StringBuilder();
