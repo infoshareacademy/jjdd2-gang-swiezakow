@@ -1,4 +1,4 @@
-package pl.infoshareacademy.webapp.CategoryPickerCommandWeb;
+package pl.infoshareacademy.webapp.categoryPickerCommandWeb;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

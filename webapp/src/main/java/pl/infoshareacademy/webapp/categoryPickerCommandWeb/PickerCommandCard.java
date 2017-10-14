@@ -1,4 +1,4 @@
-package pl.infoshareacademy.webapp.CategoryPickerCommandWeb;
+package pl.infoshareacademy.webapp.categoryPickerCommandWeb;
 
 public class PickerCommandCard {
     private boolean lastCategory;
