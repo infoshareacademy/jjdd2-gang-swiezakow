@@ -1,5 +1,6 @@
 package pl.infoshareacademy.webapp.promotedCategories;
 
+import com.google.common.collect.Iterables;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 import pl.infoshareacademy.AllegroCategory;
@@ -37,6 +38,7 @@ public class PromotedCategoriesServlet extends HttpServlet {
         String[] saves = parameterMap.get("save");
 
         String id = strings != null && strings.length > 0 ? strings[0] : "0";
+
         Integer catId = Integer.parseInt(id);
         List<AllegroCategory> categoriesForParent = service.getAllegroCategoriesForParent(catId);
 

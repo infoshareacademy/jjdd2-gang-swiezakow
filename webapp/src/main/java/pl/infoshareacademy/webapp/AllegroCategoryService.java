@@ -10,11 +10,14 @@ import java.util.Map;
 @Singleton
 public class AllegroCategoryService {
     private AllegroCategoryLoader loader = new AllegroCategoryLoader();
+    private Map<Integer, List<AllegroCategory>> categoriesTree;
+
+    public AllegroCategoryService() {
+        String filePath = System.getProperty("java.io.tmpdir") + "/file.xml";
+        categoriesTree = loader.loadCategoryTree(filePath);
+    }
 
     public List<AllegroCategory> getAllegroCategoriesForParent(Integer catId) {
-        String filePath = System.getProperty("java.io.tmpdir") + "/file.xml";
-        Map<Integer, List<AllegroCategory>> listMap = loader.loadCategoryTree(filePath);
-
-        return listMap.get(catId);
+        return categoriesTree.get(catId);
     }
 }
