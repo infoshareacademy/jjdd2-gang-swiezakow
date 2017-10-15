@@ -28,8 +28,15 @@ public class MainMenuServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");
 
+        String userName = (String) req.getSession().getAttribute("UserName");
+        String userEmail = (String) req.getSession().getAttribute("UserEmail");
+
         JtwigTemplate template = JtwigTemplate.classpathTemplate("html/main.html");
         JtwigModel model = JtwigModel.newModel();
+        if (userName != null && userEmail != null) {
+            model.with("userDetails", "<div id=\"userDetails\">Zalogowano jako " + userName + "(" + userEmail + ")</div>");
+        }
+
         template.render(model, resp.getOutputStream());
     }
 }
