@@ -6,13 +6,16 @@ public class PickerCommandCard {
     private String categoryName;
     private String backgroundURL;
     private String allegroLink;
+    private boolean isPromoted;
 
-    public PickerCommandCard(boolean lastCategory, int catId, String categoryName, String backgroundURL, String allegroLink) {
+    public PickerCommandCard(boolean lastCategory, int catId, String categoryName, String backgroundURL, String allegroLink, boolean isPromoted) {
         this.lastCategory = lastCategory;
         this.catId = catId;
         this.categoryName = categoryName;
         this.backgroundURL = backgroundURL;
         this.allegroLink = allegroLink;
+        this.isPromoted = isPromoted;
+
     }
 
     public String getCategoryName() {
@@ -34,5 +37,7 @@ public class PickerCommandCard {
     public boolean isLastCategory() {
         return lastCategory;
     }
+
+    public boolean isPromoted() { return isPromoted; }
 
 }

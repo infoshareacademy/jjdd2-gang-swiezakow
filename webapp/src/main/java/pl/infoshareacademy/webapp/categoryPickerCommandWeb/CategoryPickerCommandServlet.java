@@ -9,6 +9,7 @@ import pl.infoshareacademy.AllegroCategoryLoader;
 import pl.infoshareacademy.AllegroLink;
 import pl.infoshareacademy.webapp.dao.StatisticsBean;
 import pl.infoshareacademy.webapp.entities.Statistics;
+import pl.infoshareacademy.webapp.promotedCategories.PromotedCategoriesService;
 import pl.infoshareacademy.webapp.searchCategoryCommandWeb.CategoryPicture;
 import pl.infoshareacademy.webapp.searchCategoryCommandWeb.FileConfiguration;
 import pl.infoshareacademy.webapp.searchCategoryCommandWeb.ImageFileParser;
@@ -40,6 +41,9 @@ public class CategoryPickerCommandServlet extends HttpServlet {
 
     @Inject
     private StatisticsBean statisticsBean;
+
+    @Inject
+    private PromotedCategoriesService promotedCategoriesService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -73,6 +77,7 @@ public class CategoryPickerCommandServlet extends HttpServlet {
         String link = card.isLastCategory() ? "#" : "/webapp/categoryPickerCommand?catId=" +card.getCatId();
         JtwigTemplate template = JtwigTemplate.classpathTemplate("html/resultForCategoryPickerCommand.html");
         JtwigModel model = JtwigModel.newModel()
+                .with("isPromoted", card.isPromoted())
                 .with("childerCategoriesLink", link)
                 .with("title", card.getCategoryName())
                 .with("backgroundUrl", card.getBackgroundURL())
@@ -101,9 +106,8 @@ public class CategoryPickerCommandServlet extends HttpServlet {
                 logger.debug("Category name = " +name);
                 boolean lastCategory = !categoryTree.containsKey(catID);
 
-                PickerCommandCard card = new PickerCommandCard(lastCategory, catID, name,
-                        imUrl.getImageUrl(picturesList, mainCatId),
-                        AllegroLink.makeLink(name, catID));
+                PickerCommandCard card = new PickerCommandCard(lastCategory, catID, name, imUrl.getImageUrl(picturesList, mainCatId),
+                        AllegroLink.makeLink(name, catID), promotedCategoriesService.isCategoryPromoted(catID));
                 mainCategories.add(card);
             }
         }

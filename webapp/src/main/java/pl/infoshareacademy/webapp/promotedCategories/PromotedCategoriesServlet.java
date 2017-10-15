@@ -1,11 +1,7 @@
 package pl.infoshareacademy.webapp.promotedCategories;
 
-import com.google.common.collect.Iterables;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
-import pl.infoshareacademy.AllegroCategory;
-import pl.infoshareacademy.webapp.AllegroCategoryService;
-import pl.infoshareacademy.webapp.dao.PromotedCategoriesBean;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -23,10 +19,7 @@ import java.util.stream.Collectors;
 public class PromotedCategoriesServlet extends HttpServlet {
 
     @Inject
-    AllegroCategoryService service;
-
-    @Inject
-    PromotedCategoriesBean promotedCategoriesBean;
+    PromotedCategoriesService categoriesService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -40,28 +33,21 @@ public class PromotedCategoriesServlet extends HttpServlet {
         String id = strings != null && strings.length > 0 ? strings[0] : "0";
 
         Integer catId = Integer.parseInt(id);
-        List<AllegroCategory> categoriesForParent = service.getAllegroCategoriesForParent(catId);
 
         if (saves != null && saves.length > 0) {
-
             ids = ids != null ? ids : new String[]{};
-            List<Integer> deleteCategories = categoriesForParent.stream()
-                    .map(AllegroCategory::getCatID)
-                    .collect(Collectors.toList());
-
-            promotedCategoriesBean.deletePromotedCategories(deleteCategories);
-
             List<Integer> integerList = Arrays.stream(ids)
                     .map(Integer::parseInt)
                     .collect(Collectors.toList());
-            promotedCategoriesBean.savePromotedCategories(integerList);
+            categoriesService.savePromotedCategories(catId, integerList);
         }
 
         JtwigTemplate template = JtwigTemplate.classpathTemplate("html/promoted/promotedCategories.html");
+        PromotedCategoriesData promotedCategory = categoriesService.getPromotedCategoriesData(catId);
         JtwigModel model = JtwigModel.newModel()
-                .with("categories", categoriesForParent)
+                .with("categories", promotedCategory.getCategoriesForParent())
                 .with("actualId", catId)
-                .with("selectedIds", promotedCategoriesBean.getPromotedCategories());
+                .with("selectedIds", promotedCategory.getPromotedCategoriesIds());
 
         template.render(model, resp.getOutputStream());
     }

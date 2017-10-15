@@ -11,6 +11,7 @@ import pl.infoshareacademy.AllegroCategorySearcher;
 import pl.infoshareacademy.SearchCategoryCommand;
 import pl.infoshareacademy.webapp.dao.StatisticsBean;
 import pl.infoshareacademy.webapp.entities.Statistics;
+import pl.infoshareacademy.webapp.promotedCategories.PromotedCategoriesService;
 import pl.infoshareacademy.webapp.statistics.StatisticEvents;
 
 import javax.inject.Inject;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +41,9 @@ public class SearchCategoryCommandServlet extends HttpServlet {
     @Inject
     private StatisticsBean statisticsBean;
 
+    @Inject
+    private PromotedCategoriesService promotedCategoriesService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         statisticsBean.saveStatistics(new Statistics(StatisticEvents.CATEGORY3_ENTRY.toString(), ""));
@@ -54,6 +59,17 @@ public class SearchCategoryCommandServlet extends HttpServlet {
             statisticsBean.saveStatistics(new Statistics(StatisticEvents.CATEGORY3_SEARCH.toString(), searchTerm));
 
             List<Card> results = findCategories(searchTerm);
+
+            Collections.sort(results, (n1, n2) -> {
+                if (n1.isPromoted() == n2.isPromoted()) {
+                    return 0;
+                } else if (n1.isPromoted()) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            });
+
             StringBuilder allCards = new StringBuilder();
             for (Card result : results) {
                 allCards.append(renderCard(result, searchTerm));
@@ -94,18 +110,18 @@ public class SearchCategoryCommandServlet extends HttpServlet {
                 imageUrl = "";
             }
 
-            Card card = new Card(allParents, imageUrl);
+            Card card = new Card(allParents, imageUrl, promotedCategoriesService.isCategoryPromoted(categoryResult.getCatID()));
             cards.add(card);
         }
         logger.debug("returned " + cards.size() + " cards");
         return cards;
     }
 
-    private List<AllegroCategory> getAllParentsCategory(AllegroCategory categoryResult, List<AllegroCategory> list){
+    private List<AllegroCategory> getAllParentsCategory(AllegroCategory categoryResult, List<AllegroCategory> list) {
         int parent = categoryResult.getParent();
         List<AllegroCategory> allParentCategory = new ArrayList<AllegroCategory>();
         allParentCategory.add(categoryResult);
-        while(parent != 0) {
+        while (parent != 0) {
             for (AllegroCategory allCategory : list) {
                 if (allCategory.getCatID() == parent) {
                     allParentCategory.add(allCategory);
@@ -122,8 +138,10 @@ public class SearchCategoryCommandServlet extends HttpServlet {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("html/result.html");
         String title = getParentLinks(card.getAllParents(), searchTerm);
         JtwigModel model = JtwigModel.newModel()
+                .with("isPromoted", card.isPromoted())
                 .with("title", title)
                 .with("backgroundUrl", card.getBackgroundUrl());
+
         return template.render(model);
     }
 

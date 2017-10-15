@@ -3,6 +3,7 @@
     background-size: cover;
     background-position-y: center;
     border-radius: 20px;
+    {% if(isPromoted) %} border: 5px chartreuse solid; {% endif %}
     box-shadow: 2px 3px 10px #333;">
         <a style="color: white; text-shadow: 2px 2px 2px #333333" href="{{ childerCategoriesLink }}">
             <h4 class="card-title" style="text-shadow: 2px 2px 2px #333333; margin-bottom: 60px; background: rgba(255, 255, 255, 0.4); font-size: 2.0em; padding: 1%; font-weight: 200; text-align: center">{{ title }}</h4>
