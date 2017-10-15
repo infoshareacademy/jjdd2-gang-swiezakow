@@ -9,6 +9,7 @@ import pl.infoshareacademy.AllegroCategoryLoader;
 import pl.infoshareacademy.AllegroCategorySearcher;
 import pl.infoshareacademy.webapp.dao.StatisticsBean;
 import pl.infoshareacademy.webapp.entities.Statistics;
+import pl.infoshareacademy.webapp.promotedCategories.PromotedCategoriesService;
 import pl.infoshareacademy.webapp.searchCategoryCommandWeb.CategoryPicture;
 import pl.infoshareacademy.webapp.searchCategoryCommandWeb.FileConfiguration;
 import pl.infoshareacademy.webapp.searchCategoryCommandWeb.ImageFileParser;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +42,9 @@ public class SearchQueryCommandServlet extends HttpServlet {
     @Inject
     private StatisticsBean statisticsBean;
 
+    @Inject
+    private PromotedCategoriesService promotedCategoriesService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         statisticsBean.saveStatistics(new Statistics(StatisticEvents.CATEGORY4_ENTRY.toString(), ""));
@@ -54,6 +59,17 @@ public class SearchQueryCommandServlet extends HttpServlet {
             statisticsBean.saveStatistics(new Statistics(StatisticEvents.CATEGORY4_SEARCH.toString(), searchTerm));
 
             List<QueryCard> results = findCategory(searchTerm);
+
+            Collections.sort(results, (n1, n2) -> {
+                if(n1.isPromoted() == n2.isPromoted()) {
+                    return 0;
+                } else if (n1.isPromoted()) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            });
+
             StringBuilder allCards = new StringBuilder();
             for (QueryCard card : results) {
                 allCards.append(renderCard(card));
@@ -73,7 +89,9 @@ public class SearchQueryCommandServlet extends HttpServlet {
     private String renderCard(QueryCard card) {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("html/resultForQueryCommand.html");
         String title = card.getCategoryName();
-        JtwigModel model = JtwigModel.newModel().with("title", title)
+        JtwigModel model = JtwigModel.newModel()
+                .with("isPromoted", card.isPromoted())
+                .with("title", title)
                 .with("backgroundUrl", card.getBackgroundUrl())
                 .with("phrase", card.getPhrase());
 
@@ -102,7 +120,7 @@ public class SearchQueryCommandServlet extends HttpServlet {
                 imUrl = "";
                 imName= "";
             }
-            QueryCard card = new QueryCard(imUrl, imName, phrase);
+            QueryCard card = new QueryCard(imUrl, imName, promotedCategoriesService.isCategoryPromoted(result.getCatID()), phrase);
             cards.add(card);
         }
         logger.debug("returned " + cards.size() + " cards");

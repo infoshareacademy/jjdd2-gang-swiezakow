@@ -8,10 +8,12 @@ public class Card {
 
     private final List<AllegroCategory> allParents;
     private final String backgroundUrl;
+    private final boolean isPromoted;
 
-    public Card(List<AllegroCategory> allParents, String backgroundUrl) {
+    public Card(List<AllegroCategory> allParents, String backgroundUrl, boolean isPromoted) {
         this.allParents = allParents;
         this.backgroundUrl = backgroundUrl;
+        this.isPromoted = isPromoted;
     }
 
     public String getBackgroundUrl() {
@@ -20,5 +22,9 @@ public class Card {
 
     public List<AllegroCategory> getAllParents() {
         return allParents;
+    }
+
+    public boolean isPromoted() {
+        return isPromoted;
     }
 }
