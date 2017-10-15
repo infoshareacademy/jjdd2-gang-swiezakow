@@ -13,10 +13,10 @@ import java.util.stream.Collectors;
 public class PromotedCategoriesService {
 
     @Inject
-    PromotedCategoriesBean promotedCategoriesBean;
+    private PromotedCategoriesBean promotedCategoriesBean;
 
     @Inject
-    AllegroCategoryService service;
+    private AllegroCategoryService service;
 
     public void savePromotedCategories(Integer catId, List<Integer> ids) {
         List<AllegroCategory> categoriesForParent = service.getAllegroCategoriesForParent(catId);
