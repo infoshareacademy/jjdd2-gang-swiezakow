@@ -24,6 +24,9 @@ public class UploadFile extends HttpServlet {
     @Inject
     private Catalog catalog;
 
+    @Inject
+    private AllegroCategoryService allegroCategoryService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html;charset=UTF-8");
@@ -42,25 +45,11 @@ public class UploadFile extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
-        InputStream inputStreamXML = null;
-        OutputStream outputStreamXML = null;
         try {
             Part fileXML = req.getPart("fileXML");
+            allegroCategoryService.saveAllegroCategoryFile(fileXML.getInputStream());
+            catalog.updateCatalog(allegroCategoryService.getFilePath());
 
-            inputStreamXML = fileXML.getInputStream();
-            String tmpDir = System.getProperty("java.io.tmpdir");
-            String XMLFilePath = tmpDir + "/file.xml";
-
-            outputStreamXML = new FileOutputStream(new File(XMLFilePath));
-            int readXML = 0;
-            byte[] bytesXML = new byte[1024];
-            while ((readXML = inputStreamXML.read(bytesXML)) != -1) {
-                outputStreamXML.write(bytesXML, 0, readXML);
-            }
-            //resp.getWriter().println("done");
-
-            outputStreamXML.close();
-            catalog.updateCatalog(XMLFilePath);
             JtwigTemplate template = JtwigTemplate.classpathTemplate("html/main.html");
             JtwigModel model = JtwigModel.newModel();
             model.with("message", "" +
@@ -75,19 +64,6 @@ public class UploadFile extends HttpServlet {
         } catch (ServletException e) {
             e.printStackTrace();
             logger.error("Something gone wrong, try again");
-
-        } finally {
-            try {
-                if (inputStreamXML != null) {
-                    inputStreamXML.close();
-                }
-                if (outputStreamXML != null){
-                    outputStreamXML.close();
-                }
-            } catch (IOException e) {
-                //ignore
-            }
-
         }
     }
 }
