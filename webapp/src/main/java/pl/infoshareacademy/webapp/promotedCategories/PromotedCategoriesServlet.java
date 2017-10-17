@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class PromotedCategoriesServlet extends HttpServlet {
 
     @Inject
-    PromotedCategoriesService categoriesService;
+    private PromotedCategoriesService categoriesService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
