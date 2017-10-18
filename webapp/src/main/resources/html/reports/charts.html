@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
+</head>
+<body>
+    <h1>Licznik odwiedzin</h1>
+    <canvas id="wykres" width="400" height="400"></canvas>
+    <script>
+
+        var mojeDane = {{ json }};
+
+        var ctx = document.getElementById("wykres");
+        var options = {};
+        new Chart(ctx,{
+            type: 'doughnut',
+            data: mojeDane,
+            options: options
+        });
+    </script>
+</body>
+</html>

@@ -1,11 +1,14 @@
 package pl.infoshareacademy.webapp.statistics;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 import pl.infoshareacademy.AllegroCategory;
 import pl.infoshareacademy.AllegroCategoryLoader;
 import pl.infoshareacademy.webapp.dao.StatisticResult;
 import pl.infoshareacademy.webapp.dao.StatisticsResultsBean;
+import pl.infoshareacademy.webapp.raports.DataSets;
+import pl.infoshareacademy.webapp.raports.Report;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -15,10 +18,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @WebServlet("/stats")
 public class StatisticsServlet extends HttpServlet {
+
+    private static final List<String> colors = Arrays.asList("#A7FFEB", "#FF8A80", "#FFE57F", "#B388FF");
 
     @Inject
     private StatisticsResultsBean resultsBean;
@@ -30,24 +37,29 @@ public class StatisticsServlet extends HttpServlet {
         String filePath = System.getProperty("java.io.tmpdir") + "/file.xml";
         List<AllegroCategory> allCategories = loader.loadAllCategories(filePath);
 
-        resp.addHeader("Content-Type", "text/html; charset=UTF-8");
-
-        resp.getWriter().write("<html><body>");
-
-        resp.getWriter().write("<h2>TOP 5 najpopularniejszych kategorii:</h2>");
         List<StatisticResult> mostPopularCategories = resultsBean.getMostPopularCategories();
+
         List<StatisticResult> prettyMostPopularCategories = idNameToCategoryName(mostPopularCategories, allCategories);
-        resp.getWriter().write(getPhrase(prettyMostPopularCategories));
 
-        resp.getWriter().write("<h2>Licznik wejść do poszczególnych kategorii:</h2>");
         List<StatisticResult> numberOfCategoryEntries = resultsBean.getNumberOfCategoryEntries();
-        resp.getWriter().write(getPhrase(numberOfCategoryEntries));
 
-        resp.getWriter().write("<h2>Licznik odwiedzin strony:</h2>");
         List<StatisticResult> numberOfVisistors = resultsBean.getNumberOfVisistors();
-        resp.getWriter().write(getPhrase(numberOfVisistors));
 
-        resp.getWriter().write("</body></html>");
+        DataSets dataSets = new DataSets(colors, numberOfCategoryEntries.stream()
+                .map(StatisticResult::getNumber)
+                .collect(Collectors.toList()));
+        List<String> label = numberOfCategoryEntries.stream()
+                .map(StatisticResult::getName)
+                .collect(Collectors.toList());
+
+        Report report = new Report(Arrays.asList(dataSets), label);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writer().writeValueAsString(report);
+
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("html/reports/charts.html");
+        JtwigModel model = JtwigModel.newModel().with("json", json);
+
+        template.render(model, resp.getOutputStream());
     }
 
     private List<StatisticResult> idNameToCategoryName(List<StatisticResult> list, List<AllegroCategory> allegroCategories) {
@@ -59,26 +71,10 @@ public class StatisticsServlet extends HttpServlet {
         return statisticResults;
     }
 
-    private String renderPage(StatisticResult statisticResult ) throws IOException {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("html/statistics.html");
-        JtwigModel model = new JtwigModel()
-                .with("name", statisticResult.getName())
-                .with("number", statisticResult.getNumber());
-        return template.render(model);
-    }
-
-    private String getPhrase(List<StatisticResult> list) throws IOException {
-        String result = "";
-        for (StatisticResult statisticResult : list) {
-             result = result.concat(renderPage(statisticResult));
-        }
-        return result;
-    }
-
     private String categoryName(int id, List<AllegroCategory> allCategories) {
         String categoryName = "";
         for (AllegroCategory allCategory : allCategories) {
-            if(allCategory.getCatID() == id) {
+            if (allCategory.getCatID() == id) {
                 categoryName = allCategory.getName();
             }
         }
