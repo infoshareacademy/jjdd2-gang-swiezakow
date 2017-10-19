@@ -4,20 +4,81 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
+    <style>
+        .charts {
+            display: flex;
+        }
+        .chart {
+            width: 400px;
+            height: 400px;
+        }
+        .chart canvas {
+            width: 400px;
+            height: 400px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Licznik odwiedzin</h1>
-    <canvas id="wykres" width="400" height="400"></canvas>
+    <div class="charts">
+        <div class="chart">
+            <canvas id="wykres"></canvas>
+        </div>
+        <div class="chart">
+            <canvas id="wykres2"></canvas>
+        </div>
+        <div class="chart">
+            <canvas id="wykres3"></canvas>
+        </div>
+    </div>
+    <div>
+        <canvas id="wykres4"></canvas>
+    </div>
     <script>
 
         var mojeDane = {{ json }};
+        var mojeDane2 = {{ json2 }};
+        var mojeDane3 = {{ json3 }};
+        var mojeDane4 = {{ json4 }};
 
         var ctx = document.getElementById("wykres");
-        var options = {};
+        var options = {
+            width: 400,
+            height: 400
+        };
         new Chart(ctx,{
             type: 'doughnut',
             data: mojeDane,
             options: options
+        });
+
+        var ctx2 = document.getElementById("wykres2");
+        var options2 = {
+            width: 400,
+            height: 400
+        };
+        new Chart(ctx2,{
+            type: 'doughnut',
+            data: mojeDane2,
+            options: options2
+        });
+
+        var ctx3 = document.getElementById("wykres3");
+        var options3 = {
+            width: 400,
+            height: 400
+        };
+        new Chart(ctx3,{
+            type: 'doughnut',
+            data: mojeDane3,
+            options: options3
+        });
+
+        var ctx4 = document.getElementById("wykres4");
+        var options4 = {};
+        new Chart(ctx4, {
+            type: 'line',
+            data: mojeDane4,
+            options: options4
         });
     </script>
 </body>
