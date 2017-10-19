@@ -21,17 +21,17 @@
 <body>
     <div class="charts">
         <div class="chart">
-            <canvas id="wykres"></canvas>
+            <canvas id="chart"></canvas>
         </div>
         <div class="chart">
-            <canvas id="wykres2"></canvas>
+            <canvas id="chart2"></canvas>
         </div>
         <div class="chart">
-            <canvas id="wykres3"></canvas>
+            <canvas id="chart3"></canvas>
         </div>
     </div>
     <div>
-        <canvas id="wykres4"></canvas>
+        <canvas id="chart4"></canvas>
     </div>
     <script>
 
@@ -40,7 +40,7 @@
         var data3 = {{ json3 }};
         var data4 = {{ json4 }};
 
-        var ctx = document.getElementById("wykres");
+        var ctx = document.getElementById("chart");
         var options = {
             width: 400,
             height: 400
@@ -51,7 +51,7 @@
             options: options
         });
 
-        var ctx2 = document.getElementById("wykres2");
+        var ctx2 = document.getElementById("chart2");
         var options2 = {
             width: 400,
             height: 400
@@ -62,7 +62,7 @@
             options: options2
         });
 
-        var ctx3 = document.getElementById("wykres3");
+        var ctx3 = document.getElementById("chart3");
         var options3 = {
             width: 400,
             height: 400
@@ -73,7 +73,7 @@
             options: options3
         });
 
-        var ctx4 = document.getElementById("wykres4");
+        var ctx4 = document.getElementById("chart4");
         var options4 = {};
         new Chart(ctx4, {
             type: 'line',
