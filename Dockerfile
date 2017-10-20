@@ -1,13 +1,14 @@
 FROM jboss/wildfly:10.1.0.Final
 
-MAINTAINER "Gang swiezakow"
-
-#CMD sudo docker run --name="zakupy" -it -e MYSQL_ROOT_PASSWORD=pass -p 3306 -d mysql
-#CMD sudo docker exec -it zakupy mysql -uroot -p=pass
-#CMD create database zakupydb;
+MAINTAINER "Gang Swieżaków"
 
 
-#COPY webapp/target/webapp.war /opt/jboss/wildfly/standalone/deployments/
+
+RUN mkdir -p wildfly/modules/system/layers/base/com/mysql/driver/main
+ADD config/mysql.module.xml wildfly/modules/system/layers/base/com/mysql/driver/main/module.xml
+ADD config/mysql-connector-java-5.1.44-bin.jar wildfly/modules/system/layers/base/com/mysql/driver/main/
+
+
 EXPOSE 8080:8888
 
 RUN wildfly/bin/add-user.sh root pass --silent
@@ -15,5 +16,7 @@ RUN wildfly/bin/add-user.sh root pass --silent
 
 
 CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
+
+ADD docker/standalone.xml $WILDFLY_HOME/standalone/configuration
 
 
