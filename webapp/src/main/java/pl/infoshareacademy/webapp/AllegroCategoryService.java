@@ -76,6 +76,16 @@ public class AllegroCategoryService {
         return null;
     }
 
+    public String getCategoryName(int id) {
+        String categoryName = "";
+        for (AllegroCategory allCategory : categories) {
+            if (allCategory.getCatID() == id) {
+                categoryName = allCategory.getName();
+            }
+        }
+        return categoryName;
+    }
+
     public List<AllegroCategory> getAllegroCategoriesForParent(Integer catId) {
         return categoriesTree.get(catId);
     }

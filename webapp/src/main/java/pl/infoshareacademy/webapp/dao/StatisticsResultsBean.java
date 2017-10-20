@@ -31,6 +31,7 @@ public class StatisticsResultsBean {
         Query query = em.createQuery("SELECT sc.parametr AS Phrase, count(sc.parametr) FROM Statistics sc WHERE sc.name LIKE 'CATEGORY__CH%' GROUP BY sc.parametr ORDER BY sc.parametr DESC ");
         query = query.setMaxResults(5);
         List<Object[]> resultList = query.getResultList();
+
         return getResults(resultList);
     }
 
@@ -44,5 +45,20 @@ public class StatisticsResultsBean {
             results.add(sr);
         }
         return results;
+    }
+
+    public List<StatisticResult> getMostPopularPhrase() {
+        Query query = em.createQuery("SELECT sc.parametr AS Phrase, count(sc.parametr) FROM Statistics sc WHERE sc.name LIKE 'CATEGORY__SE%' GROUP BY sc.parametr ORDER BY sc.parametr DESC ");
+        query = query.setMaxResults(5);
+        List<Object[]> resultList = query.getResultList();
+
+        return getResults(resultList);
+    }
+
+    public List<StatisticResult> getEntriesPerDay() {
+        Query query = em.createQuery("SELECT DATE_FORMAT(sc.date, '%Y-%m-%d %H:%i') AS date, COUNT(sc.parametr) FROM Statistics sc WHERE sc.name LIKE 'M%' GROUP BY DATE_FORMAT(sc.date, '%Y-%m-%d %H:%i')");
+        List<Object[]> resultList = query.getResultList();
+
+        return getResults(resultList);
     }
 }
