@@ -5,8 +5,8 @@ MAINTAINER "Gang Swieżaków"
 
 
 RUN mkdir -p wildfly/modules/system/layers/base/com/mysql/driver/main
-ADD config/mysql.module.xml wildfly/modules/system/layers/base/com/mysql/driver/main/module.xml
-ADD config/mysql-connector-java-5.1.44-bin.jar wildfly/modules/system/layers/base/com/mysql/driver/main/
+ADD docker/mysql.module.xml $WILDFLY_HOME/modules/system/layers/base/com/mysql/driver/main/module.xml
+ADD docker/mysql-connector-java-5.1.44-bin.jar $WILDFLY_HOME/modules/system/layers/base/com/mysql/driver/main/
 
 
 EXPOSE 8080:8888
