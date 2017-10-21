@@ -12,8 +12,8 @@ networks:
     -  9990
     depends_on:
       - db
-  db:
-    container_name: "db"
+  zakupydb:
+    container_name: "zakupydb"
     image: mysql:latest
     environment:
       - MYSQL_ROOT_PASSWORD=pass
