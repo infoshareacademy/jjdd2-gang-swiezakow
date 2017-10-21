@@ -2,8 +2,6 @@ package pl.infoshareacademy.webapp;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jtwig.JtwigModel;
-import org.jtwig.JtwigTemplate;
 import pl.infoshareacademy.Catalog;
 
 import javax.inject.Inject;
@@ -14,7 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import java.io.*;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet("/index")
 @MultipartConfig
@@ -49,14 +48,11 @@ public class UploadFile extends HttpServlet {
             Part fileXML = req.getPart("fileXML");
             allegroCategoryService.saveAllegroCategoryFile(fileXML.getInputStream());
             catalog.updateCatalog(allegroCategoryService.getFilePath());
-
-            JtwigTemplate template = JtwigTemplate.classpathTemplate("html/main.html");
-            JtwigModel model = JtwigModel.newModel();
-            model.with("message", "" +
-                    "<div class=\"alert alert-success\" role=\"alert\">\n" +
+            String message = "" + "<div class=\"alert alert-success\" role=\"alert\">\n" +
                     "  Poprawnie załadowano kategorie!\n" +
-                    "</div>");
-            template.render(model, resp.getOutputStream());
+                    "</div>";
+            req.setAttribute("message", message);
+            req.getRequestDispatcher("main.jsp").forward(req, resp);
 
         } catch (IOException e) {
             e.printStackTrace();
