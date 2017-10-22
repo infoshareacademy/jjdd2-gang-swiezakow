@@ -44,13 +44,13 @@ module add --name=com.mysql --resources=/opt/jboss/wildfly/customization/mysql-c
 #data-source add --name=mysqlDS --driver-name=mysql --jndi-name=java:jboss/datasources/ExampleMySQLDS --connection-url=jdbc:mysql://$MYSQL_SERVICE_HOST:$MYSQL_SERVICE_PORT/sample?useUnicode=true&amp;characterEncoding=UTF-8 --user-name=mysql --password=mysql --use-ccm=false --max-pool-size=25 --blocking-timeout-wait-millis=5000 --enabled=true
 #data-source add --name=mysqlDS --driver-name=mysql --jndi-name=java:jboss/datasources/ExampleMySQLDS --connection-url=jdbc:mysql://$DB_PORT_3306_TCP_ADDR:$DB_PORT_3306_TCP_PORT/sample?useUnicode=true&amp;characterEncoding=UTF-8 --user-name=mysql --password=mysql --use-ccm=false --max-pool-size=25 --blocking-timeout-wait-millis=5000 --enabled=true
 #data-source add --name=mysqlDS --driver-name=mysql --jndi-name=java:jboss/datasources/ExampleMySQLDS --connection-url=jdbc:mysql://$MYSQL_SERVICE_SERVICE_HOST:$MYSQL_SERVICE_SERVICE_PORT/sample --user-name=mysql --password=mysql --use-ccm=false --max-pool-size=25 --blocking-timeout-wait-millis=5000 --enabled=true
-data-source add --name=mysqlDS --driver-name=mysql --jndi-name=java:jboss/datasources/ExampleMySQLDS --connection-url=jdbc:mysql://$MYSQL_URI/sample?useUnicode=true&amp;characterEncoding=UTF-8 --user-name=admin --password=pass --use-ccm=false --max-pool-size=25 --blocking-timeout-wait-millis=5000 --enabled=true
+data-source add --name=zakupyDS --driver-name=mysql --jndi-name=java:/zakupyDS --connection-url=jdbc:mysql://$MYSQL_URI/sample?useUnicode=true&amp;characterEncoding=UTF-8 --user-name=admin --password=pass --use-ccm=false --max-pool-size=25 --blocking-timeout-wait-millis=5000 --enabled=true
 # Execute the batch
 run-batch
 EOF
 
 # Deploy the WAR
-cp target/wepapp.war $JBOSS_HOME/$JBOSS_MODE/deployments/webapp.war
+cp /opt/jboss/wildfly/webapp.war $JBOSS_HOME/$JBOSS_MODE/deployments/webapp.war
 
 echo "=> Shutting down WildFly"
 if [ "$JBOSS_MODE" = "standalone" ]; then
@@ -60,4 +60,4 @@ else
 fi
 
 echo "=> Restarting WildFly"
-$JBOSS_HOME/bin/$JBOSS_MODE.sh -b 0.0.0.0 -c $JBOSS_CONFIG
+$JBOSS_HOME/bin/$JBOSS_MODE.sh -b 0.0.0.0 -c $JBOSS_CONFIG -bmanagement 0.0.0.0
