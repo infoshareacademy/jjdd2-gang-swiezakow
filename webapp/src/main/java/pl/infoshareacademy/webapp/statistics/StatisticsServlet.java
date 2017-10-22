@@ -1,8 +1,6 @@
 package pl.infoshareacademy.webapp.statistics;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.jtwig.JtwigModel;
-import org.jtwig.JtwigTemplate;
 import pl.infoshareacademy.AllegroCategoryLoader;
 import pl.infoshareacademy.webapp.dao.StatisticsResultsBean;
 
@@ -34,13 +32,11 @@ public class StatisticsServlet extends HttpServlet {
         String json3 = objectMapper.writer().writeValueAsString(statisticService.getStatsForMostPopularPhrase());
         String json4 = objectMapper.writer().writeValueAsString(statisticService.getEntriesPerDay());
 
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("html/reports/charts.html");
-        JtwigModel model = JtwigModel.newModel()
-                .with("json", json)
-                .with("json2", json2)
-                .with("json3", json3)
-                .with("json4", json4);
+        req.setAttribute("json", json);
+        req.setAttribute("json2", json2);
+        req.setAttribute("json3", json3);
+        req.setAttribute("json4", json4);
 
-        template.render(model, resp.getOutputStream());
+        req.getRequestDispatcher("/charts.jsp").forward(req, resp);
     }
 }

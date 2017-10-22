@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="pl PL">
 <head>
     <meta charset="utf-8">
@@ -17,12 +18,16 @@
         * {
             font-family: 'Lato', sans-serif;
         }
+
     </style>
 </head>
 <body>
 <div class="container mt-1">
-    {{message}}
-{{ output }}
+    ${message}
+    <p><a href="SearchByQuestions">Wyszukiwanie na podstawie serii pytań</a></p>
+    <p><a href="searchCategoryCommand">Wyszukiwanie produktu</a></p>
+    <p><a href="categoryPickerCommand">Wyszukiwanie kategorii Allegro</a></p>
+    <p><a href="searchQueryCommand">Asysent Allegro</a></p>
 </div>
 </body>
 </html>

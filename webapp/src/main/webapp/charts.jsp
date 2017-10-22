@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -35,10 +35,10 @@
     </div>
     <script>
 
-        var data = {{ json }};
-        var data2 = {{ json2 }};
-        var data3 = {{ json3 }};
-        var data4 = {{ json4 }};
+        var data = ${json};
+        var data2 = ${json2};
+        var data3 = ${json3};
+        var data4 = ${json4};
 
         var ctx = document.getElementById("chart");
         var options = {

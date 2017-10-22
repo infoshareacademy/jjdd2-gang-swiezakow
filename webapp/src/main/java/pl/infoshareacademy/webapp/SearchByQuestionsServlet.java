@@ -1,7 +1,7 @@
 package pl.infoshareacademy.webapp;
 
-import org.jtwig.JtwigModel;
-import org.jtwig.JtwigTemplate;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import pl.infoshareacademy.AllegroLink;
 import pl.infoshareacademy.SearchByQuestions;
 import pl.infoshareacademy.SearchResult;
@@ -20,6 +20,8 @@ import java.util.Optional;
 
 @WebServlet("SearchByQuestions")
 public class SearchByQuestionsServlet extends HttpServlet {
+
+    private final static Logger logger = LogManager.getLogger(SearchByQuestionsServlet.class);
 
     @Inject
     private SearchByQuestions searchByQuestions;
@@ -58,36 +60,23 @@ public class SearchByQuestionsServlet extends HttpServlet {
             }
         }
 
-        String output;
+        req.setAttribute("isResultNotPresent", !isResultPresent);
 
-        if (!isResultPresent) {
-            JtwigTemplate template = JtwigTemplate.classpathTemplate("html/SearchByQuestions/searchByQuestionsNoCategory.html");
-            JtwigModel model = JtwigModel.newModel();
-            output = template.render(model);
-        } else {
+        if (isResultPresent) {
             String foundCategoryName = searchResult.getCategoryName();
             int foundCategoryId = searchResult.getCategoryId();
             boolean isLink = searchResult.isLink();
-
+            logger.info("Is link: " + isLink);
+            req.setAttribute("isLink", isLink);
+            req.setAttribute("categoryName", foundCategoryName);
+            req.setAttribute("categoryId", foundCategoryId);
             if (isLink) {
                 statisticsBean.saveStatistics(new Statistics(StatisticEvents.CATEGORY1_CHOICE.toString(), "" + foundCategoryId));
                 String link = AllegroLink.makeLink(foundCategoryName, foundCategoryId);
-                JtwigTemplate template = JtwigTemplate.classpathTemplate("html/SearchByQuestions/searchByQuestionsLink.html");
-                JtwigModel model = JtwigModel.newModel()
-                        .with("link", link);
-                output = template.render(model);
-            } else {
-                JtwigTemplate template = JtwigTemplate.classpathTemplate("html/SearchByQuestions/searchByQuestionsForm.html");
-                JtwigModel model = JtwigModel.newModel()
-                        .with("categoryName", foundCategoryName)
-                        .with("categoryId", foundCategoryId);
-                output = template.render(model);
+                req.setAttribute("link", link);
             }
         }
 
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("html/SearchByQuestions/searchByQuestions.html");
-        JtwigModel model = JtwigModel.newModel()
-                .with("output", output);
-        template.render(model, resp.getOutputStream());
+        req.getRequestDispatcher("searchByQuestions.jsp").forward(req, resp);
     }
 }
