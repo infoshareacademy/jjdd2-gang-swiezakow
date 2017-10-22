@@ -2,8 +2,6 @@ package pl.infoshareacademy.webapp;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jtwig.JtwigModel;
-import org.jtwig.JtwigTemplate;
 import pl.infoshareacademy.Catalog;
 
 import javax.inject.Inject;
@@ -14,7 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import java.io.*;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet("/index")
 @MultipartConfig
@@ -23,6 +22,9 @@ public class UploadFile extends HttpServlet {
 
     @Inject
     private Catalog catalog;
+
+    @Inject
+    private AllegroCategoryService allegroCategoryService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -42,32 +44,15 @@ public class UploadFile extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
-        InputStream inputStreamXML = null;
-        OutputStream outputStreamXML = null;
         try {
             Part fileXML = req.getPart("fileXML");
-
-            inputStreamXML = fileXML.getInputStream();
-            String tmpDir = System.getProperty("java.io.tmpdir");
-            String XMLFilePath = tmpDir + "/file.xml";
-
-            outputStreamXML = new FileOutputStream(new File(XMLFilePath));
-            int readXML = 0;
-            byte[] bytesXML = new byte[1024];
-            while ((readXML = inputStreamXML.read(bytesXML)) != -1) {
-                outputStreamXML.write(bytesXML, 0, readXML);
-            }
-            //resp.getWriter().println("done");
-
-            outputStreamXML.close();
-            catalog.updateCatalog(XMLFilePath);
-            JtwigTemplate template = JtwigTemplate.classpathTemplate("html/main.html");
-            JtwigModel model = JtwigModel.newModel();
-            model.with("message", "" +
-                    "<div class=\"alert alert-success\" role=\"alert\">\n" +
+            allegroCategoryService.saveAllegroCategoryFile(fileXML.getInputStream());
+            catalog.updateCatalog(allegroCategoryService.getFilePath());
+            String message = "" + "<div class=\"alert alert-success\" role=\"alert\">\n" +
                     "  Poprawnie załadowano kategorie!\n" +
-                    "</div>");
-            template.render(model, resp.getOutputStream());
+                    "</div>";
+            req.setAttribute("message", message);
+            req.getRequestDispatcher("main.jsp").forward(req, resp);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -75,19 +60,6 @@ public class UploadFile extends HttpServlet {
         } catch (ServletException e) {
             e.printStackTrace();
             logger.error("Something gone wrong, try again");
-
-        } finally {
-            try {
-                if (inputStreamXML != null) {
-                    inputStreamXML.close();
-                }
-                if (outputStreamXML != null){
-                    outputStreamXML.close();
-                }
-            } catch (IOException e) {
-                //ignore
-            }
-
         }
     }
 }

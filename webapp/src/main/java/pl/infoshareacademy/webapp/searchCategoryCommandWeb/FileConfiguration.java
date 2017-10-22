@@ -4,7 +4,7 @@ import java.util.List;
 
 public class FileConfiguration {
 
-    public List<CategoryPicture> pictureList;
+    private List<CategoryPicture> pictureList;
 
     public List<CategoryPicture> getPictureList() {
         return pictureList;

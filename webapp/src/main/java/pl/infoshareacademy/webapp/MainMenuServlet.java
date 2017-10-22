@@ -28,6 +28,7 @@ public class MainMenuServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");
 
+        req.getRequestDispatcher("main.jsp").forward(req, resp);
         String userName = (String) req.getSession().getAttribute("UserName");
         String userEmail = (String) req.getSession().getAttribute("UserEmail");
 
