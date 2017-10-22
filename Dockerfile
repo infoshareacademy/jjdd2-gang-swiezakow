@@ -1,6 +1,21 @@
-FROM jboss/wildfly:latest
-#FROM Gang Swiezakow
+FROM jboss/wildfly:10.1.0.Final
 
-ADD customization /opt/jboss/wildfly/customization/
+MAINTAINER "Gang Swieżaków"
 
-CMD ["/opt/jboss/wildfly/customization/execute.sh"]
+
+
+RUN mkdir -p /opt/jboss/wildfly/modules/system/layers/base/com/mysql/main
+COPY docker/mysql.module.xml /opt/jboss/wildfly/modules/system/layers/base/com/mysql/main/module.xml
+COPY docker/mysql-connector-java-5.1.44-bin.jar /opt/jboss/wildfly/modules/system/layers/base/com/mysql/main/
+COPY docker/standalone.xml /opt/jboss/wildfly/standalone/configuration
+
+EXPOSE 8080:8888
+
+RUN wildfly/bin/add-user.sh root pass --silent
+
+
+CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
+
+
+
+
