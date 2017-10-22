@@ -2,6 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="pl PL">
 <head>
+    <jsp:include page="/head.jsp"/>
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,300i" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
@@ -22,6 +23,14 @@
     </style>
 </head>
 <body>
+<ul class="topnav">
+    <li><a class="active" href="SearchByQuestions">Wyszukiwanie na podstawie serii pytań</a></li>
+    <li><a href="searchCategoryCommand">Wyszukiwanie produktu</a></li>
+    <li><a href="categoryPickerCommand">Wyszukiwanie kategorii Allegro</a></li>
+    <li><a href="searchQueryCommand">Asysent Allegro</a></li>
+    <li class="right"><a href="stats">Statystyki</a></li>
+    <li class="right"><a href="">O nas</a></li>
+</ul>
 <div class="container mt-1">
     <c:choose>
         <c:when test="${isResultNotPresent}">
