@@ -5,6 +5,14 @@
     <jsp:include page="/head.jsp"/>
 </head>
 <body>
+<ul class="topnav">
+    <li><a href="SearchByQuestions">Wyszukiwanie na podstawie serii pytań</a></li>
+    <li><a href="searchCategoryCommand">Wyszukiwanie produktu</a></li>
+    <li><a href="categoryPickerCommand">Wyszukiwanie kategorii Allegro</a></li>
+    <li><a class="active" href="searchQueryCommand">Asysent Allegro</a></li>
+    <li class="right"><a href="stats">Statystyki</a></li>
+    <li class="right"><a href="">O nas</a></li>
+</ul>
 <nav class="navbar navbar-light bg-light">
     <form class="formularz form-inline" method="get">
         <input

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
+    <jsp:include page="/head.jsp"/>
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
@@ -19,6 +20,14 @@
     </style>
 </head>
 <body>
+<ul class="topnav">
+    <li><a href="SearchByQuestions">Wyszukiwanie na podstawie serii pytań</a></li>
+    <li><a href="searchCategoryCommand">Wyszukiwanie produktu</a></li>
+    <li><a href="categoryPickerCommand">Wyszukiwanie kategorii Allegro</a></li>
+    <li><a href="searchQueryCommand">Asysent Allegro</a></li>
+    <li class="right" class="active"><a href="stats">Statystyki</a></li>
+    <li class="right"><a href="">O nas</a></li>
+</ul>
     <div class="charts">
         <div class="chart">
             <canvas id="chart"></canvas>
