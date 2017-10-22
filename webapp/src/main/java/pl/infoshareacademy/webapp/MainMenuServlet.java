@@ -1,8 +1,6 @@
 package pl.infoshareacademy.webapp;
 
 
-import org.jtwig.JtwigModel;
-import org.jtwig.JtwigTemplate;
 import pl.infoshareacademy.webapp.dao.StatisticsBean;
 import pl.infoshareacademy.webapp.entities.Statistics;
 import pl.infoshareacademy.webapp.statistics.StatisticEvents;
@@ -28,8 +26,6 @@ public class MainMenuServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");
 
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("html/main.html");
-        JtwigModel model = JtwigModel.newModel();
-        template.render(model, resp.getOutputStream());
+        req.getRequestDispatcher("main.jsp").forward(req, resp);
     }
 }

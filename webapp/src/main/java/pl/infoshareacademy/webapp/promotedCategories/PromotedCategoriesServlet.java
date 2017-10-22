@@ -1,8 +1,5 @@
 package pl.infoshareacademy.webapp.promotedCategories;
 
-import org.jtwig.JtwigModel;
-import org.jtwig.JtwigTemplate;
-
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,13 +39,12 @@ public class PromotedCategoriesServlet extends HttpServlet {
             categoriesService.savePromotedCategories(catId, integerList);
         }
 
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("html/promoted/promotedCategories.html");
         PromotedCategoriesData promotedCategory = categoriesService.getPromotedCategoriesData(catId);
-        JtwigModel model = JtwigModel.newModel()
-                .with("categories", promotedCategory.getCategoriesForParent())
-                .with("actualId", catId)
-                .with("selectedIds", promotedCategory.getPromotedCategoriesIds());
 
-        template.render(model, resp.getOutputStream());
+        req.setAttribute("categories", promotedCategory.getCategoriesForParent());
+        req.setAttribute("actualId", catId);
+        req.setAttribute("selectedIds", promotedCategory.getPromotedCategoriesIds());
+
+        req.getRequestDispatcher("promotedCategories.jsp").forward(req, resp);
     }
 }

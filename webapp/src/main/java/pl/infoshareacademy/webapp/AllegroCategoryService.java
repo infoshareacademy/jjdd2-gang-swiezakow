@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +35,14 @@ public class AllegroCategoryService {
 
     public String getFilePath() {
         return System.getProperty("java.io.tmpdir") + "/file.xml";
+    }
+
+    public List<AllegroCategory> getAllCategories() {
+        return categories;
+    }
+
+    public Map<Integer, List<AllegroCategory>> getCategoriesTree() {
+        return loader.loadCategoryTree(getFilePath());
     }
 
     public void saveAllegroCategoryFile(InputStream inputStream) {
@@ -74,6 +83,33 @@ public class AllegroCategoryService {
             }
         }
         return null;
+    }
+
+    public String getCategoryName(int id) {
+        String categoryName = "";
+        for (AllegroCategory allCategory : categories) {
+            if (allCategory.getCatID() == id) {
+                categoryName = allCategory.getName();
+            }
+        }
+        return categoryName;
+    }
+
+    public List<AllegroCategory> getAllParentsCategory(AllegroCategory categoryResult) {
+        int parent = categoryResult.getParent();
+        List<AllegroCategory> allParentCategory = new ArrayList<AllegroCategory>();
+        allParentCategory.add(categoryResult);
+        while (parent != 0) {
+            for (AllegroCategory allCategory : categories) {
+                if (allCategory.getCatID() == parent) {
+                    allParentCategory.add(allCategory);
+                    parent = allCategory.getParent();
+                    break;
+                }
+            }
+        }
+        logger.debug("returned " + allParentCategory.size() + " for category " + categoryResult.getCatID());
+        return allParentCategory;
     }
 
     public List<AllegroCategory> getAllegroCategoriesForParent(Integer catId) {
