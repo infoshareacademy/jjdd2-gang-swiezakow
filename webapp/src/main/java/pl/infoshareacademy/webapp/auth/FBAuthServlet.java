@@ -1,8 +1,5 @@
 package pl.infoshareacademy.webapp.auth;
 
-import org.jtwig.JtwigModel;
-import org.jtwig.JtwigTemplate;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +10,9 @@ import java.io.IOException;
 @WebServlet("fblogin")
 public class FBAuthServlet extends HttpServlet {
     private static final String FACEBOOK_APP_ID = "145040069442337";
+    public static final String USER_NAME = "UserName";
+    public static final String USER_EMAIL = "UserEmail";
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -24,14 +24,12 @@ public class FBAuthServlet extends HttpServlet {
 
         if (userName == null || userEmail == null) {
             //wyswietl przycisk logowania
-            JtwigTemplate template = JtwigTemplate.classpathTemplate("html/fblogin.html");
-            JtwigModel model = JtwigModel.newModel();
-            model.with("facebookAppId", FACEBOOK_APP_ID);
-            template.render(model, resp.getOutputStream());
+            req.setAttribute("facebookAppId", FACEBOOK_APP_ID);
+            req.getRequestDispatcher("fblogin.jsp").forward(req, resp);
         } else {
-            //User zalogowany, zapsiz dane do sesji, idz do menu
-            req.getSession().setAttribute("UserName", userName);
-            req.getSession().setAttribute("UserEmail", userEmail);
+            //User zalogowany, zapisz dane do sesji, idz do menu
+            req.getSession().setAttribute(USER_NAME, userName);
+            req.getSession().setAttribute(USER_EMAIL, userEmail);
             resp.sendRedirect("main");
         }
     }
