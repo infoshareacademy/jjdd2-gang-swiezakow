@@ -6,6 +6,7 @@ public class Configuration {
     private String linkForSCC;
     private String linkForAL;
     private int minPhraseLength;
+    private String facebookAppId;
 
     public Configuration() { }
 
@@ -28,4 +29,5 @@ public class Configuration {
     public String getFilePath() {
         return filePath;
     }
+    public String getFacebookAppId() {return facebookAppId;}
 }

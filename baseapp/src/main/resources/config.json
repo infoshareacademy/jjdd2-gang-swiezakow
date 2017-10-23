@@ -3,5 +3,6 @@
   "minPhraseLength" : 3,
   "linkForCPC" : "https://allegro.pl/kategoria/%s-%d",
   "linkForSCC" : "https://allegro.pl/kategoria/%s-%d?string=%s",
-  "linkForAL" : "https://allegro.pl/kategoria/%s-%d"
+  "linkForAL" : "https://allegro.pl/kategoria/%s-%d",
+  "facebookAppId" : "145040069442337"
 }

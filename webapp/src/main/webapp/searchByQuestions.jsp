@@ -20,6 +20,7 @@
             font-family: 'Lato', sans-serif;
         }
     </style>
+    <jsp:include page="/head.jsp"/>
 </head>
 <body>
 <div class="bg-light pt-5">
