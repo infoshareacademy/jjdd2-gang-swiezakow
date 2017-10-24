@@ -4,6 +4,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,4 +63,25 @@ public class StatisticsResultsBean {
 
         return getResults(resultList);
     }
+
+    public List<StatisticResult> getLast30daysVisits() {
+        LocalDate monthAgo = LocalDate.now();
+        monthAgo.minusMonths(1).format(DateTimeFormatter.ISO_LOCAL_DATE);
+        Query query = em.createQuery("select date(date), count(name) from STATISTICS where name like 'M%' AND date(date)>" + monthAgo +" group by date(date)");
+        List<Object[]> resultList = query.getResultList();
+
+        return getResults(resultList);
+    }
+
+//select name, count(date) from STATISTICS group by name; <- ilosc wejsc do featureow
+    //select date(date), count(name) from STATISTICS where name like 'M%' group by date(date); <-ilosc wejsc w danym dniu
+
+    /*
+select distinct (select count(name) from STATISTICS where name like 'M%') as "Visits",
+(select count(name) from STATISTICS where name like 'CATEGORY1%') as "Category 1",
+(select count(name) from STATISTICS where name like 'CATEGORY2%') as "Category 2",
+(select count(name) from STATISTICS where name like 'CATEGORY3%') as "Category 3", (
+select count(name) from STATISTICS where name like 'CATEGORY4%') as "Category 4" from STATISTICS where date(date)>"2017-09-23"
+*/
+
 }

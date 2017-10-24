@@ -22,6 +22,20 @@
     </style>
 </head>
 <body>
+
+<ul class="topnav">
+    <li><a class="active" href="SearchByQuestions">Wyszukiwanie na podstawie serii pytań</a></li>
+    <li><a href="searchCategoryCommand">Wyszukiwanie produktu</a></li>
+    <li><a href="categoryPickerCommand">Wyszukiwanie kategorii Allegro</a></li>
+    <li><a href="searchQueryCommand">Asysent Allegro</a></li>
+    <li class="right"><a href="stats">Statystyki</a></li>
+    <li class="right"><a href="">O nas</a></li>
+</ul>
+<div class="bg-light pt-5">
+    <div class="container mt-1">
+        ${userDetails}
+        ${message}
+    </div>
 <div class="container mt-1">
     <c:choose>
         <c:when test="${isResultNotPresent}">

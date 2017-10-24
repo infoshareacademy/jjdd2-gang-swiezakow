@@ -19,6 +19,51 @@
             font-family: 'Lato', sans-serif;
         }
 
+        </style>
+    </head>
+    <body>
+        <div class="bg-light">
+            <div class="container mt-1">
+                ${userDetails}
+                ${message}
+            </div>
+
+            <div class="container mt-1">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h2>Seria pytań</h2>
+                        <p>Wyszukiwanie na podstawie serii pytań.</p>
+                    </div>
+                    <div class="col-md-3">
+                        <h2>Twój produkt</h2>
+                        <p>Wyszukiwanie produktu.</p>
+                    </div>
+                    <div class="col-md-3">
+                        <h2>Katalog Allegro</h2>
+                        <p>Wyszukiwanie kategorii Allegro.<br></p>
+                     </div>
+                    <div class="col-md-3">
+                        <h2>Asystent Allegro</h2>
+                        <p>Pomaga tworzyć zapytania.<br></p>
+                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p><a class="btn btn-outline-success" href="SearchByQuestions" role="button">Wyszukaj &raquo;</a></p>
+                    </div>
+                    <div class="col-md-3">
+                        <p><a class="btn btn-outline-success" href="searchCategoryCommand" role="button">Wyszukaj &raquo;</a></p>
+                    </div>
+                    <div class="col-md-3">
+                        <p><a class="btn btn-outline-success" href="categoryPickerCommand" role="button">Wyszukaj &raquo;</a></p>
+                    </div>
+                    <div class="col-md-3">
+                        <p><a class="btn btn-outline-success" href="searchQueryCommand" role="button">Wyszukaj &raquo;</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
     </style>
 </head>
 <body>
