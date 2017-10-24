@@ -40,7 +40,7 @@ public class StatisticsResultsBean {
     private List<StatisticResult> getResults(List<Object[]> resultList) {
         List<StatisticResult> results = new ArrayList<>();
         for (Object[] objects : resultList) {
-            String name = (String) objects[0];
+            String name = (String) objects[0].toString();
             Long number = (Long) objects[1];
             StatisticResult sr = new StatisticResult(name, number.intValue());
 
@@ -67,7 +67,7 @@ public class StatisticsResultsBean {
     public List<StatisticResult> getLast30daysVisits() {
         LocalDate monthAgo = LocalDate.now();
         monthAgo.minusMonths(1).format(DateTimeFormatter.ISO_LOCAL_DATE);
-        Query query = em.createQuery("select date(date), count(name) from STATISTICS where name like 'M%' AND date(date)>" + monthAgo +" group by date(date)");
+        Query query = em.createQuery("select date(date), count(name) from Statistics where name like 'M%' AND date(date)>" + monthAgo +" group by date(date)");
         List<Object[]> resultList = query.getResultList();
 
         return getResults(resultList);

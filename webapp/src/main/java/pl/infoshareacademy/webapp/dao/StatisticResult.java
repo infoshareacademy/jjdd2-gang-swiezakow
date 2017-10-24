@@ -17,4 +17,12 @@ public class StatisticResult {
     public Integer getNumber() {
         return number;
     }
+
+    @Override
+    public String toString() {
+        return "StatisticResult{" +
+                "name='" + name + '\'' +
+                ", number=" + number +
+                '}';
+    }
 }
