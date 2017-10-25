@@ -30,7 +30,7 @@ public class MainMenuServlet extends HttpServlet {
 
 
         if (userName != null && userEmail != null) {
-            String userDetails = "<div id=\"userDetails\">Zalogowano jako " + userName + "</div>";
+            String userDetails = "<div id=\"userDetails\">Zalogowano jako " + userName + " (<a href=\"fblogin?logout=1\">Wyloguj</a>)</div>";
             req.setAttribute("userDetails", userDetails);
         }
 

@@ -27,15 +27,27 @@ public class FBAuthServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");
+
+        ConfigurationLoader.loadConfiguration();
+        Configuration config = ConfigurationLoader.getConfiguration();
+        String facebookAppId = config.getFacebookAppId();
+
+        String logout = req.getParameter("logout");
+        if ("1".equals(logout)) {
+            req.getSession().removeAttribute(USER_NAME);
+            req.getSession().removeAttribute(USER_EMAIL);
+
+            req.setAttribute("facebookAppId", facebookAppId);
+            req.getRequestDispatcher("fblogout.jsp").forward(req, resp);
+            return;
+        }
         
         String userName = req.getParameter("user_name");
         String userEmail = req.getParameter("user_email");
         String accessToken = req.getParameter("access_token");
         String userId = req.getParameter("user_id");
 
-        ConfigurationLoader.loadConfiguration();
-        Configuration config = ConfigurationLoader.getConfiguration();
-        String facebookAppId = config.getFacebookAppId();
+
 
         if (userName == null || userEmail == null) {
             //wyswietl przycisk logowania
