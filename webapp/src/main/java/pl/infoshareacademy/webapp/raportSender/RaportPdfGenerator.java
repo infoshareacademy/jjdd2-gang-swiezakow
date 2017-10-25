@@ -1,13 +1,12 @@
 package pl.infoshareacademy.webapp.raportSender;
 
 import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.*;
 
 import java.io.FileOutputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.io.FileOutputStream;
 import java.util.Date;
@@ -28,9 +27,21 @@ import com.itextpdf.text.Section;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import pl.infoshareacademy.webapp.dao.DetailedStatisticsResult;
+import pl.infoshareacademy.webapp.dao.StatisticResult;
+import pl.infoshareacademy.webapp.dao.StatisticsResultsBean;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public class RaportPdfGenerator {
 
+    @Inject
+    StatisticsResultsBean statisticsResultsBean;
+
     private static String FILE = "FirstPdf.pdf";
+
     private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 30,
             Font.BOLD);
     private static Font redFont = new Font(Font.FontFamily.TIMES_ROMAN, 12,
@@ -40,14 +51,14 @@ public class RaportPdfGenerator {
     private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
             Font.BOLD);
 
-    public static void main(String[] args) {
+    public void generatePDF(StatisticsResultsBean statisticsResultsBean) {
         try {
             Document document = new Document();
             PdfWriter.getInstance(document, new FileOutputStream(FILE));
             document.open();
             addMetaData(document);
             addTitlePage(document);
-            addContent(document);
+            addContent(document, statisticsResultsBean);
             document.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -84,7 +95,7 @@ public class RaportPdfGenerator {
         document.newPage();
     }
 
-    private static void addContent(Document document) throws DocumentException {
+    private void addContent(Document document, StatisticsResultsBean statisticsResultsBean) throws DocumentException {
         Anchor anchor = new Anchor("Ilosc odwiedzin", catFont);
         anchor.setName("Ilosc odwiedzin");
 
@@ -94,7 +105,7 @@ public class RaportPdfGenerator {
         Paragraph subPara = new Paragraph("z ostatnich 30 dni", subFont);
         Section subCatPart = catPart.addSection(subPara);
         subCatPart.add(new Paragraph("Hello"));
-        createTable(subCatPart);
+        createTable(subCatPart, statisticsResultsBean);
 
 
         subPara = new Paragraph("ekstrema", subFont);
@@ -129,37 +140,54 @@ public class RaportPdfGenerator {
 
     }
 
-    private static void createTable(Section subCatPart)
+    private void createTable(Section subCatPart, StatisticsResultsBean statisticsResultsBean)
             throws BadElementException {
-        PdfPTable table = new PdfPTable(3);
+        PdfPTable table = new PdfPTable(2);
 
         // t.setBorderColor(BaseColor.GRAY);
         // t.setPadding(4);
         // t.setSpacing(4);
         // t.setBorderWidth(1);
 
-        PdfPCell c1 = new PdfPCell(new Phrase("Table Header 1"));
+        PdfPCell c1 = new PdfPCell(new Phrase("Data"));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("Table Header 2"));
+        c1 = new PdfPCell(new Phrase("Funkcjonalnosc 1"));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("Table Header 3"));
+        c1 = new PdfPCell(new Phrase("Funkcjonalnosc 2"));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Funkcjonalnosc 3"));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Funkcjonalnosc 4"));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Liczba wejsc"));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+
         table.setHeaderRows(1);
 
-        table.addCell("1.0");
-        table.addCell("1.1");
-        table.addCell("1.2");
-        table.addCell("2.1");
-        table.addCell("2.2");
-        table.addCell("2.3");
+        //statisticsResultsBean.getLast30DaysDetails().stream().forEach(d -> putElementsToTable(table, d));
 
         subCatPart.add(table);
 
+    }
+
+    private void putElementsToTable(PdfPTable table, DetailedStatisticsResult detailedStatisticsResult) {
+        table.addCell(detailedStatisticsResult.getDate());
+        table.addCell(String.valueOf(detailedStatisticsResult.getFeature1Quantity()));
+        table.addCell(String.valueOf(detailedStatisticsResult.getFeature2Quantity()));
+        table.addCell(String.valueOf(detailedStatisticsResult.getFeature3Quantity()));
+        table.addCell(String.valueOf(detailedStatisticsResult.getFeature4Quantity()));
+        table.addCell(String.valueOf(detailedStatisticsResult.getVisits()));
     }
 
     private static void createList(Section subCatPart) {

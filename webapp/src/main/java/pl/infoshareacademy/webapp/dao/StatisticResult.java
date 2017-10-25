@@ -3,7 +3,7 @@ package pl.infoshareacademy.webapp.dao;
 public class StatisticResult {
 
     private final String name;
-    private final Integer number;
+    private Integer number = 0;
 
     public StatisticResult(String name, Integer number) {
         this.name = name;
