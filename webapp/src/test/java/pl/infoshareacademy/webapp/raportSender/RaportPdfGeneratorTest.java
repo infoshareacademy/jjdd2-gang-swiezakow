@@ -22,7 +22,7 @@ public class RaportPdfGeneratorTest {
         //given
         RaportPdfGenerator sut = new RaportPdfGenerator();
         //when
-        sut.generatePDF(statisticsResultsBean);
+        //sut.generatePDF();
         //then
         assertTrue(true);
     }
