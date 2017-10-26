@@ -1,7 +1,6 @@
 FROM jboss/wildfly:latest
-#FROM Gang Swiezakow
+FROM Gang_Swiezakow
 RUN /opt/jboss/wildfly/bin/add-user.sh admin admin --silent
-
 ADD customization /opt/jboss/wildfly/customization/
 ADD webapp/target/webapp.war /opt/jboss/wildfly/webapp.war
 RUN mkdir -p /opt/jboss/wildfly/modules/system/layers/base/com/mysql/main
