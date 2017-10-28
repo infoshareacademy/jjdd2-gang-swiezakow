@@ -10,5 +10,4 @@ public class StatisticsStore {
 
     List<RushHourModel> lastMonthUserActivityIntervalStat;
 
-    List<RecipientConfiguration> recipientsConfigurations
 }

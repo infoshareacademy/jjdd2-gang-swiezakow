@@ -1,5 +1,8 @@
 package com.infoshareacademy.api;
 
+import com.infoshareacademy.model.RecipientsConfigurationStore;
+import com.infoshareacademy.model.StatisticsStore;
+import com.infoshareacademy.model.SumDetailedStaticsModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +22,10 @@ public class restClient {
     private UriInfo uriInfo;
 
     @Inject
-    private UserStore userStore;
+    private StatisticsStore statisticsStore;
+
+    @Inject
+    private RecipientsConfigurationStore recipientsConfigurationStore;
 
     @GET
     @Path("/user-agent")
@@ -161,4 +167,15 @@ public class restClient {
         return Response.noContent().build();
     }
 
+    @GET
+    @Path("/activetasks")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getActiveTasks() {
+        return Response.ok(recipientsConfigurationStore.getRecipientsConfigurations()).build();
+    }
+
+    @POST
+    @Path("/add-recipien-configuration")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response
 }
