@@ -81,7 +81,6 @@ public class StatisticsResultsBean {
             }
         }
         return rushHourModelList;
-
     }
 
     private List<RushHourModel> convertQueryToRushHourModel(List<Object[]> resultList) {

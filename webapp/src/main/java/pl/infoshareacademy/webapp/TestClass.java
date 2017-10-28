@@ -1,6 +1,9 @@
 package pl.infoshareacademy.webapp;
 
 import org.apache.logging.log4j.LogManager;
+import pl.infoshareacademy.webapp.chartsGenerator.CompareEntriesChart;
+import pl.infoshareacademy.webapp.chartsGenerator.RushHoursCharts;
+import pl.infoshareacademy.webapp.chartsGenerator.VisitsNumberChart;
 import pl.infoshareacademy.webapp.dao.StatisticsResultsBean;
 import pl.infoshareacademy.webapp.raportSender.RaportPdfGenerator;
 
@@ -17,23 +20,47 @@ import java.io.PrintWriter;
 public class TestClass extends HttpServlet {
 
     @Inject
-    private StatisticsResultsBean statisticsResultsBean;
+    private StatisticsResultsBean dataBaseResults;
+
+    @Inject
+    private CompareEntriesChart compareEntriesChart;
+
+    @Inject
+    private VisitsNumberChart visitsNumberChart;
+
+    @Inject
+    private RushHoursCharts rushHoursCharts;
 
     private final static org.apache.logging.log4j.Logger logger = LogManager.getLogger(TestClass.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RaportPdfGenerator raportPdfGenerator = new RaportPdfGenerator();
-        raportPdfGenerator.generatePDF(statisticsResultsBean);
 
 
         PrintWriter out = resp.getWriter();
 
-        statisticsResultsBean.getLastMonthDetails().forEach(s -> out.println(s.toString()));
+        dataBaseResults.getLastMonthDetails().forEach(s -> out.println(s.toString()));
 
-        out.println(statisticsResultsBean.getSumDetailedStatistics().toString());
+        out.println(dataBaseResults.getSumDetailedStatistics().toString());
 
-        statisticsResultsBean.getRushHourStatistics().forEach(rushHourModel -> out.println(rushHourModel.toString()));
+        try {
+            compareEntriesChart.generateCompareEntriesChart();
+            visitsNumberChart.getVisitsNumberChart();
+            rushHoursCharts.generateRushHoursCharts();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        RaportPdfGenerator raportPdfGenerator = new RaportPdfGenerator();
+        raportPdfGenerator.generatePDF(dataBaseResults);
+
+//        EmailSender emailSender = new EmailSender();
+//        emailSender.sendEmail("bogumilp98@gmail.com");
+
+
+        dataBaseResults.getRushHourStatistics().forEach(rushHourModel -> out.println(rushHourModel.toString()));
+
+
 
     }
 }

@@ -2,7 +2,6 @@ package pl.infoshareacademy.webapp.raportSender;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import pl.infoshareacademy.webapp.AllegroCategoryService;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -15,12 +14,11 @@ import javax.mail.internet.MimeMultipart;
 import java.util.Date;
 import java.util.Properties;
 
-
 public class EmailSender {
 
     private static final Logger logger = LogManager.getLogger(EmailSender.class);
 
-    public static void sendEmail(String recipient) {
+    public void sendEmail(String recipient) {
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "465");
@@ -63,7 +61,7 @@ public class EmailSender {
 
             // Part two is attachment
             messageBodyPart = new MimeBodyPart();
-            String filename = "raport.pdf";
+            String filename = "Raport.pdf";
             DataSource source = new FileDataSource(filename);
             messageBodyPart.setDataHandler(new DataHandler(source));
             messageBodyPart.setFileName(filename);

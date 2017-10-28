@@ -12,6 +12,7 @@ import pl.infoshareacademy.webapp.dao.SumDetailedStaticsModel;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,9 +21,9 @@ import java.time.format.DateTimeFormatter;
 public class RaportPdfGenerator {
 
     @Inject
-    StatisticsResultsBean statisticsResultsBean;
+    StatisticsResultsBean dataBaseResult;
 
-    private static String FILE = "Raport123.pdf";
+    private static String FILE = "Raport.pdf";
 
     private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 30,
             Font.BOLD);
@@ -33,14 +34,14 @@ public class RaportPdfGenerator {
     private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
             Font.BOLD);
 
-    public void generatePDF(StatisticsResultsBean statisticsResultsBean) {
+    public void generatePDF(StatisticsResultsBean dataBaseResult) {
         try {
             Document document = new Document();
             PdfWriter.getInstance(document, new FileOutputStream(FILE));
             document.open();
             addMetaData(document);
             addTitlePage(document);
-            addContent(document, statisticsResultsBean);
+            addContent(document, dataBaseResult);
             document.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,19 +80,15 @@ public class RaportPdfGenerator {
         document.newPage();
     }
 
-    private void addContent(Document document, StatisticsResultsBean statisticsResultsBean) throws DocumentException {
+    private void addContent(Document document, StatisticsResultsBean dataBaseResult) throws DocumentException, IOException {
         Anchor anchor = new Anchor("Users activity from last month", catFont);
-//        anchor.setName("Users activity from last month");
-
-        // Second parameter is the number of the chapter
         Chapter catPart = new Chapter(new Paragraph(anchor), 1);
 
         Paragraph subPara = new Paragraph("a number of entries to the individual features", subFont);
         addEmptyLine(subPara, 1);
-        Section subCatPart = catPart.addSection(subPara);
-        createTable(subCatPart, statisticsResultsBean);
 
-        Section legend = catPart.addSection(subPara);
+        Section subCatPart = catPart.addSection(subPara);
+
         subCatPart.add(new Paragraph("D - day"));
         subCatPart.add(new Paragraph("F1 - feature1"));
         subCatPart.add(new Paragraph("F2 - feature2"));
@@ -99,10 +96,40 @@ public class RaportPdfGenerator {
         subCatPart.add(new Paragraph("F4 - feature4"));
         subCatPart.add(new Paragraph("M - menu"));
 
+        createTable(subCatPart, dataBaseResult);
+
+        addEmptyLine(subPara, 1);
+
         document.newPage();
-        subPara = new Paragraph("a number of user entries at each hour", subFont);
-            subCatPart = catPart.addSection(subPara);
-        createTableForRushHours(subCatPart, statisticsResultsBean);
+
+        subPara = new Paragraph("charts", subFont);
+        addEmptyLine(subPara, 1);
+
+        subCatPart = catPart.addSection(subPara);
+
+        Image barChart = Image.getInstance("BarChart.png");
+        barChart.scalePercent(60);
+        barChart.setAlignment(Image.ALIGN_CENTER);
+        subCatPart.add(barChart);
+
+        Image lineChart = Image.getInstance("LineChart.png");
+        lineChart.scalePercent(60);
+        lineChart.setAlignment(Image.ALIGN_CENTER);
+        subCatPart.add(lineChart);
+
+        addEmptyLine(subPara, 5);
+
+        document.newPage();
+        subCatPart = catPart.addSection(new Paragraph("a number of user visits at each hour", subFont));
+
+
+        createTableForRushHours(subCatPart, dataBaseResult);
+
+        Image lineChart1 = Image.getInstance("LineChart1.png");
+        lineChart1.scalePercent(60);
+        lineChart1.setAlignment(Image.ALIGN_CENTER);
+        subCatPart.add(lineChart1);
+
         subCatPart.add(new Paragraph("Paragraph 1"));
         subCatPart.add(new Paragraph("Paragraph 2"));
         subCatPart.add(new Paragraph("Paragraph 3"));
@@ -133,12 +160,12 @@ public class RaportPdfGenerator {
 
     }
 
-    private void createTableForRushHours(Section section, StatisticsResultsBean statisticsResultsBean) throws BadElementException {
+    private void createTableForRushHours(Section section, StatisticsResultsBean dataBaseResult) throws BadElementException {
         PdfPTable table = new PdfPTable(24);
 
         Integer i = 0;
         for (RushHourModel r :
-                statisticsResultsBean.getRushHourStatistics()) {
+                dataBaseResult.getRushHourStatistics()) {
             PdfPCell c1 = new PdfPCell(new Phrase(i.toString()));
             c1.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(c1);
@@ -148,7 +175,7 @@ public class RaportPdfGenerator {
         table.setHeaderRows(1);
 
         for (RushHourModel r:
-             statisticsResultsBean.getRushHourStatistics()) {
+             dataBaseResult.getRushHourStatistics()) {
             table.addCell(r.getQuantity().toString());
         }
 
@@ -156,7 +183,7 @@ public class RaportPdfGenerator {
 
     }
 
-    private void createTable(Section subCatPart, StatisticsResultsBean statisticsResultsBean)
+    private void createTable(Section subCatPart, StatisticsResultsBean dataBaseResult)
             throws BadElementException {
         PdfPTable table = new PdfPTable(6);
 
@@ -185,14 +212,14 @@ public class RaportPdfGenerator {
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
 
-        c1 = new PdfPCell(new Phrase("V"));
+        c1 = new PdfPCell(new Phrase("M"));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c1);
 
         table.setHeaderRows(1);
 
-        statisticsResultsBean.getLastMonthDetails().forEach(d -> putLastMonthDetailsToTable(table, d));
-        putSumDetailedStatisticsToTable(table, statisticsResultsBean.getSumDetailedStatistics());
+        dataBaseResult.getLastMonthDetails().forEach(d -> putLastMonthDetailsToTable(table, d));
+        putSumDetailedStatisticsToTable(table, dataBaseResult.getSumDetailedStatistics());
 
         subCatPart.add(table);
 
@@ -208,7 +235,7 @@ public class RaportPdfGenerator {
     }
 
     private void putSumDetailedStatisticsToTable(PdfPTable table, SumDetailedStaticsModel details) {
-        table.addCell("PODSUMOWANIE");
+        table.addCell("Overview");
         table.addCell(String.valueOf(details.getFeature1Sum()));
         table.addCell(String.valueOf(details.getFeature2Sum()));
         table.addCell(String.valueOf(details.getFeature3Sum()));

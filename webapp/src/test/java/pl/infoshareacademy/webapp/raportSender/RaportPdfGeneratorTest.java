@@ -20,7 +20,7 @@ public class RaportPdfGeneratorTest {
     @Test
     public void generatePDF() throws Exception {
         //given
-        RaportPdfGenerator sut = new RaportPdfGenerator();
+//        RaportPdfGenerator sut = new RaportPdfGenerator();
         //when
         //sut.generatePDF();
         //then
