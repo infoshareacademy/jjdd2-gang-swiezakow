@@ -29,5 +29,6 @@ public class Configuration {
     public String getFilePath() {
         return filePath;
     }
+
     public String getFacebookAppId() {return facebookAppId;}
 }

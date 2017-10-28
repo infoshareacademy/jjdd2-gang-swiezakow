@@ -47,15 +47,11 @@ public class FBAuthServlet extends HttpServlet {
         String accessToken = req.getParameter("access_token");
         String userId = req.getParameter("user_id");
 
-
-
         if (userName == null || userEmail == null) {
-            //wyswietl przycisk logowania
 
             req.setAttribute("facebookAppId", facebookAppId);
             req.getRequestDispatcher("fblogin.jsp").forward(req, resp);
         } else {
-            //weryfikacja accessToken
             String APP_SECRET = "e447a6099a07e4eb7cab1ad19ef6ae50";
             try {
                 HttpResponse<JsonNode> response = Unirest.get("https://graph.facebook.com/debug_token")
@@ -66,7 +62,6 @@ public class FBAuthServlet extends HttpServlet {
                 LOGGER.info(response.getStatus() + response.getBody().toString());
                 String uid = response.getBody().getObject().getJSONObject("data").getString("user_id");
                 if (uid.equals(userId)) {
-                    //User zalogowany, zapisz dane do sesji, idz do menu
                     req.getSession().setAttribute(USER_NAME, userName);
                     req.getSession().setAttribute(USER_EMAIL, userEmail);
                     resp.sendRedirect("main");
