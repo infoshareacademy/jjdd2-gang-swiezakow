@@ -19,6 +19,9 @@
             if (response.status === 'connected') {
                 FB.logout(function () {
                     document.getElementById("status").innerHTML = "Wylogowano";
+                    setTimeout(function(){
+                      window.location.href = "main";
+                    }, 2000);
                 });
             }
         });

@@ -31,7 +31,9 @@ public class FBAuthServlet extends HttpServlet {
 
         ConfigurationLoader.loadConfiguration();
         Configuration config = ConfigurationLoader.getConfiguration();
-        String facebookAppId = config.getFacebookAppId();
+        String facebookAppId = config.isUseTestFB() ? config.getTestFacebookAppId() : config.getFacebookAppId();
+        String facebookAppSecret = config.isUseTestFB() ? config.getTestFacebookAppSecret() : config.getFacebookAppSecret();
+
 
         String logout = req.getParameter("logout");
         if ("1".equals(logout)) {
@@ -59,7 +61,7 @@ public class FBAuthServlet extends HttpServlet {
             req.setAttribute("facebookAppId", facebookAppId);
             req.getRequestDispatcher("fblogin.jsp").forward(req, resp);
         } else {
-            String APP_SECRET = "e447a6099a07e4eb7cab1ad19ef6ae50";
+            String APP_SECRET = facebookAppSecret;
             try {
                 HttpResponse<JsonNode> response = Unirest.get("https://graph.facebook.com/debug_token")
                         .queryString("input_token", accessToken)

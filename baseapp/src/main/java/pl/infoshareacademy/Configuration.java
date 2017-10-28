@@ -7,6 +7,26 @@ public class Configuration {
     private String linkForAL;
     private int minPhraseLength;
     private String facebookAppId;
+    private String testFacebookAppId;
+    private String facebookAppSecret;
+    private String testFacebookAppSecret;
+    private boolean useTestFB;
+
+    public boolean isUseTestFB() {
+        return useTestFB;
+    }
+
+    public String getTestFacebookAppId() {
+        return testFacebookAppId;
+    }
+
+    public String getFacebookAppSecret() {
+        return facebookAppSecret;
+    }
+
+    public String getTestFacebookAppSecret() {
+        return testFacebookAppSecret;
+    }
 
     public Configuration() { }
 
