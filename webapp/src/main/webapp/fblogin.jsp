@@ -3,6 +3,7 @@
 <head>
     <title>Facebook Login JavaScript Example</title>
     <meta charset="UTF-8">
+    <meta name="google-signin-client_id" content="372851215939-v2iponke1e57fj4bqagmqsvkkgeu2m9f.apps.googleusercontent.com">
 </head>
 <body>
 <script>
@@ -82,6 +83,16 @@
     });
   }
 </script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script>
+    function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    }
+</script>
 
 <!--
   Below we include the Login Button social plugin. This button uses
@@ -94,6 +105,7 @@
 
 <div id="status">
 </div>
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
 
 </body>
 </html>
