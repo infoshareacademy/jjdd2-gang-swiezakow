@@ -5,13 +5,22 @@ public class AllegroCategory {
     private String name;
     private int parent;
     private int catPosition;
+    private int catIsProductCatalogueEnabled;
+    private boolean catIsLeaf;
 
-    public AllegroCategory(int catID, String name, int parent, int catPosition) {
+    public AllegroCategory(int catID, String name, int parent, int catPosition, int catIsProductCatalogueEnabled, boolean catIsLeaf) {
         this.catID = catID;
         this.name = name;
         this.parent = parent;
         this.catPosition = catPosition;
+        this.catIsProductCatalogueEnabled = catIsProductCatalogueEnabled;
+        this.catIsLeaf = catIsLeaf;
+        
     }
+
+    public AllegroCategory(int id, String sname, int parentId, int position, int catIsProductCatalogueEnabled) { }
+
+    public AllegroCategory(int id, String sname, int parentId, int position) { }
 
     public int getCatID() {
         return catID;
@@ -27,6 +36,14 @@ public class AllegroCategory {
 
     public int getCatPosition() {
         return catPosition;
+    }
+
+    public int getCatIsProductCatalogueEnabled() {
+        return catIsProductCatalogueEnabled;
+    }
+
+    public boolean isCatIsLeaf() {
+        return catIsLeaf;
     }
 
     @Override
