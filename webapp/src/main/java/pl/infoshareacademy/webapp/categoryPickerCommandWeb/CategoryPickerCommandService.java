@@ -11,6 +11,7 @@ import pl.infoshareacademy.webapp.searchCategoryCommandWeb.ImageUrlService;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.xml.bind.JAXBException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,7 @@ public class CategoryPickerCommandService {
     @Inject
     private PromotedCategoriesService promotedCategoriesService;
 
-    public List<PickerCommandCard> getMainCategories(int catId) {
+    public List<PickerCommandCard> getMainCategories(int catId) throws JAXBException, NoSuchFieldException {
         Map<Integer, List<AllegroCategory>> categoriesTree = categoryService.getCategoriesTree();
         List<AllegroCategory> categories = categoriesTree.get(catId);
         List<PickerCommandCard> mainCategories = new ArrayList<>();

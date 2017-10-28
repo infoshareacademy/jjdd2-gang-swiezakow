@@ -4,8 +4,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import pl.infoshareacademy.AllegroCategory;
 import pl.infoshareacademy.AllegroCategoryLoader;
+import pl.infoshareacademy.webapp.allegro.AllegroClient;
 
 import javax.ejb.Singleton;
+import javax.inject.Inject;
+import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -23,29 +26,32 @@ public class AllegroCategoryService {
     private AllegroCategoryLoader loader = new AllegroCategoryLoader();
     private Map<Integer, List<AllegroCategory>> categoriesTree;
 
-    public AllegroCategoryService() {
+    public AllegroCategoryService() throws JAXBException, NoSuchFieldException {
         init();
     }
 
-    private void init() {
+    private void init() throws JAXBException, NoSuchFieldException {
         String filePath = getFilePath();
         categoriesTree = loader.loadCategoryTree(filePath);
         categories = loader.loadAllCategories(filePath);
     }
+    @Inject
+    private AllegroCategoryService allegroClient;
 
-    public String getFilePath() {
-        return System.getProperty("java.io.tmpdir") + "/file.xml";
+    public String getFilePath() throws JAXBException, NoSuchFieldException {
+      //  return System.getProperty("java.io.tmpdir") + "/file.xml";
+        return String.valueOf(allegroClient.getClass().getField("xmlString"));
     }
 
     public List<AllegroCategory> getAllCategories() {
         return categories;
     }
 
-    public Map<Integer, List<AllegroCategory>> getCategoriesTree() {
+    public Map<Integer, List<AllegroCategory>> getCategoriesTree() throws JAXBException, NoSuchFieldException {
         return loader.loadCategoryTree(getFilePath());
     }
 
-    public void saveAllegroCategoryFile(InputStream inputStream) {
+    public void saveAllegroCategoryFile(InputStream inputStream) throws JAXBException, NoSuchFieldException {
         OutputStream outputStreamXML = null;
         try {
             String XMLFilePath = getFilePath();

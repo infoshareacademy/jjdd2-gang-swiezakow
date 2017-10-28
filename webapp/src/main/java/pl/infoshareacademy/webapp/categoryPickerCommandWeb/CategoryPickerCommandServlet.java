@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.JAXBException;
 import java.io.IOException;
 
 @WebServlet("/categoryPickerCommand")
@@ -38,7 +39,13 @@ public class CategoryPickerCommandServlet extends HttpServlet {
             logger.debug("Category id = " + catId);
             statisticsBean.saveStatistics(new Statistics(StatisticEvents.CATEGORY2_CHOICE.toString(), catIds[0]));
         }
-        req.setAttribute("mainCategories", categoryPickerCommandService.getMainCategories(catId));
+        try {
+            req.setAttribute("mainCategories", categoryPickerCommandService.getMainCategories(catId));
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
         req.getRequestDispatcher("categoryPickerCommand.jsp").forward(req, resp);
     }
 }
