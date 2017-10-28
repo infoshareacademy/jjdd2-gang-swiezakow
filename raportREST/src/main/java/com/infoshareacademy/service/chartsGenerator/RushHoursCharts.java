@@ -1,0 +1,37 @@
+package com.infoshareacademy.service.chartsGenerator;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import pl.infoshareacademy.webapp.dao.RaportResultsBean;
+
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import java.io.File;
+
+@Stateless
+public class RushHoursCharts {
+
+    @Inject
+    RaportResultsBean db;
+
+    public void generateRushHoursCharts() throws Exception {
+
+        DefaultCategoryDataset line_chart1_dataset = new DefaultCategoryDataset();
+
+        db.getRushHourStatistics().forEach(s -> line_chart1_dataset.addValue(s.getQuantity(), "activity", s.getHour()));
+
+        JFreeChart lineChartObject = ChartFactory.createLineChart(
+                "Rush hour activity", "Hour",
+                "Visits number",
+                line_chart1_dataset, PlotOrientation.VERTICAL,
+                true, true, false);
+
+        int width = 640;    /* Width of the image */
+        int height = 480;   /* Height of the image */
+        File lineChart = new File("LineChart1.png");
+        ChartUtilities.saveChartAsPNG(lineChart, lineChartObject, width, height);
+    }
+}
