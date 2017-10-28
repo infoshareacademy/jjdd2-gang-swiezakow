@@ -4,10 +4,21 @@ import java.util.List;
 
 public class StatisticsStore {
 
-    List<DetailedStatisticsModel> lastMonthUserActivityInIndividualFeature;
+    private List<DetailedStatisticsModel> lastMonthUserActivityInIndividualFeature;
 
-    SumDetailedStaticsModel lastMonthSumUserActivityInIndividualFeature;
+    private SumDetailedStaticsModel lastMonthSumUserActivityInIndividualFeature;
 
-    List<RushHourModel> lastMonthUserActivityIntervalStat;
+    private List<RushHourModel> lastMonthUserActivityIntervalStat;
 
+    public List<DetailedStatisticsModel> getLastMonthUserActivityInIndividualFeature() {
+        return lastMonthUserActivityInIndividualFeature;
+    }
+
+    public SumDetailedStaticsModel getLastMonthSumUserActivityInIndividualFeature() {
+        return lastMonthSumUserActivityInIndividualFeature;
+    }
+
+    public List<RushHourModel> getLastMonthUserActivityIntervalStat() {
+        return lastMonthUserActivityIntervalStat;
+    }
 }

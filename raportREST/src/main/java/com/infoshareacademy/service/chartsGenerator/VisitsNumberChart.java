@@ -1,26 +1,27 @@
 package com.infoshareacademy.service.chartsGenerator;
 
+import com.infoshareacademy.model.DetailedStatisticsModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
-import pl.infoshareacademy.webapp.dao.RaportResultsBean;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
 import java.io.File;
+import java.util.List;
 
-@Stateless
 public class VisitsNumberChart {
 
-    @Inject
-    RaportResultsBean db;
+    private List<DetailedStatisticsModel> db;
+
+    public VisitsNumberChart(List<DetailedStatisticsModel> db) {
+        this.db = db;
+    }
 
     public void getVisitsNumberChart() throws Exception {
         DefaultCategoryDataset line_chart_dataset = new DefaultCategoryDataset();
 
-        db.getLastMonthDetails().forEach(s -> line_chart_dataset.addValue(s.getVisits(), "visits", s.getDate()));
+        db.forEach(s -> line_chart_dataset.addValue(s.getVisits(), "visits", s.getDate()));
 
         JFreeChart lineChartObject = ChartFactory.createLineChart(
                 "Last month activity","Date",

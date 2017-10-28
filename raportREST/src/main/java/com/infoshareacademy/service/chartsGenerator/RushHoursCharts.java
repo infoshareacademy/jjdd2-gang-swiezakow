@@ -1,27 +1,30 @@
 package com.infoshareacademy.service.chartsGenerator;
 
+import com.infoshareacademy.model.RushHourModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
-import pl.infoshareacademy.webapp.dao.RaportResultsBean;
 
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import java.io.File;
+import java.util.List;
 
 @Stateless
 public class RushHoursCharts {
 
-    @Inject
-    RaportResultsBean db;
+    private List<RushHourModel> db;
+
+    public RushHoursCharts(List<RushHourModel> db) {
+        this.db = db;
+    }
 
     public void generateRushHoursCharts() throws Exception {
 
         DefaultCategoryDataset line_chart1_dataset = new DefaultCategoryDataset();
 
-        db.getRushHourStatistics().forEach(s -> line_chart1_dataset.addValue(s.getQuantity(), "activity", s.getHour()));
+        db.forEach(s -> line_chart1_dataset.addValue(s.getQuantity(), "activity", s.getHour()));
 
         JFreeChart lineChartObject = ChartFactory.createLineChart(
                 "Rush hour activity", "Hour",

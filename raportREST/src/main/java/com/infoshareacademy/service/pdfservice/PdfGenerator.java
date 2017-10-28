@@ -13,8 +13,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class PdfGenerator {
+    
+    StatisticsStore statisticsStore;
+    
 
-    private static String FILE = "Raport.pdf";
+    public PdfGenerator(StatisticsStore statisticsStore) {
+        this.statisticsStore = statisticsStore;
+    }
+
+    private static String FILE = "Report.pdf";
 
     private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 30,
             Font.BOLD);
@@ -25,14 +32,14 @@ public class PdfGenerator {
     private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
             Font.BOLD);
 
-    public void generatePDF(RaportResultsBean dataBaseResult) {
+    public void generatePDF() {
         try {
             Document document = new Document();
             PdfWriter.getInstance(document, new FileOutputStream(FILE));
             document.open();
             addMetaData(document);
             addTitlePage(document);
-            addContent(document, dataBaseResult);
+            addContent(document);
             document.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -71,7 +78,7 @@ public class PdfGenerator {
         document.newPage();
     }
 
-    private void addContent(Document document, RaportResultsBean dataBaseResult) throws DocumentException, IOException {
+    private void addContent(Document document) throws DocumentException, IOException {
         Anchor anchor = new Anchor("Users activity from last month", catFont);
         Chapter catPart = new Chapter(new Paragraph(anchor), 1);
 
@@ -87,7 +94,7 @@ public class PdfGenerator {
         subCatPart.add(new Paragraph("F4 - feature4"));
         subCatPart.add(new Paragraph("M - menu"));
 
-        createTable(subCatPart, dataBaseResult);
+        createTable(subCatPart);
 
         addEmptyLine(subPara, 1);
 
@@ -114,7 +121,7 @@ public class PdfGenerator {
         subCatPart = catPart.addSection(new Paragraph("a number of user visits at each hour", subFont));
 
 
-        createTableForRushHours(subCatPart, dataBaseResult);
+        createTableForRushHours(subCatPart);
 
         Image lineChart1 = Image.getInstance("LineChart1.png");
         lineChart1.scalePercent(60);
@@ -151,12 +158,12 @@ public class PdfGenerator {
 
     }
 
-    private void createTableForRushHours(Section section, RaportResultsBean dataBaseResult) throws BadElementException {
+    private void createTableForRushHours(Section section) throws BadElementException {
         PdfPTable table = new PdfPTable(24);
 
         Integer i = 0;
         for (RushHourModel r :
-                dataBaseResult.getRushHourStatistics()) {
+                statisticsStore.getLastMonthUserActivityIntervalStat()) {
             PdfPCell c1 = new PdfPCell(new Phrase(i.toString()));
             c1.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(c1);
@@ -166,7 +173,7 @@ public class PdfGenerator {
         table.setHeaderRows(1);
 
         for (RushHourModel r:
-                dataBaseResult.getRushHourStatistics()) {
+                statisticsStore.getLastMonthUserActivityIntervalStat()) {
             table.addCell(r.getQuantity().toString());
         }
 
@@ -174,7 +181,7 @@ public class PdfGenerator {
 
     }
 
-    private void createTable(Section subCatPart, RaportResultsBean dataBaseResult)
+    private void createTable(Section subCatPart)
             throws BadElementException {
         PdfPTable table = new PdfPTable(6);
 
@@ -209,8 +216,8 @@ public class PdfGenerator {
 
         table.setHeaderRows(1);
 
-        dataBaseResult.getLastMonthDetails().forEach(d -> putLastMonthDetailsToTable(table, d));
-        putSumDetailedStatisticsToTable(table, dataBaseResult.getSumDetailedStatistics());
+        statisticsStore.getLastMonthUserActivityInIndividualFeature().forEach(d -> putLastMonthDetailsToTable(table, d));
+        putSumDetailedStatisticsToTable(table, statisticsStore.getLastMonthSumUserActivityInIndividualFeature());
 
         subCatPart.add(table);
 
