@@ -26,7 +26,7 @@
     <body>
         <div class="bg-light">
             <div class="container mt-1">
-                <div id=\"userDetails\">Zalogowano jako ${username}
+                <div id="userDetails">Zalogowano jako ${username}
                     <c:choose>
                         <c:when test="${isFbUser}">
                             (<a href="fblogin?logout=1">Wyloguj</a>)
