@@ -21,6 +21,7 @@ public class FBAuthServlet extends HttpServlet {
 
     public static final String USER_NAME = "UserName";
     public static final String USER_EMAIL = "UserEmail";
+    public static final String USER_LOGIN_TYPE = "UserLoginType";
 
 
     @Override
@@ -34,11 +35,17 @@ public class FBAuthServlet extends HttpServlet {
 
         String logout = req.getParameter("logout");
         if ("1".equals(logout)) {
+            String loginType = (String) req.getSession().getAttribute(USER_LOGIN_TYPE);
             req.getSession().removeAttribute(USER_NAME);
             req.getSession().removeAttribute(USER_EMAIL);
+            req.getSession().removeAttribute(USER_LOGIN_TYPE);
 
-            req.setAttribute("facebookAppId", facebookAppId);
-            req.getRequestDispatcher("fblogout.jsp").forward(req, resp);
+            if ("fb".equals(loginType)) {
+                req.setAttribute("facebookAppId", facebookAppId);
+                req.getRequestDispatcher("fblogout.jsp").forward(req, resp);
+            } else {
+                resp.sendRedirect("fblogin");
+            }
             return;
         }
         
@@ -64,6 +71,7 @@ public class FBAuthServlet extends HttpServlet {
                 if (uid.equals(userId)) {
                     req.getSession().setAttribute(USER_NAME, userName);
                     req.getSession().setAttribute(USER_EMAIL, userEmail);
+                    req.getSession().setAttribute(USER_LOGIN_TYPE, "fb");
                     resp.sendRedirect("main");
                     return;
                 }
