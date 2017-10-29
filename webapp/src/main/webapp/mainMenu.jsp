@@ -17,43 +17,37 @@
             <li data-target="#myCarousel" data-slide-to="1" class=""></li>
             <li data-target="#myCarousel" data-slide-to="2" class=""></li>
         </ol>
-        <div class="carousel-inner">
+        <div class="carousel-inner card-title">
             <div class="carousel-item active">
                 <img class="first-slide"
-                     src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+                     src="${image.getUrl()}"
                      alt="First slide">
                 <div class="container">
-                    <div class="carousel-caption text-left">
-                        <h1>Example headline.</h1>
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta
-                            gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+                    <div class="carousel-caption text-right">
+                        <h1>${image.getName()}</h1>
+                        <p><a class="btn btn-lg btn-primary" href="${image.getAllegroLink()}" role="button">Przejdź do Allegro</a></p>
                     </div>
                 </div>
             </div>
-            <div class="carousel-item">
+            <div class="carousel-item card-title">
                 <img class="second-slide"
-                     src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+                     src="${image2.getUrl()}"
                      alt="Second slide">
                 <div class="container">
-                    <div class="carousel-caption">
-                        <h1>Another example headline.</h1>
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta
-                            gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                    <div class="carousel-caption text-right">
+                        <h1>${image2.getName()}</h1>
+                        <p><a class="btn btn-lg btn-primary" href="${image2.getAllegroLink()}" role="button">Przejdź do Allegro</a></p>
                     </div>
                 </div>
             </div>
-            <div class="carousel-item">
+            <div class="carousel-item card-title">
                 <img class="third-slide"
-                     src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+                     src="${image3.getUrl()}"
                      alt="Third slide">
                 <div class="container">
                     <div class="carousel-caption text-right">
-                        <h1>One more for good measure.</h1>
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta
-                            gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+                        <h1>${image3.getName()}</h1>
+                        <p><a class="btn btn-lg btn-primary" href="${image3.getAllegroLink()}" role="button">Przejdź do Allegro</a></p>
                     </div>
                 </div>
             </div>
@@ -73,9 +67,9 @@
         <div class="row">
             <div class="col-lg-4">
                 <img class="rounded-circle"
-                     src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+                     src="https://i.kinja-img.com/gawker-media/image/upload/s--f2mYtrrv--/c_scale,fl_progressive,q_80,w_800/1333998000191946087.jpg"
                      alt="Generic placeholder image" width="140" height="140">
-                <h2>Heading</h2>
+                <h2>Bruce Wayne</h2>
                 <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies
                     vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo
                     cursus magna.</p>
@@ -83,9 +77,9 @@
             </div>
             <div class="col-lg-4">
                 <img class="rounded-circle"
-                     src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+                     src="http://i0.kym-cdn.com/photos/images/facebook/000/177/888/mfw.jpg"
                      alt="Generic placeholder image" width="140" height="140">
-                <h2>Heading</h2>
+                <h2>Peter Parker</h2>
                 <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras
                     mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris
                     condimentum nibh.</p>
@@ -93,9 +87,9 @@
             </div>
             <div class="col-lg-4">
                 <img class="rounded-circle"
-                     src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+                     src="http://i.telegraph.co.uk/multimedia/archive/01773/spider-man-outfit_1773895i.jpg"
                      alt="Generic placeholder image" width="140" height="140">
-                <h2>Heading</h2>
+                <h2>Człowiek pająk</h2>
                 <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula
                     porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
                     ut fermentum massa justo sit amet risus.</p>
