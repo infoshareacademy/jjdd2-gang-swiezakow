@@ -40,9 +40,9 @@ public class GoogleLoginServlet extends HttpServlet {
             GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
                     .setAudience(Collections.singletonList("372851215939-v2iponke1e57fj4bqagmqsvkkgeu2m9f.apps.googleusercontent.com"))
                     .build();
-
             GoogleIdToken idToken = null;
             try {
+                verifier.getPublicKeysManager().refresh();
                 idToken = verifier.verify(id);
             } catch (GeneralSecurityException e) {
                 logger.error("cannot verify id", e);
