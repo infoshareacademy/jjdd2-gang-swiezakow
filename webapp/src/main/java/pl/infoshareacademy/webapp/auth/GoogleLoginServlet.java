@@ -46,6 +46,7 @@ public class GoogleLoginServlet extends HttpServlet {
                 idToken = verifier.verify(id);
             } catch (GeneralSecurityException e) {
                 logger.error("cannot verify id", e);
+                e.printStackTrace(resp.getWriter());
             }
             if (idToken != null) {
                 GoogleIdToken.Payload payload = idToken.getPayload();
@@ -65,6 +66,7 @@ public class GoogleLoginServlet extends HttpServlet {
                 resp.sendRedirect("main");
             } else {
                 logger.info("Invalid ID token.");
+                resp.getWriter().write("Invalid ID token.");
             }
         }
     }
