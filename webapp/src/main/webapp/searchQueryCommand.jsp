@@ -21,7 +21,16 @@
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
 </nav>
-
+<c:if test="${searchTerm.length() != 0 && searchTerm.length() < 3}">
+    <div class="alert alert-danger" role="alert">
+        Szukana fraza musi miec co najmniej 3 znaki! Spróbuj ponownie.
+    </div>
+</c:if>
+<c:if test="${searchTerm.length() >= 3 && queryCard.size() == 0}">
+    <div class="alert alert-warning" role="alert">
+        Przepraszamy, nie znaleziono kategorii!
+    </div>
+</c:if>
 <jsp:useBean id="queryCard" scope="request" type="java.util.List<pl.infoshareacademy.webapp.searchQueryCommandWeb.QueryCard>" />
 <c:forEach items="${queryCard}" var="qc">
     <div class="kartka card bg-dark text-white">
