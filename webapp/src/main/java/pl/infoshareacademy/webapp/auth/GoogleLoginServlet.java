@@ -50,7 +50,7 @@ public class GoogleLoginServlet extends HttpServlet {
                     req.getSession().setAttribute(USER_NAME, name);
                     req.getSession().setAttribute(USER_EMAIL, email);
                     req.getSession().setAttribute(USER_LOGIN_TYPE, "google");
-                    req.getSession().setAttribute(USER_IMG, pictureUrl);
+                    req.getSession().setAttribute(USER_IMG, picture);
 
                     resp.sendRedirect("main");
                 }
