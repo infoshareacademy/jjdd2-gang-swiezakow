@@ -84,7 +84,6 @@
                      alt="Generic placeholder image" width="140" height="140">
                 <h2>Bruce Wayne</h2>
                 <p>Korzystam z ShopAll od 3 lat. Rodzicie byliby ze mnie dumni.</p>
-                <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
             </div>
             <div class="col-lg-4">
                 <img class="rounded-circle"
@@ -92,7 +91,6 @@
                      alt="Generic placeholder image" width="140" height="140">
                 <h2>Peter Parker</h2>
                 <p>Wujek polecił mi tę stronę</p>
-                <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
             </div>
             <div class="col-lg-4">
                 <img class="rounded-circle"
@@ -100,7 +98,6 @@
                      alt="Generic placeholder image" width="140" height="140">
                 <h2>Człowiek pająk</h2>
                 <p>Świetna wyszukiwarka! Dzięki ShopAll znalazłem dziewczynę!</p>
-                <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
             </div>
         </div>
 
@@ -109,15 +106,14 @@
         <div class="row featurette">
             <div class="col-md-7">
                 <h2 class="featurette-heading">Najbardziej popularna kategoria miesiąca!<br/> <span
-                        class="text-muted">${image4.getName()}</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis
-                    euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus,
-                    tellus ac cursus commodo.</p>
+                        class="text-muted" style="word-break: keep-all"><a class="dashboard-link" target="_blank" href="${image5.getAllegroLink()}">${image4.getName()}</a></span></h2>
+                <p class="lead">W tym miesiącu największą popularnością wśród Użytkowników ShopAll cieszyła się kategoria
+                ${image4.getName()}!</p>
             </div>
             <div class="col-md-5">
-                <img class="featurette-image img-fluid mx-auto" alt="500x500"
+                <a target="_blank" href="${image4.getAllegroLink()}"><img class="featurette-image img-fluid mx-auto" alt="500x500"
                      style="width: 500px; height: 500px; object-fit: cover;"
-                     src=${image4.getUrl()}
+                     src=${image4.getUrl()}></a>
             </div>
         </div>
 
@@ -125,16 +121,14 @@
 
         <div class="row featurette">
             <div class="col-md-7 order-md-2">
-                <h2 class="featurette-heading">Nowości! <span
-                        class="text-muted">${image5.getName()}</span></h2>
-                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis
-                    euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus,
-                    tellus ac cursus commodo.</p>
+                <h2 class="featurette-heading">Nowości!<br/><span
+                        class="text-muted" style="word-break: keep-all"><a class="dashboard-link" target="_blank" href="${image5.getAllegroLink()}">${image5.getName()}</a></span></h2>
+                <p class="lead">Przejdź na stronę Allegro i poznaj wszystkie nowości kategorii ${image5.getName()}!</p>
             </div>
             <div class="col-md-5 order-md-1">
-                <img class="featurette-image img-fluid mx-auto" alt="500x500"
+                <a target="_blank" href="${image5.getAllegroLink()}"><img class="featurette-image img-fluid mx-auto" alt="500x500"
                      style="width: 500px; height: 500px; object-fit: cover;"
-                     src=${image5.getUrl()}>
+                     src=${image5.getUrl()}></a>
             </div>
         </div>
 

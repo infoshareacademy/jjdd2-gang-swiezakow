@@ -156,4 +156,9 @@
         color: white;
         text-shadow: 2px 2px 2px #333333;
     }
+    .dashboard-link, .dashboard-link:hover {
+        text-decoration: none;
+        color: rgb(90, 90, 90);
+    }
+
 </style>
