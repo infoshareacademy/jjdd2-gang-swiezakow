@@ -3,23 +3,79 @@
 <html lang="pl PL">
 <head>
     <jsp:include page="/head.jsp"/>
+
+<style>
+
+* {
+font-family: 'Lato', sans-serif;
+}
+
+</style>
 </head>
 <body>
+    <ul class="topnav">
+        <li><a href="SearchByQuestions">Wyszukiwanie na podstawie serii pytań</a></li>
+        <li><a href="searchCategoryCommand">Wyszukiwanie produktu</a></li>
+        <li><a class="active" href="categoryPickerCommand">Wyszukiwanie kategorii Allegro</a></li>
+        <li><a href="searchQueryCommand">Asysent Allegro</a></li>
+        <li class="right"><a href="stats">Statystyki</a></li>
+        <li class="right"><a href="">O nas</a></li>
+    </ul>
 <jsp:useBean id="mainCategories" scope="request" type="java.util.List<pl.infoshareacademy.webapp.categoryPickerCommandWeb.PickerCommandCard>" />
-<c:forEach items="${mainCategories}" var="category">
-    <div class="kartka card bg-dark text-white">
-        <div class="card-img-overlay" style="background: url(${category.backgroundURL});
-    background-size: cover;
-    background-position-y: center;
-    border-radius: 20px;
-    <c:if test="${category.promoted}">border: 5px chartreuse solid;</c:if>
-    box-shadow: 2px 3px 10px #333;">
-            <a style="color: white; text-shadow: 2px 2px 2px #333333" href="${category.childrenLink}">
-                <h4 class="card-title" style="text-shadow: 2px 2px 2px #333333; margin-bottom: 60px; background: rgba(255, 255, 255, 0.4); font-size: 2.0em; padding: 1%; font-weight: 200; text-align: center">${category.categoryName}</h4>
-            </a>
-            <a style="color: white; text-shadow: 2px 2px 2px #333333" href="${category.allegroLink}">link do strony Allegro</a>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-6 col-md-4">
+            <c:forEach items="${mainCategories}" var="category" step="3" begin="0">
+                <div class="kartka card bg-dark text-white">
+                    <div class="card-img-overlay" style="background: url(${category.backgroundURL});
+                            background-size: cover;
+                            background-position-y: center;
+                            border-radius: 20px;
+                    <c:if test="${category.promoted}">border: 5px chartreuse solid;</c:if>
+                            box-shadow: 2px 3px 10px #333;">
+                        <a style="color: white; text-shadow: 2px 2px 2px #333333" href="${category.childrenLink}">
+                            <h4 class="card-title" style="text-shadow: 2px 2px 2px #333333; margin-bottom: 60px; background: rgba(0, 0, 0, 0.6); font-size: 2.0em; padding: 1%; font-weight: 200; text-align: center">${category.categoryName}</h4>
+                        </a>
+                        <a style="color: white; text-shadow: 2px 2px 2px #333333" href="${category.allegroLink}">link do strony Allegro</a>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+        <div class="col-6 col-md-4">
+            <c:forEach items="${mainCategories}" var="category" step="3" begin="1" varStatus="mainCategories">
+                <div class="kartka card bg-dark text-white">
+                    <div class="card-img-overlay" style="background: url(${category.backgroundURL});
+                            background-size: cover;
+                            background-position-y: center;
+                            border-radius: 20px;
+                    <c:if test="${category.promoted}">border: 5px chartreuse solid;</c:if>
+                            box-shadow: 2px 3px 10px #333;">
+                        <a style="color: white; text-shadow: 2px 2px 2px #333333" href="${category.childrenLink}">
+                            <h4 class="card-title" style="text-shadow: 2px 2px 2px #333333; margin-bottom: 60px; background: rgba(0, 0, 0, 0.6); font-size: 2.0em; padding: 1%; font-weight: 200; text-align: center">${category.categoryName}</h4>
+                        </a>
+                        <a style="color: white; text-shadow: 2px 2px 2px #333333" href="${category.allegroLink}">link do strony Allegro</a>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+        <div class="col-6 col-md-4">
+            <c:forEach items="${mainCategories}" var="category" step="3" begin="2" varStatus="mainCategories">
+                <div class="kartka card bg-dark text-white">
+                    <div class="card-img-overlay" style="background: url(${category.backgroundURL});
+                            background-size: cover;
+                            background-position-y: center;
+                            border-radius: 20px;
+                    <c:if test="${category.promoted}">border: 5px chartreuse solid;</c:if>
+                            box-shadow: 2px 3px 10px #333;">
+                        <a style="color: white; text-shadow: 2px 2px 2px #333333" href="${category.childrenLink}">
+                            <h4 class="card-title" style="text-shadow: 2px 2px 2px #333333; margin-bottom: 60px; background: rgba(0, 0, 0, 0.6); font-size: 2.0em; padding: 1%; font-weight: 200; text-align: center">${category.categoryName}</h4>
+                        </a>
+                        <a style="color: white; text-shadow: 2px 2px 2px #333333" href="${category.allegroLink}">link do strony Allegro</a>
+                    </div>
+                </div>
+            </c:forEach>
         </div>
     </div>
-</c:forEach>
+</div>
 </body>
 </html>
