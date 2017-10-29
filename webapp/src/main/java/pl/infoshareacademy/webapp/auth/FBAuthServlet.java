@@ -3,8 +3,10 @@ package pl.infoshareacademy.webapp.auth;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.JSONException;
 import pl.infoshareacademy.Configuration;
 import pl.infoshareacademy.ConfigurationLoader;
 
@@ -22,7 +24,6 @@ public class FBAuthServlet extends HttpServlet {
     public static final String USER_NAME = "UserName";
     public static final String USER_EMAIL = "UserEmail";
     public static final String USER_LOGIN_TYPE = "UserLoginType";
-    public static final String USER_IMG = "UserUrl";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,7 +32,8 @@ public class FBAuthServlet extends HttpServlet {
 
         ConfigurationLoader.loadConfiguration();
         Configuration config = ConfigurationLoader.getConfiguration();
-        String facebookAppId = config.getFacebookAppId();
+        String facebookAppId = config.isUseTestFB() ? config.getTestFacebookAppId() : config.getFacebookAppId();
+        String facebookAppSecret = config.isUseTestFB() ? config.getTestFacebookAppSecret() : config.getFacebookAppSecret();
 
         String logout = req.getParameter("logout");
         if ("1".equals(logout)) {
@@ -59,7 +61,7 @@ public class FBAuthServlet extends HttpServlet {
             req.setAttribute("facebookAppId", facebookAppId);
             req.getRequestDispatcher("fblogin.jsp").forward(req, resp);
         } else {
-            String APP_SECRET = "e447a6099a07e4eb7cab1ad19ef6ae50";
+            String APP_SECRET = facebookAppSecret;
             try {
                 HttpResponse<JsonNode> response = Unirest.get("https://graph.facebook.com/debug_token")
                         .queryString("input_token", accessToken)
@@ -75,10 +77,12 @@ public class FBAuthServlet extends HttpServlet {
                     resp.sendRedirect("main");
                     return;
                 }
-            } catch (Exception e) {
-                LOGGER.error(e);
+            } catch (UnirestException | JSONException e) {
+                LOGGER.error("Could not confirm token. " + e.getMessage(), e);
+                req.setAttribute("message", "Could not authenticate with FB. Please try again or use alternative log in.");
+            } finally {
+                req.getRequestDispatcher("fblogin.jsp").forward(req, resp);
             }
-            resp.sendRedirect("fblogin");
         }
     }
 }

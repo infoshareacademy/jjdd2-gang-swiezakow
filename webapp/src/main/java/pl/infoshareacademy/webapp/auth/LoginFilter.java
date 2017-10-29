@@ -11,6 +11,7 @@ import static pl.infoshareacademy.webapp.auth.FBAuthServlet.USER_NAME;
 
 @WebFilter("/*")
 public class LoginFilter implements Filter {
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
