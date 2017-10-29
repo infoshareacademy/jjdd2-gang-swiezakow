@@ -4,8 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ejb.Singleton;
-import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -14,22 +15,23 @@ public class TasksStore {
 
     private Logger LOG = LoggerFactory.getLogger(TasksStore.class);
 
-    private Map<Integer, TaskModel> base;
+    private Map<Integer, RecipientModel> base;
 
-    public Map<Integer, TaskModel> getBase() {
+    public Map<Integer, RecipientModel> getBase() {
         return base;
     }
 
     public TasksStore() {
         base = new HashMap<>();
 
-        try {
-            TaskModel taskModel1 = new TaskModel(findNewId(),
-                    new RecipientConfiguration());
-            add(taskModel1);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        List<String> emailList = new ArrayList<>();
+        emailList.add("zakupyapp@gmail.com");
+        RecipientModel newConfiguration = new RecipientModel(
+                emailList,
+                "2017-10-30 11:30",
+                10,
+                1);
+        add(newConfiguration);
     }
 
     public int findNewId() {
@@ -41,9 +43,10 @@ public class TasksStore {
 //        return base.keySet().stream().max((a, b) -> a - b).get() + 1;
     }
 
-    public void add(TaskModel task) {
-        LOG.info("Adding to do: " + task.toString());
-        base.put(task.getId(), task);
+    public void add(RecipientModel configuration) {
+        LOG.info("Adding to do: " + configuration.toString());
+        base.put(findNewId(), configuration);
     }
+
 
 }

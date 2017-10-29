@@ -1,7 +1,6 @@
 package com.infoshareacademy.api;
 
-import com.infoshareacademy.model.RecipientConfiguration;
-import com.infoshareacademy.model.TaskModel;
+import com.infoshareacademy.model.RecipientModel;
 import com.infoshareacademy.model.TasksStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +11,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import java.text.ParseException;
 import java.util.Map;
 
 @Path("/")
@@ -170,7 +168,7 @@ public class RestClient {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getActiveTasks() {
 
-        Map<Integer, TaskModel> tasksStoreBase = tasksStore.getBase();
+        Map<Integer, RecipientModel> tasksStoreBase = tasksStore.getBase();
 
         if (tasksStoreBase.isEmpty()) {
             LOG.info("showed empty TasksStore");
@@ -181,21 +179,19 @@ public class RestClient {
         return Response.ok(tasksStoreBase.values()).build();
     }
 
-    @POST
-    @Path("/add-recipien-configuration")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response addTask(RecipientConfiguration recipientConfiguration) {
-        int newId = tasksStore.findNewId();
-
-        try {
-             TaskModel task = new TaskModel(
-                    newId,
-                    recipientConfiguration);
-            tasksStore.add(task);
-            return getActiveTasks();
-        } catch (ParseException e) {
-            return Response.noContent().build();
-        }
-    }
+//    @POST
+//    @Path("/add-recipien-configuration")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response addTask(RecipientModel recipientConfiguration) {
+//        int newId = tasksStore.findNewId();
+//
+//        try {
+//             RecipientModel task = new RecipientModel();
+//            tasksStore.add(task);
+//            return getActiveTasks();
+//        } catch (ParseException e) {
+//            return Response.noContent().build();
+//        }
+//    }
 }

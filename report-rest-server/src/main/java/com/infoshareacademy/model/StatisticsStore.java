@@ -1,7 +1,9 @@
 package com.infoshareacademy.model;
 
+import javax.ejb.Singleton;
 import java.util.List;
 
+@Singleton
 public class StatisticsStore {
 
     private List<DetailedStatisticsModel> lastMonthUserActivityInIndividualFeature;
@@ -9,6 +11,8 @@ public class StatisticsStore {
     private SumDetailedStaticsModel lastMonthSumUserActivityInIndividualFeature;
 
     private List<RushHourModel> lastMonthUserActivityIntervalStat;
+
+    private String updateDate;
 
     public List<DetailedStatisticsModel> getLastMonthUserActivityInIndividualFeature() {
         return lastMonthUserActivityInIndividualFeature;
@@ -22,14 +26,18 @@ public class StatisticsStore {
         return lastMonthUserActivityIntervalStat;
     }
 
-    public StatisticsStore() {
-    }
+    public void updateStatisticsStore(
+            List<DetailedStatisticsModel> lastMonthUserActivityInIndividualFeature,
+            SumDetailedStaticsModel lastMonthSumUserActivityInIndividualFeature,
+            List<RushHourModel> lastMonthUserActivityIntervalStat,
+            String updateDate) {
 
-    public StatisticsStore(List<DetailedStatisticsModel> lastMonthUserActivityInIndividualFeature,
-                           SumDetailedStaticsModel lastMonthSumUserActivityInIndividualFeature,
-                           List<RushHourModel> lastMonthUserActivityIntervalStat) {
-        this.lastMonthUserActivityInIndividualFeature = lastMonthUserActivityInIndividualFeature;
-        this.lastMonthSumUserActivityInIndividualFeature = lastMonthSumUserActivityInIndividualFeature;
-        this.lastMonthUserActivityIntervalStat = lastMonthUserActivityIntervalStat;
+            this.lastMonthUserActivityInIndividualFeature = lastMonthUserActivityInIndividualFeature;
+
+            this.lastMonthSumUserActivityInIndividualFeature = lastMonthSumUserActivityInIndividualFeature;
+
+            this.lastMonthUserActivityIntervalStat = lastMonthUserActivityIntervalStat;
+
+            this.updateDate = updateDate;
     }
 }
