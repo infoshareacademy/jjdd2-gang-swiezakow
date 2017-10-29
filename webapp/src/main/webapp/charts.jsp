@@ -20,6 +20,9 @@
     </style>
 </head>
 <body>
+<header>
+    <jsp:include page="/header.jsp"/>
+</header>
 <ul class="topnav">
     <li><a href="SearchByQuestions">Wyszukiwanie na podstawie serii pytań</a></li>
     <li><a href="searchCategoryCommand">Wyszukiwanie produktu</a></li>

@@ -1,6 +1,5 @@
 package pl.infoshareacademy.webapp;
 
-import pl.infoshareacademy.webapp.auth.FBAuthServlet;
 import pl.infoshareacademy.webapp.dao.StatisticsBean;
 import pl.infoshareacademy.webapp.entities.Statistics;
 import pl.infoshareacademy.webapp.statistics.StatisticEvents;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static pl.infoshareacademy.webapp.auth.FBAuthServlet.USER_EMAIL;
-import static pl.infoshareacademy.webapp.auth.FBAuthServlet.USER_IMG;
 import static pl.infoshareacademy.webapp.auth.FBAuthServlet.USER_LOGIN_TYPE;
 import static pl.infoshareacademy.webapp.auth.FBAuthServlet.USER_NAME;
 
@@ -40,6 +38,6 @@ public class MainMenuServlet extends HttpServlet {
             req.setAttribute("username", userName);
             req.setAttribute("isFbUser", isFbUser);
         }
-        req.getRequestDispatcher("proba.jsp").forward(req, resp);
+        req.getRequestDispatcher("mainMenu.jsp").forward(req, resp);
     }
 }

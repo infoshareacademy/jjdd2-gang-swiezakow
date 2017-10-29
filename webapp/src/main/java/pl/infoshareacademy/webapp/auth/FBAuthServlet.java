@@ -24,7 +24,6 @@ public class FBAuthServlet extends HttpServlet {
     public static final String USER_LOGIN_TYPE = "UserLoginType";
     public static final String USER_IMG = "UserUrl";
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setCharacterEncoding("UTF-8");
@@ -79,9 +78,7 @@ public class FBAuthServlet extends HttpServlet {
             } catch (Exception e) {
                 LOGGER.error(e);
             }
-
             resp.sendRedirect("fblogin");
-
         }
     }
 }

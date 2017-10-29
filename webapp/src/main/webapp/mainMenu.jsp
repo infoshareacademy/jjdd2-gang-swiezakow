@@ -2,110 +2,11 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="google-signin-client_id" content="372851215939-v2iponke1e57fj4bqagmqsvkkgeu2m9f.apps.googleusercontent.com">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,300i" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
-          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <link href="https://getbootstrap.com/docs/4.0/examples/carousel/carousel.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
-            integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
-            integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
-            crossorigin="anonymous"></script>
-    <script src="https://getbootstrap.com/assets/js/vendor/holder.min.js" crossorigin="anonymous"></script>
-    <title>ShopAll</title>
-
-    <style>
-        .profile-avatar {
-            border-radius: 50%;
-            width: 30px;
-            margin-right: 6px;
-            flex-grow: 0;
-        }
-
-        .profile-section {
-            padding-left: 5px;
-            font-size: 11px;
-        }
-
-        .profile-section > button {
-            font-size: 11px;
-            color: rgba(255,255,255,.5);
-            text-decoration: none;
-            cursor: pointer;
-            padding-right: 0;
-            display: flex;
-            align-items: center;
-        }
-
-        .profile-section > button:hover, .profile-section > button:focus {
-            color: rgba(255,255,255,.9);
-            text-decoration: none;
-        }
-    </style>
-    <script>
-        function signOut() {
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function () {
-                window.location.href = '/webapp/fblogin?logout=1';
-            });
-        }
-    </script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <jsp:include page="/head.jsp"/>
 </head>
 <body>
-
 <header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#">ShopAll</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="SearchByQuestions">Seria pytań<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="searchCategoryCommand">Wybierz produkt</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="categoryPickerCommand">Katalog Allegro</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="searchQueryCommand">Asystent Allegro</a>
-                </li>
-            </ul>
-            <div class="nav-item profile-section dropdown">
-                <button class="btn btn-link dropdown-toggle" type="button" href="#" id="userDropdown"
-                   data-toggle="dropdown" aria-haspopup="true"
-                   aria-expanded="false">
-                    <img style="border-radius: 50%" class="profile-avatar" src="${UserUrl}">
-                    ${UserName}
-                </button>
-                <div class="dropdown-menu" aria-labelledby="userDropdown">
-                    <c:choose>
-                        <c:when test="${isFbUser}">
-                            <a class="dropdown-item" href="fblogin?logout=1">Wyloguj</a>
-                        </c:when>
-                        <c:otherwise>
-                            <div class="g-signin2" style="display: none;" data-onsuccess="onSignIn"></div>
-                            <a class="dropdown-item" href="#" onclick="signOut();">Wyloguj</a>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <jsp:include page="/header.jsp"/>
 </header>
 
 <main role="main">
@@ -167,14 +68,8 @@
         </a>
     </div>
 
-
-    <!-- Marketing messaging and featurettes
-    ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
-
     <div class="container marketing">
 
-        <!-- Three columns of text below the carousel -->
         <div class="row">
             <div class="col-lg-4">
                 <img class="rounded-circle"
@@ -185,7 +80,7 @@
                     vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo
                     cursus magna.</p>
                 <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
-            </div><!-- /.col-lg-4 -->
+            </div>
             <div class="col-lg-4">
                 <img class="rounded-circle"
                      src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
@@ -195,7 +90,7 @@
                     mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris
                     condimentum nibh.</p>
                 <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
-            </div><!-- /.col-lg-4 -->
+            </div>
             <div class="col-lg-4">
                 <img class="rounded-circle"
                      src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
@@ -205,11 +100,8 @@
                     porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,
                     ut fermentum massa justo sit amet risus.</p>
                 <p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>
-            </div><!-- /.col-lg-4 -->
-        </div><!-- /.row -->
-
-
-        <!-- START THE FEATURETTES -->
+            </div>
+        </div>
 
         <hr class="featurette-divider">
 
@@ -266,12 +158,8 @@
 
         <hr class="featurette-divider">
 
-        <!-- /END THE FEATURETTES -->
+    </div>
 
-    </div><!-- /.container -->
-
-
-    <!-- FOOTER -->
     <footer class="container">
         <p class="float-right"><a href="#">Back to top</a></p>
         <p>© 2017 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>

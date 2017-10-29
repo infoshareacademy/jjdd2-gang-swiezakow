@@ -76,7 +76,7 @@ public class SearchByQuestionsServlet extends HttpServlet {
                 req.setAttribute("link", link);
             }
         }
-
+        req.setAttribute("categoryNumber", "1");
         req.getRequestDispatcher("searchByQuestions.jsp").forward(req, resp);
     }
 }
