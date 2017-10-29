@@ -3,6 +3,19 @@
 <html lang="en">
 <head>
     <jsp:include page="/head.jsp"/>
+    <style>
+        .shopping-caption {
+            text-shadow: 2px 2px 2px #333333;
+            right: 0;
+            left: initial;
+            padding-right: 40px;
+            padding-left: 40px;
+            background-color: rgba(0, 0, 0, .5);
+        }
+        .carousel-item > img {
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -17,37 +30,37 @@
             <li data-target="#myCarousel" data-slide-to="1" class=""></li>
             <li data-target="#myCarousel" data-slide-to="2" class=""></li>
         </ol>
-        <div class="carousel-inner card-title">
+        <div class="carousel-inner">
             <div class="carousel-item active">
                 <img class="first-slide"
                      src="${image.getUrl()}"
                      alt="First slide">
                 <div class="container">
-                    <div class="carousel-caption text-right">
+                    <div class="shopping-caption carousel-caption text-right">
                         <h1>${image.getName()}</h1>
-                        <p><a class="btn btn-lg btn-primary" href="${image.getAllegroLink()}" role="button">Przejdź do Allegro</a></p>
+                        <p><a class="btn btn-lg btn-primary" href="${image.getAllegroLink()}" target="_blank" role="button">Przejdź do Allegro</a></p>
                     </div>
                 </div>
             </div>
-            <div class="carousel-item card-title">
+            <div class="carousel-item">
                 <img class="second-slide"
                      src="${image2.getUrl()}"
                      alt="Second slide">
                 <div class="container">
-                    <div class="carousel-caption text-right">
+                    <div class="shopping-caption carousel-caption text-right">
                         <h1>${image2.getName()}</h1>
-                        <p><a class="btn btn-lg btn-primary" href="${image2.getAllegroLink()}" role="button">Przejdź do Allegro</a></p>
+                        <p><a class="btn btn-lg btn-primary" href="${image2.getAllegroLink()}" target="_blank" role="button">Przejdź do Allegro</a></p>
                     </div>
                 </div>
             </div>
-            <div class="carousel-item card-title">
+            <div class="carousel-item">
                 <img class="third-slide"
                      src="${image3.getUrl()}"
                      alt="Third slide">
                 <div class="container">
-                    <div class="carousel-caption text-right">
+                    <div class="shopping-caption carousel-caption text-right">
                         <h1>${image3.getName()}</h1>
-                        <p><a class="btn btn-lg btn-primary" href="${image3.getAllegroLink()}" role="button">Przejdź do Allegro</a></p>
+                        <p><a class="btn btn-lg btn-primary" href="${image3.getAllegroLink()}" target="_blank" role="button">Przejdź do Allegro</a></p>
                     </div>
                 </div>
             </div>
