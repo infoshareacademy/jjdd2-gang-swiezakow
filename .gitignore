@@ -2,5 +2,7 @@
 *.iml
 target/
 out/
-baseapp/logBaseApp.log
+baseapp/
 logBaseApp.log
+webapp/
+pom.xml
