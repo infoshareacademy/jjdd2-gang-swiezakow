@@ -21,6 +21,7 @@ import java.util.Collections;
 import static pl.infoshareacademy.webapp.auth.FBAuthServlet.USER_EMAIL;
 import static pl.infoshareacademy.webapp.auth.FBAuthServlet.USER_LOGIN_TYPE;
 import static pl.infoshareacademy.webapp.auth.FBAuthServlet.USER_NAME;
+import static pl.infoshareacademy.webapp.auth.FBAuthServlet.USER_IMG;
 
 @WebServlet("googlelog")
 public class GoogleLoginServlet extends HttpServlet {
@@ -62,6 +63,8 @@ public class GoogleLoginServlet extends HttpServlet {
                 req.getSession().setAttribute(USER_NAME, name);
                 req.getSession().setAttribute(USER_EMAIL, email);
                 req.getSession().setAttribute(USER_LOGIN_TYPE, "google");
+                req.getSession().setAttribute(USER_IMG, pictureUrl);
+
                 resp.sendRedirect("main");
             } else {
                 logger.info("Invalid ID token.");

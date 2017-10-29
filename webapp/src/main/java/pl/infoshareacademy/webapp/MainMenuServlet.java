@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static pl.infoshareacademy.webapp.auth.FBAuthServlet.USER_EMAIL;
+import static pl.infoshareacademy.webapp.auth.FBAuthServlet.USER_IMG;
 import static pl.infoshareacademy.webapp.auth.FBAuthServlet.USER_LOGIN_TYPE;
 import static pl.infoshareacademy.webapp.auth.FBAuthServlet.USER_NAME;
 
@@ -39,7 +40,6 @@ public class MainMenuServlet extends HttpServlet {
             req.setAttribute("username", userName);
             req.setAttribute("isFbUser", isFbUser);
         }
-
-        req.getRequestDispatcher("main.jsp").forward(req, resp);
+        req.getRequestDispatcher("proba.jsp").forward(req, resp);
     }
 }
