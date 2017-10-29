@@ -36,6 +36,8 @@ public class MainMenuServlet extends HttpServlet {
         DashboardItem dashboardItem = dashboardService.randomImageGenerator();
         DashboardItem dashboardItem2 = dashboardService.randomImageGenerator();
         DashboardItem dashboardItem3 = dashboardService.randomImageGenerator();
+        DashboardItem dashboardItem4 = dashboardService.randomImageGenerator();
+        DashboardItem dashboardItem5 = dashboardService.randomImageGenerator();
         String userName = (String) req.getSession().getAttribute(USER_NAME);
         String userEmail = (String) req.getSession().getAttribute(USER_EMAIL);
         Boolean isFbUser = "fb".equals(req.getSession().getAttribute(USER_LOGIN_TYPE));
@@ -48,6 +50,8 @@ public class MainMenuServlet extends HttpServlet {
         req.setAttribute("image", dashboardItem);
         req.setAttribute("image2", dashboardItem2);
         req.setAttribute("image3", dashboardItem3);
+        req.setAttribute("image4", dashboardItem4);
+        req.setAttribute("image5", dashboardItem5);
         req.getRequestDispatcher("mainMenu.jsp").forward(req, resp);
     }
 }
