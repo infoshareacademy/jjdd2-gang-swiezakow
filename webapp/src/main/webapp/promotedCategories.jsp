@@ -6,6 +6,9 @@
     <title>Promoted Categories</title>
 </head>
 <body>
+<header>
+    <jsp:include page="/header.jsp"/>
+</header>
 <form action="/webapp/promoted" method="get">
     <jsp:useBean id="categories" scope="request" type="java.util.List<pl.infoshareacademy.AllegroCategory>" />
     <c:forEach items="${categories}" var="category" >

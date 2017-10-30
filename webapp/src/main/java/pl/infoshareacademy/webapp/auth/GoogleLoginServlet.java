@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static pl.infoshareacademy.webapp.auth.FBAuthServlet.USER_EMAIL;
+import static pl.infoshareacademy.webapp.auth.FBAuthServlet.USER_IMG;
 import static pl.infoshareacademy.webapp.auth.FBAuthServlet.USER_LOGIN_TYPE;
 import static pl.infoshareacademy.webapp.auth.FBAuthServlet.USER_NAME;
 
@@ -49,6 +50,8 @@ public class GoogleLoginServlet extends HttpServlet {
                     req.getSession().setAttribute(USER_NAME, name);
                     req.getSession().setAttribute(USER_EMAIL, email);
                     req.getSession().setAttribute(USER_LOGIN_TYPE, "google");
+                    req.getSession().setAttribute(USER_IMG, picture);
+
                     resp.sendRedirect("main");
                 }
             } catch (UnirestException e) {

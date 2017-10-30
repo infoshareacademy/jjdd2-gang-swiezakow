@@ -1,6 +1,5 @@
 package pl.infoshareacademy.webapp;
 
-import pl.infoshareacademy.webapp.auth.FBAuthServlet;
 import pl.infoshareacademy.webapp.dao.StatisticsBean;
 import pl.infoshareacademy.webapp.entities.Statistics;
 import pl.infoshareacademy.webapp.statistics.StatisticEvents;
@@ -23,6 +22,9 @@ public class MainMenuServlet extends HttpServlet {
     @Inject
     private StatisticsBean statisticsBean;
 
+    @Inject
+    private DashboardService dashboardService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         statisticsBean.saveStatistics(new Statistics(StatisticEvents.MENU_ENTRY.toString(), ""));
@@ -30,6 +32,12 @@ public class MainMenuServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");
 
+
+        DashboardItem dashboardItem = dashboardService.randomImageGenerator();
+        DashboardItem dashboardItem2 = dashboardService.randomImageGenerator();
+        DashboardItem dashboardItem3 = dashboardService.randomImageGenerator();
+        DashboardItem dashboardItem4 = dashboardService.randomImageGenerator();
+        DashboardItem dashboardItem5 = dashboardService.randomImageGenerator();
         String userName = (String) req.getSession().getAttribute(USER_NAME);
         String userEmail = (String) req.getSession().getAttribute(USER_EMAIL);
         Boolean isFbUser = "fb".equals(req.getSession().getAttribute(USER_LOGIN_TYPE));
@@ -39,7 +47,11 @@ public class MainMenuServlet extends HttpServlet {
             req.setAttribute("username", userName);
             req.setAttribute("isFbUser", isFbUser);
         }
-
-        req.getRequestDispatcher("main.jsp").forward(req, resp);
+        req.setAttribute("image", dashboardItem);
+        req.setAttribute("image2", dashboardItem2);
+        req.setAttribute("image3", dashboardItem3);
+        req.setAttribute("image4", dashboardItem4);
+        req.setAttribute("image5", dashboardItem5);
+        req.getRequestDispatcher("mainMenu.jsp").forward(req, resp);
     }
 }
