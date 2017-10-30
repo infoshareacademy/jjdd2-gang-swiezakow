@@ -1,6 +1,7 @@
 package com.infoshareacademy.api;
 
 import com.infoshareacademy.model.RecipientModel;
+import com.infoshareacademy.model.StatisticsStore;
 import com.infoshareacademy.model.TasksStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,9 @@ public class RestClient {
 
     @Inject
     private TasksStore tasksStore;
+
+    @Inject
+    private StatisticsStore statisticsStore;
 
     @GET
     @Path("/user-agent")
@@ -177,6 +181,13 @@ public class RestClient {
 
         LOG.info("showed TasksStore of number active tasks: " + tasksStore.getBase().size());
         return Response.ok(tasksStoreBase.values()).build();
+    }
+
+    @GET
+    @Path("/actualstatisticsstore")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getStats() {
+        return Response.ok(statisticsStore.getLastMonthSumUserActivityInIndividualFeature()).build();
     }
 
 //    @POST
