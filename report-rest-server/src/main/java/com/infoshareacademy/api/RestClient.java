@@ -1,8 +1,9 @@
 package com.infoshareacademy.api;
 
-import com.infoshareacademy.model.RecipientModel;
-import com.infoshareacademy.model.StatisticsStore;
-import com.infoshareacademy.model.TasksStore;
+import com.infoshareacademy.model.databaseinputs.DateStore;
+import com.infoshareacademy.model.tasks.RecipientModel;
+import com.infoshareacademy.model.databaseinputs.StatisticsStore;
+import com.infoshareacademy.model.tasks.TasksStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +26,7 @@ public class RestClient {
     private TasksStore tasksStore;
 
     @Inject
-    private StatisticsStore statisticsStore;
+    private DateStore dateStore;
 
     @GET
     @Path("/user-agent")
@@ -187,7 +188,7 @@ public class RestClient {
     @Path("/actualstatisticsstore")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getStats() {
-        return Response.ok(statisticsStore.getLastMonthSumUserActivityInIndividualFeature()).build();
+        return Response.ok(dateStore.getStatisticsStore()).build();
     }
 
 //    @POST
