@@ -1,6 +1,6 @@
 package com.infoshareacademy.service.chartsGenerator;
 
-import com.infoshareacademy.model.DetailedStatisticsModel;
+import com.infoshareacademy.model.databaseinputs.DetailedStatisticsModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;

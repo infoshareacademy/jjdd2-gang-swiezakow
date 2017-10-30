@@ -1,4 +1,4 @@
-package com.infoshareacademy.model;
+package com.infoshareacademy.model.databaseinputs;
 
 public class SumDetailedStaticsModel {
 

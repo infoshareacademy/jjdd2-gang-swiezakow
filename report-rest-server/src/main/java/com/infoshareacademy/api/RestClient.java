@@ -1,14 +1,16 @@
 package com.infoshareacademy.api;
 
-import com.infoshareacademy.model.databaseinputs.DateStore;
-import com.infoshareacademy.model.tasks.RecipientModel;
-import com.infoshareacademy.model.databaseinputs.StatisticsStore;
-import com.infoshareacademy.model.tasks.TasksStore;
+import com.infoshareacademy.model.RecipientModel;
+import com.infoshareacademy.model.TasksStore;
+import com.infoshareacademy.model.databaseinputs.DataStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -26,7 +28,7 @@ public class RestClient {
     private TasksStore tasksStore;
 
     @Inject
-    private DateStore dateStore;
+    private DataStore dateStore;
 
     @GET
     @Path("/user-agent")

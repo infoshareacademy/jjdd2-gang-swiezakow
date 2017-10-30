@@ -1,8 +1,8 @@
 package com.infoshareacademy.service.timerEngineService;
 
-import com.infoshareacademy.model.tasks.RecipientModel;
+import com.infoshareacademy.model.RecipientModel;
+import com.infoshareacademy.model.TasksStore;
 import com.infoshareacademy.model.databaseinputs.StatisticsStore;
-import com.infoshareacademy.model.tasks.TasksStore;
 import com.infoshareacademy.service.chartsGenerator.CompareEntriesChart;
 import com.infoshareacademy.service.chartsGenerator.RushHoursChart;
 import com.infoshareacademy.service.chartsGenerator.VisitsNumberChart;

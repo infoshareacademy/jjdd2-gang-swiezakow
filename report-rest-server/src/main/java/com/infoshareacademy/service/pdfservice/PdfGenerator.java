@@ -1,10 +1,13 @@
 package com.infoshareacademy.service.pdfservice;
 
+import com.infoshareacademy.model.databaseinputs.DetailedStatisticsModel;
+import com.infoshareacademy.model.databaseinputs.RushHourModel;
+import com.infoshareacademy.model.databaseinputs.StatisticsStore;
+import com.infoshareacademy.model.databaseinputs.SumDetailedStaticsModel;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.infoshareacademy.model.*;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

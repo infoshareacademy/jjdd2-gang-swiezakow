@@ -1,4 +1,4 @@
-package com.infoshareacademy.model;
+package com.infoshareacademy.model.databaseinputs;
 
 
 public class DetailedStatisticsModel {
@@ -63,13 +63,4 @@ public class DetailedStatisticsModel {
         this.feature4Quantity = feature4Quantity;
     }
 
-    @Override
-    public String toString() {
-        return date +
-                ",  " + visits +
-                ",  " + feature1Quantity +
-                ",  " + feature2Quantity +
-                ",  " + feature3Quantity +
-                ",  " + feature4Quantity;
-    }
 }
