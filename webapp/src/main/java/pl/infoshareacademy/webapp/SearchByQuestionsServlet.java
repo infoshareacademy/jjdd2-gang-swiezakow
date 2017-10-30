@@ -2,6 +2,7 @@ package pl.infoshareacademy.webapp;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import pl.infoshareacademy.AllegroLink;
 import pl.infoshareacademy.SearchByQuestions;
 import pl.infoshareacademy.SearchResult;
 import pl.infoshareacademy.webapp.dao.StatisticsBean;
@@ -75,7 +76,9 @@ public class SearchByQuestionsServlet extends HttpServlet {
             req.setAttribute("categoryId", foundCategoryId);
             if (isLink) {
                 statisticsBean.saveStatistics(new Statistics(StatisticEvents.CATEGORY1_CHOICE.toString(), "" + foundCategoryId));
-                String link = redirectService.getSecretUrl(foundCategoryId, 1, "");
+                String secretLink = redirectService.getSecretUrl(foundCategoryId, 1, "");
+                String link = AllegroLink.makeLink(foundCategoryName, foundCategoryId);
+                req.setAttribute("secretLink", secretLink);
                 req.setAttribute("link", link);
             }
         }

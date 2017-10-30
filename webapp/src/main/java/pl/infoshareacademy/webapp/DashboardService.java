@@ -2,6 +2,7 @@ package pl.infoshareacademy.webapp;
 
 import pl.infoshareacademy.AllegroCategory;
 import pl.infoshareacademy.AllegroLink;
+import pl.infoshareacademy.webapp.redirect.RedirectService;
 import pl.infoshareacademy.webapp.searchCategoryCommandWeb.ImageUrlService;
 
 import javax.ejb.Stateless;
@@ -17,6 +18,9 @@ public class DashboardService {
     @Inject
     private ImageUrlService imageUrlService;
 
+    @Inject
+    private RedirectService redirectService;
+
     private Random random = new Random();
 
     public DashboardItem randomImageGenerator() {
@@ -27,7 +31,7 @@ public class DashboardService {
 
         return new DashboardItem(name,
                 imageUrlService.getImageUrl(catID),
-                AllegroLink.makeLink(name, catID));
+                redirectService.getSecretUrl(catID, 0, ""));
     }
 
     private int numberGenerator(List<AllegroCategory> list) {

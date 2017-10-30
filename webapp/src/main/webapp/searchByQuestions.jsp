@@ -62,7 +62,7 @@
                         <div class="col-md-9">
                             <h2>Seria pytań</h2>
                             <p> Link do kategorii:
-                                <a href="${link}">${link}</a></p>
+                                <a href="${secretLink}">${link}</a></p>
                         </div>
                     </div>
                 </div>
