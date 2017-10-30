@@ -36,7 +36,7 @@ public class DataStore {
         RushHourModel hourModel = new RushHourModel(0, 5l);
         lastMonthUserActivityIntervalStat.add(hourModel);
 
-        statisticsStore.updateStatisticsStore(lastMonthUserActivityInIndividualFeature,
+        statisticsStore = new StatisticsStore(lastMonthUserActivityInIndividualFeature,
                 lastMonthSumUserActivityInIndividualFeature,
                 lastMonthUserActivityIntervalStat,
                 new String("2017-10-30 19:50"));

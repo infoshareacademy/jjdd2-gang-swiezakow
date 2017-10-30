@@ -2,6 +2,7 @@ package com.infoshareacademy.service.timerEngineService;
 
 import com.infoshareacademy.model.RecipientModel;
 import com.infoshareacademy.model.TasksStore;
+import com.infoshareacademy.model.databaseinputs.DataStore;
 import com.infoshareacademy.model.databaseinputs.StatisticsStore;
 import com.infoshareacademy.service.chartsGenerator.CompareEntriesChart;
 import com.infoshareacademy.service.chartsGenerator.RushHoursChart;
@@ -44,7 +45,7 @@ public class TaskGuard {
         Timer timer = new Timer();
 
         //Use this if you want to execute it repeatedly
-        timer.schedule(new MyTimeTask(), date, TimeUnit.SECONDS.toMillis(10));
+        timer.schedule(new MyTimeTask(), date, TimeUnit.SECONDS.toMillis(5));
     }
 
 
@@ -53,6 +54,9 @@ public class TaskGuard {
 
         @Inject
         TasksStore tasksStore;
+
+        @Inject
+        DataStore dataStore;
 
 
         public void run() {
@@ -66,7 +70,7 @@ public class TaskGuard {
         }
 
         private void prepareAttachment() {
-            StatisticsStore statisticsStore = new StatisticsStore();
+            StatisticsStore statisticsStore = dataStore.getStatisticsStore();
 
             CompareEntriesChart compareEntriesChart = new CompareEntriesChart(
                     statisticsStore.getLastMonthSumUserActivityInIndividualFeature());

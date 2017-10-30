@@ -4,6 +4,16 @@ import java.util.List;
 
 public class StatisticsStore {
 
+    public StatisticsStore(List<DetailedStatisticsModel> lastMonthUserActivityInIndividualFeature,
+                           SumDetailedStaticsModel lastMonthSumUserActivityInIndividualFeature,
+                           List<RushHourModel> lastMonthUserActivityIntervalStat,
+                           String updateDate) {
+        this.lastMonthUserActivityInIndividualFeature = lastMonthUserActivityInIndividualFeature;
+        this.lastMonthSumUserActivityInIndividualFeature = lastMonthSumUserActivityInIndividualFeature;
+        this.lastMonthUserActivityIntervalStat = lastMonthUserActivityIntervalStat;
+        this.updateDate = updateDate;
+    }
+
     private List<DetailedStatisticsModel> lastMonthUserActivityInIndividualFeature;
 
     private SumDetailedStaticsModel lastMonthSumUserActivityInIndividualFeature;
