@@ -30,6 +30,7 @@ public class LoginFilter implements Filter {
             // pass the request along the filter chain
             filterChain.doFilter(servletRequest, servletResponse);
         }
+
     }
 
     @Override

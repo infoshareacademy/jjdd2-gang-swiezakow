@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
+    <jsp:include page="/head.jsp"/>
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
@@ -19,6 +20,9 @@
     </style>
 </head>
 <body>
+<header>
+    <jsp:include page="/header.jsp"/>
+</header>
     <div class="charts">
         <div class="chart">
             <canvas id="chart"></canvas>

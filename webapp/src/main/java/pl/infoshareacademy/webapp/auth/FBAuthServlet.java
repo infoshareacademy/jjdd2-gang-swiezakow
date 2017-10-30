@@ -24,6 +24,7 @@ public class FBAuthServlet extends HttpServlet {
     public static final String USER_NAME = "UserName";
     public static final String USER_EMAIL = "UserEmail";
     public static final String USER_LOGIN_TYPE = "UserLoginType";
+    public static final String USER_IMG = "UserUrl";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
