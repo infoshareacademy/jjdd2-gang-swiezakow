@@ -1,9 +1,10 @@
-package pl.infoshareacademy.webapp;
+package pl.infoshareacademy.webapp.redirect;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import pl.infoshareacademy.AllegroLink;
 import pl.infoshareacademy.SearchCategoryCommand;
+import pl.infoshareacademy.webapp.AllegroCategoryService;
 import pl.infoshareacademy.webapp.dao.StatisticsBean;
 import pl.infoshareacademy.webapp.entities.Statistics;
 import pl.infoshareacademy.webapp.statistics.StatisticEvents;
@@ -56,6 +57,9 @@ public class RedirectServlet extends HttpServlet {
     private void saveStatisticsForAllegroLink(String[] menuIds, int id) {
         String name;
         switch (menuIds[0]) {
+            case ("0"):
+                name = StatisticEvents.MAIN_LINK.toString();
+                break;
             case ("1"):
                 name = StatisticEvents.CATEGORY1_LINK.toString();
                 break;

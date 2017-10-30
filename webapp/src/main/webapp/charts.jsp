@@ -33,6 +33,9 @@
         <div class="chart">
             <canvas id="chart3"></canvas>
         </div>
+        <div class="chart">
+            <canvas id="chart5"></canvas>
+        </div>
     </div>
     <div>
         <canvas id="chart4"></canvas>
@@ -43,6 +46,7 @@
         var data2 = ${json2};
         var data3 = ${json3};
         var data4 = ${json4};
+        var data5 = ${json5};
 
         var ctx = document.getElementById("chart");
         var options = {
@@ -83,6 +87,17 @@
             type: 'line',
             data: data4,
             options: options4
+        });
+
+        var ctx5 = document.getElementById("chart5");
+        var options5 = {
+            width: 400,
+            height: 400
+        };
+        new Chart(ctx5,{
+            type: 'doughnut',
+            data: data5,
+            options: options5
         });
     </script>
 </body>

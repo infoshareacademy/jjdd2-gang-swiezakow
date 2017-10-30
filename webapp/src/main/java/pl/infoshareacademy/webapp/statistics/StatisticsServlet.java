@@ -15,11 +15,6 @@ import java.io.IOException;
 @WebServlet("/stats")
 public class StatisticsServlet extends HttpServlet {
 
-    private static final AllegroCategoryLoader loader = new AllegroCategoryLoader();
-
-    @Inject
-    private StatisticsResultsBean resultsBean;
-
     @Inject
     private StatisticService statisticService;
 
@@ -31,11 +26,14 @@ public class StatisticsServlet extends HttpServlet {
         String json2 = objectMapper.writer().writeValueAsString(statisticService.getStatsForMostPopularCategories());
         String json3 = objectMapper.writer().writeValueAsString(statisticService.getStatsForMostPopularPhrase());
         String json4 = objectMapper.writer().writeValueAsString(statisticService.getEntriesPerDay());
+        String json5 = objectMapper.writer().writeValueAsString(statisticService.getStatsForMostPopularLink());
+
 
         req.setAttribute("json", json);
         req.setAttribute("json2", json2);
         req.setAttribute("json3", json3);
         req.setAttribute("json4", json4);
+        req.setAttribute("json5", json5);
 
         req.getRequestDispatcher("/charts.jsp").forward(req, resp);
     }

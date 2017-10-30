@@ -2,11 +2,11 @@ package pl.infoshareacademy.webapp;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import pl.infoshareacademy.AllegroLink;
 import pl.infoshareacademy.SearchByQuestions;
 import pl.infoshareacademy.SearchResult;
 import pl.infoshareacademy.webapp.dao.StatisticsBean;
 import pl.infoshareacademy.webapp.entities.Statistics;
+import pl.infoshareacademy.webapp.redirect.RedirectService;
 import pl.infoshareacademy.webapp.statistics.StatisticEvents;
 
 import javax.inject.Inject;
@@ -28,6 +28,9 @@ public class SearchByQuestionsServlet extends HttpServlet {
 
     @Inject
     private StatisticsBean statisticsBean;
+
+    @Inject
+    private RedirectService redirectService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -72,7 +75,7 @@ public class SearchByQuestionsServlet extends HttpServlet {
             req.setAttribute("categoryId", foundCategoryId);
             if (isLink) {
                 statisticsBean.saveStatistics(new Statistics(StatisticEvents.CATEGORY1_CHOICE.toString(), "" + foundCategoryId));
-                String link = AllegroLink.makeLink(foundCategoryName, foundCategoryId);
+                String link = redirectService.getSecretUrl(foundCategoryId, 1, "");
                 req.setAttribute("link", link);
             }
         }

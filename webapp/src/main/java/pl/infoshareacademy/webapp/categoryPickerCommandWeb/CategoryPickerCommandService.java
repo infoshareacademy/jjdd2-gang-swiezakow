@@ -4,9 +4,9 @@ import com.google.common.collect.Iterables;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import pl.infoshareacademy.AllegroCategory;
-import pl.infoshareacademy.AllegroLink;
 import pl.infoshareacademy.webapp.AllegroCategoryService;
 import pl.infoshareacademy.webapp.promotedCategories.PromotedCategoriesService;
+import pl.infoshareacademy.webapp.redirect.RedirectService;
 import pl.infoshareacademy.webapp.searchCategoryCommandWeb.ImageUrlService;
 
 import javax.ejb.Stateless;
@@ -24,6 +24,9 @@ public class CategoryPickerCommandService {
 
     @Inject
     private ImageUrlService urlService;
+
+    @Inject
+    private RedirectService redirectService;
 
     @Inject
     private PromotedCategoriesService promotedCategoriesService;
@@ -49,7 +52,7 @@ public class CategoryPickerCommandService {
                 String link = lastCategory ? "#" : "/webapp/categoryPickerCommand?catId=" + catID;
 
                 PickerCommandCard card = new PickerCommandCard(lastCategory, catID, name, urlService.getImageUrl(mainCatId),
-                        AllegroLink.makeLink(name, catID), link, promotedCategoriesService.isCategoryPromoted(catID));
+                        redirectService.getSecretUrl(catID, 3, ""), link, promotedCategoriesService.isCategoryPromoted(catID));
                 mainCategories.add(card);
             }
         }

@@ -6,6 +6,7 @@ public enum StatisticEvents {
     CATEGORY3_SEARCH,
     CATEGORY4_SEARCH,
 
+    MAIN_LINK,
     CATEGORY1_LINK,
     CATEGORY2_LINK,
     CATEGORY3_LINK,

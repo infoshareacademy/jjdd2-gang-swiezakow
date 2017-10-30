@@ -54,6 +54,15 @@ public class StatisticService {
         return new Report(Arrays.asList(dataset), label);
     }
 
+    public Report getStatsForMostPopularLink() {
+        List<StatisticResult> mostPopularLink = resultsBean.getMostPopularLink();
+
+        DataSets dataSets = getDataset(mostPopularLink, colors2);
+        List<String> label = getLabel(mostPopularLink);
+
+        return new Report(Arrays.asList(dataSets), label);
+    }
+
     public Report getEntriesPerDay() {
         List<StatisticResult> entriesPerDay = resultsBean.getEntriesPerDay();
 

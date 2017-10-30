@@ -35,6 +35,14 @@ public class StatisticsResultsBean {
         return getResults(resultList);
     }
 
+    public List<StatisticResult> getMostPopularLink() {
+        Query query = em.createQuery("SELECT sc.parametr AS Phrase, count(sc.parametr) FROM Statistics sc WHERE sc.name LIKE 'CATEGORY__L%' OR sc.name LIKE 'MAIN%' GROUP BY sc.parametr ORDER BY sc.parametr DESC");
+        query = query.setMaxResults(5);
+        List<Object[]> resultList = query.getResultList();
+
+        return getResults(resultList);
+    }
+
     private List<StatisticResult> getResults(List<Object[]> resultList) {
         List<StatisticResult> results = new ArrayList<>();
         for (Object[] objects : resultList) {
