@@ -7,6 +7,8 @@ import pl.infoshareacademy.webapp.allegro.api.DoGetCatsDataResponse;
 import pl.infoshareacademy.webapp.allegro.api.ServicePort;
 import pl.infoshareacademy.webapp.allegro.api.ServiceService;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.Startup;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -15,11 +17,15 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
-
+@Startup
 public class AllegroClient  {
     private static int COUNTRY = 1;
     private static String KEY = "702f4373";
     private static final Logger logger = LogManager.getLogger(AllegroClient.class);
+
+    
+
+    @PostConstruct
     public  void allegroClient () throws JAXBException, IOException, WebServiceException {
         ServiceService serviceService = new ServiceService();
         ServicePort servicePort = serviceService.getServicePort();
@@ -46,13 +52,6 @@ public class AllegroClient  {
             fop = new FileOutputStream(file);
             if (!file.exists()) {
                 file.createNewFile();
-                logger.warn("----------------------------------------------------------);\n");
-                logger.warn("----------------------------------------------------------);\n");
-                logger.warn("----------------------------------------------------------);\n");
-                logger.warn("Utworzono nowy plik");
-                logger.warn("----------------------------------------------------------);\n");
-                logger.warn("----------------------------------------------------------);\n");
-                logger.warn("----------------------------------------------------------);\n");
 
             }
             byte[] contentInBytes = content.getBytes();
@@ -65,13 +64,7 @@ public class AllegroClient  {
 
                 if (fop != null) {
                     fop.close();
-                    logger.warn("----------------------------------------------------------);\n");
-                    logger.warn("----------------------------------------------------------);\n");
-                    logger.warn("----------------------------------------------------------);\n");
-                    System.out.println("juz istnieje");
-                    logger.warn("----------------------------------------------------------);\n");
-                    logger.warn("----------------------------------------------------------);\n");
-                    logger.warn("----------------------------------------------------------);\n");
+
                 }
 
             }

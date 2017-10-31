@@ -24,13 +24,7 @@ public class AllegroCategoryLoader {
 
     public List<AllegroCategory> loadAllCategories(String filename) {
         Document document = loadDocument(filename);
-        logger.warn("----------------------------------------------------------);\n");
-        logger.warn("----------------------------------------------------------);\n");
-        logger.warn("----------------------------------------------------------);\n");
-        logger.warn("UloadAllCategories");
-        logger.warn("----------------------------------------------------------);\n");
-        logger.warn("----------------------------------------------------------);\n");
-        logger.warn("----------------------------------------------------------);\n");
+
         List<AllegroCategory> list = new ArrayList<>();
 
         if (document == null) {
@@ -40,13 +34,7 @@ public class AllegroCategoryLoader {
         }
         try {
 
-            logger.warn("----------------------------------------------------------);\n");
-            logger.warn("----------------------------------------------------------);\n");
-            logger.warn("----------------------------------------------------------);\n");
-            logger.warn("wczytano prawdopodonie plik w loadAllCategories");
-            logger.warn("----------------------------------------------------------);\n");
-            logger.warn("----------------------------------------------------------);\n");
-            logger.warn("----------------------------------------------------------);\n");
+
             document.getDocumentElement().normalize();
             NodeList nodeList = document.getDocumentElement()
                     .getChildNodes().item(1)
@@ -102,14 +90,7 @@ public class AllegroCategoryLoader {
             InputStream targetStream = new FileInputStream(initialFile);
             DocumentBuilderFactory dbF = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbF.newDocumentBuilder();
-            logger.warn("----------------------------------------------------------);\n");
-            logger.warn("----------------------------------------------------------);\n");
-            logger.warn("----------------------------------------------------------);\n");
-            logger.warn("loadDocukemnt w AllegroCAtegoryLoader");
-            logger.warn("----------------------------------------------------------);\n");
-            logger.warn("----------------------------------------------------------);\n");
-            logger.warn("----------------------------------------------------------);\n");
-            return db.parse(targetStream);
+                        return db.parse(targetStream);
         } catch (Exception e) {
             logger.error("caught an exception during loading document", e);
             logger.warn("returned null");
