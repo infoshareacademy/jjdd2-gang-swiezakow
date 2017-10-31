@@ -1,5 +1,7 @@
 package pl.infoshareacademy.webapp.allegro;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import pl.infoshareacademy.webapp.allegro.api.DoGetCatsDataRequest;
 import pl.infoshareacademy.webapp.allegro.api.DoGetCatsDataResponse;
 import pl.infoshareacademy.webapp.allegro.api.ServicePort;
@@ -14,12 +16,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 
-public class AllegroClient {
+public class AllegroClient  {
     private static int COUNTRY = 1;
     private static String KEY = "702f4373";
-
-
-    public static void main(String[] args) throws JAXBException, IOException, WebServiceException {
+    private static final Logger logger = LogManager.getLogger(AllegroClient.class);
+    public  void allegroClient () throws JAXBException, IOException, WebServiceException {
         ServiceService serviceService = new ServiceService();
         ServicePort servicePort = serviceService.getServicePort();
 
@@ -41,10 +42,18 @@ public class AllegroClient {
         FileOutputStream fop = null;
         File file;
         try {
-            file = new File(System.getProperty("java.io.tmpdir")+"/file.xml");
+            file = new File(System.getProperty("java.io.tmpdir") + "/file.xml");
             fop = new FileOutputStream(file);
             if (!file.exists()) {
                 file.createNewFile();
+                logger.warn("----------------------------------------------------------);\n");
+                logger.warn("----------------------------------------------------------);\n");
+                logger.warn("----------------------------------------------------------);\n");
+                logger.warn("Utworzono nowy plik");
+                logger.warn("----------------------------------------------------------);\n");
+                logger.warn("----------------------------------------------------------);\n");
+                logger.warn("----------------------------------------------------------);\n");
+
             }
             byte[] contentInBytes = content.getBytes();
             fop.write(contentInBytes);
@@ -53,19 +62,20 @@ public class AllegroClient {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            try {
+
                 if (fop != null) {
                     fop.close();
+                    logger.warn("----------------------------------------------------------);\n");
+                    logger.warn("----------------------------------------------------------);\n");
+                    logger.warn("----------------------------------------------------------);\n");
                     System.out.println("juz istnieje");
+                    logger.warn("----------------------------------------------------------);\n");
+                    logger.warn("----------------------------------------------------------);\n");
+                    logger.warn("----------------------------------------------------------);\n");
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+
             }
+
+
         }
-
-
-
-
-
     }
-}

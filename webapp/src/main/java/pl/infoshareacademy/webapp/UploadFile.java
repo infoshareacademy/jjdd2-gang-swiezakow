@@ -46,6 +46,7 @@ public class UploadFile extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         try {
             Part fileXML = req.getPart("file.xml");
+            logger.warn("Cos z plikiem");
             allegroCategoryService.saveAllegroCategoryFile(fileXML.getInputStream());
             catalog.updateCatalog(allegroCategoryService.getFilePath());
             String message = "" + "<div class=\"alert alert-success\" role=\"alert\">\n" +
