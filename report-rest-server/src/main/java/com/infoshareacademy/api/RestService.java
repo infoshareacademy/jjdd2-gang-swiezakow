@@ -205,19 +205,18 @@ public class RestService {
         return Response.ok(dateStore.getStatisticsStore()).build();
     }
 
-//    @POST
-//    @Path("/add-recipien-configuration")
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response addTask(RecipientModel recipientConfiguration) {
-//        int newId = tasksStore.findNewId();
-//
-//        try {
-//             RecipientModel task = new RecipientModel();
-//            tasksStore.add(task);
-//            return getActiveTasks();
-//        } catch (ParseException e) {
-//            return Response.noContent().build();
-//        }
-//    }
+
+    @POST
+    @Path("/updatedatas")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void updateDateStore(DataStore dataStore) {
+        dateStore.setStatisticsStore(dataStore.getStatisticsStore());
+    }
+
+    @GET
+    @Path("/last-update-data-date")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response getLastUpdateDataDate() {
+      return Response.ok(dateStore.getStatisticsStore().getUpdateDate()).build();
+    }
 }

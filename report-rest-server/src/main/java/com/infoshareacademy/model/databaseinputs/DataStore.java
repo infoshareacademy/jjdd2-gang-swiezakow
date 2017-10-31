@@ -39,7 +39,7 @@ public class DataStore {
         statisticsStore = new StatisticsStore(lastMonthUserActivityInIndividualFeature,
                 lastMonthSumUserActivityInIndividualFeature,
                 lastMonthUserActivityIntervalStat,
-                new String("2017-10-30 19:50"));
+                "2017-10-30 19:50");
 
     }
 

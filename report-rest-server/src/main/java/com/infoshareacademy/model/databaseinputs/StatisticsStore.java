@@ -4,6 +4,9 @@ import java.util.List;
 
 public class StatisticsStore {
 
+    public StatisticsStore() {
+    }
+
     public StatisticsStore(List<DetailedStatisticsModel> lastMonthUserActivityInIndividualFeature,
                            SumDetailedStaticsModel lastMonthSumUserActivityInIndividualFeature,
                            List<RushHourModel> lastMonthUserActivityIntervalStat,
@@ -33,6 +36,11 @@ public class StatisticsStore {
     public List<RushHourModel> getLastMonthUserActivityIntervalStat() {
         return lastMonthUserActivityIntervalStat;
     }
+
+    public String getUpdateDate() {
+        return updateDate;
+    }
+
 
     public void updateStatisticsStore(
             List<DetailedStatisticsModel> lastMonthUserActivityInIndividualFeature,

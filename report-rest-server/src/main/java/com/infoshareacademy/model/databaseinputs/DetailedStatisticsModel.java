@@ -3,6 +3,9 @@ package com.infoshareacademy.model.databaseinputs;
 
 public class DetailedStatisticsModel {
 
+    public DetailedStatisticsModel() {
+    }
+
     private String date = "";
     private Integer visits = 0;
     private Integer feature1Quantity = 0;

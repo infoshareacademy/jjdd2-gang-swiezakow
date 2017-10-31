@@ -2,11 +2,14 @@ package com.infoshareacademy.model.databaseinputs;
 
 public class SumDetailedStaticsModel {
 
-    private final Integer visitSum;
-    private final Integer feature1Sum;
-    private final Integer feature2Sum;
-    private final Integer feature3Sum;
-    private final Integer feature4Sum;
+    public SumDetailedStaticsModel() {
+    }
+
+    private Integer visitSum;
+    private Integer feature1Sum;
+    private Integer feature2Sum;
+    private Integer feature3Sum;
+    private Integer feature4Sum;
 
     public SumDetailedStaticsModel(Integer visitSum, Integer feature1Sum, Integer feature2Sum, Integer feature3Sum, Integer feature4Sum) {
         this.visitSum = visitSum;

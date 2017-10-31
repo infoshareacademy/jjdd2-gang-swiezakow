@@ -22,7 +22,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Singleton
-public class TimeGuard {
+public class TaskExecutor {
 
     @Inject
     TasksStore tasksStore;

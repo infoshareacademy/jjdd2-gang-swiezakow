@@ -2,6 +2,9 @@ package com.infoshareacademy.model.databaseinputs;
 
 public class RushHourModel {
 
+    public RushHourModel() {
+    }
+
     private Integer hour;
     private Long quantity;
 
