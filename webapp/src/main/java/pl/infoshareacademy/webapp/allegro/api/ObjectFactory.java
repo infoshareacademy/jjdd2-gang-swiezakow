@@ -29,13 +29,8 @@ public class ObjectFactory {
     public ObjectFactory() {
     }
 
-    /**
-     * Create an instance of {@link DoGetPaymentDataRequest }
-     * 
-     */
-    public DoGetPaymentDataRequest createDoGetPaymentDataRequest() {
-        return new DoGetPaymentDataRequest();
-    }
+
+
 
     /**
      * Create an instance of {@link DoGetItemsInfoRequest }
@@ -2237,13 +2232,7 @@ public class ObjectFactory {
         return new DoGetSystemTimeResponse();
     }
 
-    /**
-     * Create an instance of {@link DoGetPaymentDataResponse }
-     * 
-     */
-    public DoGetPaymentDataResponse createDoGetPaymentDataResponse() {
-        return new DoGetPaymentDataResponse();
-    }
+
 
     /**
      * Create an instance of {@link ArrayOfBillingdatatype }

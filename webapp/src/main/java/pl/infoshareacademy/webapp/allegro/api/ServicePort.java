@@ -617,11 +617,7 @@ public interface ServicePort {
      * @return
      *     returns api.DoGetPaymentDataResponse
      */
-    @WebMethod(action = "#doGetPaymentData")
-    @WebResult(name = "doGetPaymentDataResponse", targetNamespace = "https://webapi.allegro.pl/service.php", partName = "parameters")
-    public DoGetPaymentDataResponse doGetPaymentData(
-        @WebParam(name = "DoGetPaymentDataRequest", targetNamespace = "https://webapi.allegro.pl/service.php", partName = "parameters")
-        DoGetPaymentDataRequest parameters);
+
 
     /**
      * 

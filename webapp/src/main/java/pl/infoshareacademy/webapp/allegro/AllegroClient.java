@@ -5,19 +5,21 @@ import pl.infoshareacademy.webapp.allegro.api.DoGetCatsDataResponse;
 import pl.infoshareacademy.webapp.allegro.api.ServicePort;
 import pl.infoshareacademy.webapp.allegro.api.ServiceService;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.Part;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import java.io.*;
+import javax.xml.ws.WebServiceException;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.StringWriter;
 
 public class AllegroClient {
     private static int COUNTRY = 1;
     private static String KEY = "702f4373";
 
 
-    public static void main(String[] args) throws JAXBException, IOException {
+    public static void main(String[] args) throws JAXBException, IOException, WebServiceException {
         ServiceService serviceService = new ServiceService();
         ServicePort servicePort = serviceService.getServicePort();
 
@@ -36,25 +38,30 @@ public class AllegroClient {
         String xmlString = sw.toString();
         System.out.println(xmlString);
         String content = xmlString;
-
-
-            FileOutputStream fop = null;
-            File file = new File.
+        FileOutputStream fop = null;
+        File file;
+        try {
+            file = new File(System.getProperty("java.io.tmpdir")+"/file.xml");
             fop = new FileOutputStream(file);
-
-            // if file doesnt exists, then create it
             if (!file.exists()) {
                 file.createNewFile();
             }
-
-            // get the content in bytes
             byte[] contentInBytes = content.getBytes();
-
             fop.write(contentInBytes);
             fop.flush();
             fop.close();
-
-            System.out.println("Done");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fop != null) {
+                    fop.close();
+                    System.out.println("juz istnieje");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
 
 
