@@ -48,5 +48,10 @@ public class TasksStore {
         base.put(findNewId(), configuration);
     }
 
-
+    @Override
+    public String toString() {
+        return "TasksStore{" +
+                "base=" + base +
+                '}';
+    }
 }

@@ -7,10 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.HeaderParam;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -18,8 +15,8 @@ import javax.ws.rs.core.UriInfo;
 import java.util.Map;
 
 @Path("/")
-public class RestClient {
-    private Logger LOG = LoggerFactory.getLogger(RestClient.class);
+public class RestService {
+    private Logger LOG = LoggerFactory.getLogger(RestService.class);
 
     @Context
     private UriInfo uriInfo;
@@ -125,23 +122,6 @@ public class RestClient {
 //        return Response.status(Response.Status.UNAUTHORIZED).build();
 //    }
 //
-//    @POST
-//    @Path("/user")
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response addUser(User user) {
-//
-//        int newId = userStore.findNewId();
-//
-//        userStore.add(new User(
-//                user.getName(),
-//                user.getSurname(),
-//                newId,
-//                user.getCredentials()
-//        ));
-//
-//        return getUsers();
-//    }
 //
 //    @PUT
 //    @Path("/user")
@@ -170,6 +150,24 @@ public class RestClient {
 //        return Response.noContent().build();
 //    }
 
+//    @POST
+//    @Path("/user")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response addUser(User user) {
+//
+//        int newId = userStore.findNewId();
+//
+//        userStore.add(new User(
+//                user.getName(),
+//                user.getSurname(),
+//                newId,
+//                user.getCredentials()
+//        ));
+//
+//        return getUsers();
+//    }
+
     @GET
     @Path("/activetasks")
     @Produces(MediaType.APPLICATION_JSON)
@@ -184,6 +182,20 @@ public class RestClient {
 
         LOG.info("showed TasksStore of number active tasks: " + tasksStore.getBase().size());
         return Response.ok(tasksStoreBase.values()).build();
+    }
+
+    @POST
+    @Path("/addtask")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addTask(RecipientModel recipientModel) {
+
+        tasksStore.add(new RecipientModel(recipientModel.getEmails(),
+                recipientModel.getSendTimeDate(),
+                recipientModel.getInterval(),
+                tasksStore.findNewId()));
+
+        return getActiveTasks();
     }
 
     @GET

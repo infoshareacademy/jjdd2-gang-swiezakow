@@ -49,4 +49,13 @@ public class StatisticsStore {
             this.updateDate = updateDate;
     }
 
+    @Override
+    public String toString() {
+        return "StatisticsStore{" +
+                "lastMonthUserActivityInIndividualFeature=" + lastMonthUserActivityInIndividualFeature +
+                ",\n lastMonthSumUserActivityInIndividualFeature=" + lastMonthSumUserActivityInIndividualFeature +
+                ",\n lastMonthUserActivityIntervalStat=" + lastMonthUserActivityIntervalStat +
+                ",\n updateDate='" + updateDate + '\'' +
+                '}';
+    }
 }

@@ -34,4 +34,33 @@ public class RecipientModel {
         this.interval = interval;
         this.id = id;
     }
+
+    public RecipientModel() {
+    }
+
+    public void setEmails(List<String> emails) {
+        this.emails = emails;
+    }
+
+    public void setSendTimeDate(String sendTimeDate) {
+        this.sendTimeDate = sendTimeDate;
+    }
+
+    public void setInterval(Integer interval) {
+        this.interval = interval;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "RecipientModel{" +
+                "emails=" + emails +
+                ",\n sendTimeDate='" + sendTimeDate + '\'' +
+                ",\n interval=" + interval +
+                ",\n id=" + id +
+                '}';
+    }
 }
