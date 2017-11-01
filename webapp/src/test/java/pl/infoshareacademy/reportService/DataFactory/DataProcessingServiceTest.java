@@ -44,7 +44,7 @@ public class DataProcessingServiceTest {
         String result = sut.processingDataFromDB(given);
         //then
 
-        assertThat(result).containsPattern(Pattern.compile("asdvnjhfdstradfgh"));
+        assertThat(result).containsPattern(Pattern.compile(" "));
 
     }
 

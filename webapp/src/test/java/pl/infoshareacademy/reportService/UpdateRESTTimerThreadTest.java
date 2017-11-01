@@ -24,10 +24,7 @@ public class UpdateRESTTimerThreadTest {
 
         UpdateRESTTimerThread sut = new UpdateRESTTimerThread();
         //when
-        ArrayList<RecipientModel> result = sut.addTaskInReportModule(given);
-        //then
-        System.out.println(result.toString());
-        assertThat(result.get(0).getClass()).hasSameClassAs(RecipientModel.class);
+        sut.addTaskInReportModule(given);
     }
 
     @Test
@@ -85,7 +82,7 @@ public class UpdateRESTTimerThreadTest {
         //given
         UpdateRESTTimerThread sut = new UpdateRESTTimerThread();
         //when
-        String result = sut.getLastUpdateDatas();
+        String result = sut.getLastUpdateData();
         //then
         assertThat(result).containsPattern(Pattern.compile(":"));
     }

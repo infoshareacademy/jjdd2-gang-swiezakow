@@ -1,5 +1,7 @@
 package pl.infoshareacademy.reportService;
 
+import pl.infoshareacademy.reportService.DataFactory.DataProcessingService;
+import pl.infoshareacademy.reportService.ModelsStore.DataStore;
 import pl.infoshareacademy.reportService.ModelsStore.RecipientModel;
 
 import javax.ejb.Schedule;
@@ -9,7 +11,6 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -18,12 +19,15 @@ public class UpdateRESTTimerThread {
 
     private static final String ENDPOINT = "http://localhost:8080/report-rest-server/";
 
-    @Schedule(second="*/10", minute="*",hour="*", persistent=false)
-    public void doWork(){
-        System.out.println("timer: " + Instant.now());
+    @Schedule(second="*", minute="1",hour="*", persistent=false)
+    public void updateDateInReportModulePeriodically(){
+        DataProcessingService dataProcessingService = new DataProcessingService();
+        DataStore newSet = dataProcessingService.getNewDataSetFromDB();
+        String newSetToJSON = dataProcessingService.processingDataFromDB(newSet);
+        updateDataInReportModule(newSetToJSON);
     }
 
-    public String getLastUpdateDatas() {
+    public String getLastUpdateData() {
         Client client = ClientBuilder.newClient();
         WebTarget webTarget = client.target(ENDPOINT + "last-update-data-date");
         Response response = webTarget.request().get();
@@ -54,5 +58,5 @@ public class UpdateRESTTimerThread {
         WebTarget webTarget = client.target(ENDPOINT + "addtask");
         webTarget.request().post(Entity.entity(recipientModel, MediaType.APPLICATION_JSON_TYPE));
     }
-    
+
 }

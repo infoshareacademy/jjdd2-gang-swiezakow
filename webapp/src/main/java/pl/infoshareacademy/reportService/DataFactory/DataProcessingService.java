@@ -5,12 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import pl.infoshareacademy.reportService.ModelsStore.DataStore;
 import pl.infoshareacademy.reportService.ModelsStore.StatisticsStore;
 
-import javax.ejb.Singleton;
 import javax.inject.Inject;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-@Singleton
 public class DataProcessingService {
 
     @Inject
