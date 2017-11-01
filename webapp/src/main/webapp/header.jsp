@@ -31,7 +31,7 @@
             <div class="dropdown-menu" aria-labelledby="userDropdown">
                 <c:choose>
                     <c:when test="${isFbUser}">
-                        <a class="dropdown-item" href="fblogin?logout=1">Wyloguj</a>
+                        <a class="dropdown-item" target="_top" href="fblogin?logout=1">Wyloguj</a>
                     </c:when>
                     <c:otherwise>
                         <div class="g-signin2" style="display: none;" data-onsuccess="onSignIn"></div>
