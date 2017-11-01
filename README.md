@@ -1,1 +1,0 @@
-# jjdd2-gang-swiezakow

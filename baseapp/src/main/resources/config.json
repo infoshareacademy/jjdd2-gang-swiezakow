@@ -1,7 +1,0 @@
-{
-  "filePath" : "Allegro_cathegories_2016-02-13.xml",
-  "minPhraseLength" : 3,
-  "linkForCPC" : "https://allegro.pl/kategoria/%s-%d",
-  "linkForSCC" : "https://allegro.pl/kategoria/%s-%d?string=%s",
-  "linkForAL" : "https://allegro.pl/kategoria/%s-%d"
-}
