@@ -1,8 +1,5 @@
 .idea
 *.iml
-target/
 out/
 baseapp/
 logBaseApp.log
-webapp/
-pom.xml

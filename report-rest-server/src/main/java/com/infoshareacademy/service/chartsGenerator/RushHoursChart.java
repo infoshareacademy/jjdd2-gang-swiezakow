@@ -12,13 +12,7 @@ import java.util.List;
 
 public class RushHoursChart {
 
-    private List<RushHourModel> db;
-
-    public RushHoursChart(List<RushHourModel> db) {
-        this.db = db;
-    }
-
-    public void generateRushHoursCharts() throws Exception {
+    public void generateRushHoursCharts(List<RushHourModel> db) throws Exception {
 
         DefaultCategoryDataset line_chart1_dataset = new DefaultCategoryDataset();
 

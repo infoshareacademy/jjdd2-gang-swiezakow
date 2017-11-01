@@ -12,13 +12,7 @@ import java.util.List;
 
 public class VisitsNumberChart {
 
-    private List<DetailedStatisticsModel> db;
-
-    public VisitsNumberChart(List<DetailedStatisticsModel> db) {
-        this.db = db;
-    }
-
-    public void getVisitsNumberChart() throws Exception {
+    public void getVisitsNumberChart(List<DetailedStatisticsModel> db) throws Exception {
         DefaultCategoryDataset line_chart_dataset = new DefaultCategoryDataset();
 
         db.forEach(s -> line_chart_dataset.addValue(s.getVisits(), "visits", s.getDate()));

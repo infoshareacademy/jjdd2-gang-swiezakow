@@ -11,13 +11,8 @@ import java.io.File;
 
 public class CompareEntriesChart {
 
-    private SumDetailedStaticsModel db;
 
-    public CompareEntriesChart(SumDetailedStaticsModel db) {
-        this.db = db;
-    }
-
-    public void generateCompareEntriesChart()throws Exception {
+    public void generateCompareEntriesChart(SumDetailedStaticsModel db)throws Exception {
         final String menuEntries = "MENU";
         final String feature1 = "FEATURE 1";
         final String feature2 = "FEATURE 2";

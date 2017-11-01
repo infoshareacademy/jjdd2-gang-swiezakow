@@ -1,5 +1,6 @@
 package com.infoshareacademy.service.timerEngineService;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.infoshareacademy.model.RecipientModel;
 import com.infoshareacademy.model.TasksStore;
 import com.infoshareacademy.model.databaseinputs.DataStore;
@@ -9,6 +10,9 @@ import com.infoshareacademy.service.chartsGenerator.RushHoursChart;
 import com.infoshareacademy.service.chartsGenerator.VisitsNumberChart;
 import com.infoshareacademy.service.emailservice.EmailSender;
 import com.infoshareacademy.service.pdfservice.PdfGenerator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
@@ -24,42 +28,41 @@ import java.util.stream.Collectors;
 @Singleton
 public class TaskExecutor {
 
+    Logger LOG = LogManager.getLogger(TaskExecutor.class);
+
     @Inject
     TasksStore tasksStore;
 
     @Inject
     DataStore dataStore;
 
-    @Schedule(second = "*/10", minute = "*", hour = "*", persistent = false)
+    @Schedule(minute = "*/1", hour = "*", persistent = false)
     public void periodic() {
         String localDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         System.out.println(dataStore.getStatisticsStore().toString());
         System.out.println(tasksStore.getBase().toString());
     }
 
-    private void prepareAttachment() {
-        StatisticsStore statisticsStore = dataStore.getStatisticsStore();
+    public void prepareAttachment(StatisticsStore statisticsStore) {
 
-        CompareEntriesChart compareEntriesChart = new CompareEntriesChart(
-                statisticsStore.getLastMonthSumUserActivityInIndividualFeature());
-        RushHoursChart rushHoursChart = new RushHoursChart(
-                statisticsStore.getLastMonthUserActivityIntervalStat());
-        VisitsNumberChart visitsNumberChart = new VisitsNumberChart(
-                statisticsStore.getLastMonthUserActivityInIndividualFeature());
+        CompareEntriesChart compareEntriesChart = new CompareEntriesChart();
+        RushHoursChart rushHoursChart = new RushHoursChart();
+        VisitsNumberChart visitsNumberChart = new VisitsNumberChart();
 
         try {
-            compareEntriesChart.generateCompareEntriesChart();
-            rushHoursChart.generateRushHoursCharts();
-            visitsNumberChart.getVisitsNumberChart();
+            compareEntriesChart.generateCompareEntriesChart(statisticsStore.getLastMonthSumUserActivityInIndividualFeature());
+            rushHoursChart.generateRushHoursCharts(statisticsStore.getLastMonthUserActivityIntervalStat());
+            visitsNumberChart.getVisitsNumberChart(statisticsStore.getLastMonthUserActivityInIndividualFeature());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         PdfGenerator pdfGenerator = new PdfGenerator(
                 statisticsStore);
+        pdfGenerator.generatePDF();
     }
 
-    private void takeNewTask(String localDateTime) {
+    public void takeNewTask(String localDateTime) {
         if (tasksStore.getBase().size()>=1) {
             List<RecipientModel> recipientList = new ArrayList<>(tasksStore.getBase().values());
             recipientList = recipientList.stream()
@@ -89,7 +92,7 @@ public class TaskExecutor {
         }
     }
 
-    private String setNewTaskTime(String inputDate, Integer interval) {
+    public String setNewTaskTime(String inputDate, Integer interval) {
         LocalDateTime oldTime = LocalDateTime.parse(inputDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         return oldTime.plusMinutes(interval).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
