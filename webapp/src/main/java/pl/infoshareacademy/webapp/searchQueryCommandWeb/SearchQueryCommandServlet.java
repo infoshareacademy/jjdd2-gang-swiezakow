@@ -45,7 +45,7 @@ public class SearchQueryCommandServlet extends HttpServlet {
             req.setAttribute("searchTerm", searchTerm);
             req.setAttribute("queryCard", results);
         }
-
+        req.setAttribute("categoryNumber", "4");
         req.getRequestDispatcher("searchQueryCommand.jsp").forward(req, resp);
     }
 }

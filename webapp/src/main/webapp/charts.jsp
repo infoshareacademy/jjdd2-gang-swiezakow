@@ -20,14 +20,9 @@
     </style>
 </head>
 <body>
-<ul class="topnav">
-    <li><a href="SearchByQuestions">Wyszukiwanie na podstawie serii pytań</a></li>
-    <li><a href="searchCategoryCommand">Wyszukiwanie produktu</a></li>
-    <li><a href="categoryPickerCommand">Wyszukiwanie kategorii Allegro</a></li>
-    <li><a href="searchQueryCommand">Asysent Allegro</a></li>
-    <li class="right" class="active"><a href="stats">Statystyki</a></li>
-    <li class="right"><a href="">O nas</a></li>
-</ul>
+<header>
+    <jsp:include page="/header.jsp"/>
+</header>
     <div class="charts">
         <div class="chart">
             <canvas id="chart"></canvas>

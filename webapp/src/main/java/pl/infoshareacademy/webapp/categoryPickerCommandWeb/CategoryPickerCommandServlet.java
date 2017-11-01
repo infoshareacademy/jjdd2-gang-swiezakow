@@ -38,6 +38,7 @@ public class CategoryPickerCommandServlet extends HttpServlet {
             logger.debug("Category id = " + catId);
             statisticsBean.saveStatistics(new Statistics(StatisticEvents.CATEGORY2_CHOICE.toString(), catIds[0]));
         }
+        req.setAttribute("categoryNumber", "3");
         req.setAttribute("mainCategories", categoryPickerCommandService.getMainCategories(catId));
         req.getRequestDispatcher("categoryPickerCommand.jsp").forward(req, resp);
     }

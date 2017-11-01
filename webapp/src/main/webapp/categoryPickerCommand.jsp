@@ -13,14 +13,9 @@ font-family: 'Lato', sans-serif;
 </style>
 </head>
 <body>
-    <ul class="topnav">
-        <li><a href="SearchByQuestions">Wyszukiwanie na podstawie serii pytań</a></li>
-        <li><a href="searchCategoryCommand">Wyszukiwanie produktu</a></li>
-        <li><a class="active" href="categoryPickerCommand">Wyszukiwanie kategorii Allegro</a></li>
-        <li><a href="searchQueryCommand">Asysent Allegro</a></li>
-        <li class="right"><a href="stats">Statystyki</a></li>
-        <li class="right"><a href="">O nas</a></li>
-    </ul>
+<header>
+    <jsp:include page="/header.jsp"/>
+</header>
 <jsp:useBean id="mainCategories" scope="request" type="java.util.List<pl.infoshareacademy.webapp.categoryPickerCommandWeb.PickerCommandCard>" />
 <div class="container">
     <div class="row justify-content-md-center">

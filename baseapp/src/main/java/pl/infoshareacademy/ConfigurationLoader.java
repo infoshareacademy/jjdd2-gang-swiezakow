@@ -1,5 +1,6 @@
 package pl.infoshareacademy;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,6 +22,7 @@ public class ConfigurationLoader {
     public static void loadConfiguration(String path) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
             configuration = objectMapper.reader(Configuration.class).readValue(
                     Configuration.class.getResourceAsStream(path));
         } catch (IOException e) {

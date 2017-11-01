@@ -5,14 +5,9 @@
     <jsp:include page="/head.jsp"/>
 </head>
 <body>
-<ul class="topnav">
-    <li><a href="SearchByQuestions">Wyszukiwanie na podstawie serii pytań</a></li>
-    <li><a href="searchCategoryCommand">Wyszukiwanie produktu</a></li>
-    <li><a href="categoryPickerCommand">Wyszukiwanie kategorii Allegro</a></li>
-    <li><a class="active" href="searchQueryCommand">Asysent Allegro</a></li>
-    <li class="right"><a href="stats">Statystyki</a></li>
-    <li class="right"><a href="">O nas</a></li>
-</ul>
+<header>
+    <jsp:include page="/header.jsp"/>
+</header>
 <nav class="navbar navbar-light bg-light">
     <form class="formularz form-inline" method="get">
         <input
@@ -26,7 +21,16 @@
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
 </nav>
-
+<c:if test="${searchTerm.length() != 0 && searchTerm.length() < 3}">
+    <div class="alert alert-danger" role="alert">
+        Szukana fraza musi miec co najmniej 3 znaki! Spróbuj ponownie.
+    </div>
+</c:if>
+<c:if test="${searchTerm.length() >= 3 && queryCard.size() == 0}">
+    <div class="alert alert-warning" role="alert">
+        Przepraszamy, nie znaleziono kategorii!
+    </div>
+</c:if>
 <jsp:useBean id="queryCard" scope="request" type="java.util.List<pl.infoshareacademy.webapp.searchQueryCommandWeb.QueryCard>" />
 <c:forEach items="${queryCard}" var="qc">
     <div class="kartka card bg-dark text-white">
