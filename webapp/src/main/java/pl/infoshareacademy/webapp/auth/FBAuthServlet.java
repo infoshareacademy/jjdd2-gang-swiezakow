@@ -60,6 +60,7 @@ public class FBAuthServlet extends HttpServlet {
         
         String userName = req.getParameter("user_name");
         String userEmail = req.getParameter("user_email");
+        String picture = req.getParameter("picture");
         String accessToken = req.getParameter("access_token");
         String userId = req.getParameter("user_id");
 
@@ -80,6 +81,8 @@ public class FBAuthServlet extends HttpServlet {
                 if (uid.equals(userId)) {
                     req.getSession().setAttribute(USER_NAME, userName);
                     req.getSession().setAttribute(USER_EMAIL, userEmail);
+                    req.getSession().setAttribute(USER_IMG, picture);
+                    LOGGER.info("e-mail: " + userEmail);
                     req.getSession().setAttribute(USER_LOGIN_TYPE, "fb");
                     req.getSession().setAttribute(USER_TYPE, adminService.isAdmin(userEmail));
                     resp.sendRedirect("main");
