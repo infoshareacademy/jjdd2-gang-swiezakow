@@ -5,6 +5,7 @@ import pl.infoshareacademy.reportService.ModelsStore.DataStore;
 import pl.infoshareacademy.reportService.ModelsStore.RecipientModel;
 
 import javax.ejb.Schedule;
+import javax.ejb.Singleton;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -14,7 +15,7 @@ import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
+@Singleton
 public class UpdateRESTTimerThread {
 
     private static final String ENDPOINT = "http://localhost:8080/report-rest-server/";
