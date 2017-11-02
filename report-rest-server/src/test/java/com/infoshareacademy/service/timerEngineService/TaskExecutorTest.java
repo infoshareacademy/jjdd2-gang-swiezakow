@@ -55,7 +55,7 @@ public class TaskExecutorTest {
         //when
         sut.prepareAttachment(given);
         //then
-        assertThat(listOfFiles).contains(new File("./BarChart.pdf"));
+        assertThat(listOfFiles).contains(new File("./BarChart.png"));
     }
 
     @Test
