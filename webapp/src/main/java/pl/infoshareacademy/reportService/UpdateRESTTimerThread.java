@@ -3,9 +3,11 @@ package pl.infoshareacademy.reportService;
 import pl.infoshareacademy.reportService.DataFactory.DataProcessingService;
 import pl.infoshareacademy.reportService.ModelsStore.DataStore;
 import pl.infoshareacademy.reportService.ModelsStore.RecipientModel;
+import pl.infoshareacademy.webapp.dao.StatisticsResultsBean;
 
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
+import javax.inject.Inject;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -18,11 +20,14 @@ import java.util.Arrays;
 @Singleton
 public class UpdateRESTTimerThread {
 
-    private static final String ENDPOINT = "http://localhost:8080/report-rest-server/";
+    private static final String ENDPOINT = "http://localhost:8180/report-rest-server-1.5/";
 
-    @Schedule(second="*", minute="1",hour="*", persistent=false)
+    @Inject
+    StatisticsResultsBean statisticsResultsBean;
+
+    @Schedule(minute="*/1",hour="*", persistent=false)
     public void updateDateInReportModulePeriodically(){
-        DataProcessingService dataProcessingService = new DataProcessingService();
+        DataProcessingService dataProcessingService = new DataProcessingService(statisticsResultsBean);
         DataStore newSet = dataProcessingService.getNewDataSetFromDB();
         String newSetToJSON = dataProcessingService.processingDataFromDB(newSet);
         updateDataInReportModule(newSetToJSON);

@@ -4,15 +4,18 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import pl.infoshareacademy.reportService.ModelsStore.DataStore;
 import pl.infoshareacademy.reportService.ModelsStore.StatisticsStore;
+import pl.infoshareacademy.webapp.dao.StatisticsResultsBean;
 
-import javax.inject.Inject;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class DataProcessingService {
 
-    @Inject
-    ReportResultBean reportResultBean;
+    public DataProcessingService(StatisticsResultsBean reportResultBean) {
+        this.reportResultBean = reportResultBean;
+    }
+
+    StatisticsResultsBean reportResultBean;
 
     public DataStore getNewDataSetFromDB() {
         return new DataStore(new StatisticsStore(
