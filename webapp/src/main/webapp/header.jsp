@@ -9,10 +9,10 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item <c:if test="${'1' == categoryNumber}">active</c:if>">
-                <a class="nav-link" href="SearchByQuestions">Seria pytań</a>
+                <a class="nav-link" href="SearchByQuestions">${t.header.seriesofquetions}</a>
             </li>
             <li class="nav-item <c:if test="${'2' == categoryNumber}">active</c:if>">
-                <a class="nav-link" href="searchCategoryCommand">Wybierz produkt</a>
+                <a class="nav-link" href="searchCategoryCommand">${t.header.selectproduct}</a>
             </li>
             <li class="nav-item <c:if test="${'3' == categoryNumber}">active</c:if>">
                 <a class="nav-link" href="categoryPickerCommand">Katalog Allegro</a>

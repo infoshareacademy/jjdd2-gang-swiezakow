@@ -3,6 +3,7 @@ package pl.infoshareacademy.webapp;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import pl.infoshareacademy.Catalog;
+import pl.infoshareacademy.webapp.lang.Translator;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -52,6 +53,7 @@ public class UploadFile extends HttpServlet {
                     "  Poprawnie załadowano kategorie!\n" +
                     "</div>";
             req.setAttribute("message", message);
+            Translator.fillRequestAttributes(req);
             req.getRequestDispatcher("main.jsp").forward(req, resp);
 
         } catch (IOException e) {

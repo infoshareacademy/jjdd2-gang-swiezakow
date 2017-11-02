@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import pl.infoshareacademy.webapp.dao.StatisticsBean;
 import pl.infoshareacademy.webapp.entities.Statistics;
+import pl.infoshareacademy.webapp.lang.Translator;
 import pl.infoshareacademy.webapp.statistics.StatisticEvents;
 
 import javax.inject.Inject;
@@ -40,6 +41,9 @@ public class CategoryPickerCommandServlet extends HttpServlet {
         }
         req.setAttribute("categoryNumber", "3");
         req.setAttribute("mainCategories", categoryPickerCommandService.getMainCategories(catId));
+        Translator.fillRequestAttributes(req);
         req.getRequestDispatcher("categoryPickerCommand.jsp").forward(req, resp);
     }
+
+
 }

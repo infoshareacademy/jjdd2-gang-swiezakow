@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.json.JSONException;
 import pl.infoshareacademy.Configuration;
 import pl.infoshareacademy.ConfigurationLoader;
+import pl.infoshareacademy.webapp.lang.Translator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,8 +34,10 @@ public class FBAuthServlet extends HttpServlet {
 
         ConfigurationLoader.loadConfiguration();
         Configuration config = ConfigurationLoader.getConfiguration();
-        String facebookAppId = config.isUseTestFB() ? config.getTestFacebookAppId() : config.getFacebookAppId();
-        String facebookAppSecret = config.isUseTestFB() ? config.getTestFacebookAppSecret() : config.getFacebookAppSecret();
+
+        boolean isLocal = req.getServerName().equals("localhost");
+        String facebookAppId = isLocal ? config.getTestFacebookAppId() : config.getFacebookAppId();
+        String facebookAppSecret = isLocal ? config.getTestFacebookAppSecret() : config.getFacebookAppSecret();
 
         String logout = req.getParameter("logout");
         if ("1".equals(logout)) {
@@ -45,6 +48,7 @@ public class FBAuthServlet extends HttpServlet {
 
             if ("fb".equals(loginType)) {
                 req.setAttribute("facebookAppId", facebookAppId);
+                Translator.fillRequestAttributes(req);
                 req.getRequestDispatcher("fblogout.jsp").forward(req, resp);
             } else {
                 resp.sendRedirect("fblogin");
@@ -60,6 +64,7 @@ public class FBAuthServlet extends HttpServlet {
         if (userName == null || userEmail == null) {
 
             req.setAttribute("facebookAppId", facebookAppId);
+            Translator.fillRequestAttributes(req);
             req.getRequestDispatcher("fblogin.jsp").forward(req, resp);
         } else {
             String APP_SECRET = facebookAppSecret;
@@ -82,6 +87,7 @@ public class FBAuthServlet extends HttpServlet {
                 LOGGER.error("Could not confirm token. " + e.getMessage(), e);
                 req.setAttribute("message", "Could not authenticate with FB. Please try again or use alternative log in.");
             } finally {
+                Translator.fillRequestAttributes(req);
                 req.getRequestDispatcher("fblogin.jsp").forward(req, resp);
             }
         }

@@ -1,5 +1,4 @@
 {
-  "useTestFB": true,
   "filePath" : "Allegro_cathegories_2016-02-13.xml",
   "minPhraseLength" : 3,
   "linkForCPC" : "https://allegro.pl/kategoria/%s-%d",
