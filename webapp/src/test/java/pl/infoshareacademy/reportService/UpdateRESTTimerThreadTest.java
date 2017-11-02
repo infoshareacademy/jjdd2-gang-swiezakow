@@ -1,12 +1,11 @@
 package pl.infoshareacademy.reportService;
 
 import org.junit.Test;
-import pl.infoshareacademy.reportService.DataFactory.DataProcessingService;
 import pl.infoshareacademy.reportService.ModelsStore.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 import static org.assertj.core.api.Assertions.*;
@@ -71,10 +70,10 @@ public class UpdateRESTTimerThreadTest {
         //given
         UpdateRESTTimerThread sut = new UpdateRESTTimerThread();
         //when
-        ArrayList<RecipientModel> result = sut.getActualTasks();
+        Optional<ArrayList<RecipientModel>> result = sut.getActualTasks();
         //then
-        System.out.println(result.get(0).getClass());
-        assertThat(result.get(0).getClass()).hasSameClassAs(RecipientModel.class);
+        System.out.println(result.get().get(0).getClass());
+        assertThat(result.get().get(0).getClass()).hasSameClassAs(RecipientModel.class);
     }
 
     @Test
@@ -82,7 +81,7 @@ public class UpdateRESTTimerThreadTest {
         //given
         UpdateRESTTimerThread sut = new UpdateRESTTimerThread();
         //when
-        String result = sut.getLastUpdateData();
+        String result = sut.getLastUpdateDate();
         //then
         assertThat(result).containsPattern(Pattern.compile(":"));
     }
