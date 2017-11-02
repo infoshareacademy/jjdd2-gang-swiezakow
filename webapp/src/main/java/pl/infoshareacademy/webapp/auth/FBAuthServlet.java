@@ -9,7 +9,9 @@ import org.apache.logging.log4j.Logger;
 import org.json.JSONException;
 import pl.infoshareacademy.Configuration;
 import pl.infoshareacademy.ConfigurationLoader;
+import pl.infoshareacademy.webapp.authorisation.AdminService;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +27,10 @@ public class FBAuthServlet extends HttpServlet {
     public static final String USER_EMAIL = "UserEmail";
     public static final String USER_LOGIN_TYPE = "UserLoginType";
     public static final String USER_IMG = "UserUrl";
+    public static final String USER_TYPE = "userType";
+
+    @Inject
+    private AdminService adminService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -75,6 +81,7 @@ public class FBAuthServlet extends HttpServlet {
                     req.getSession().setAttribute(USER_NAME, userName);
                     req.getSession().setAttribute(USER_EMAIL, userEmail);
                     req.getSession().setAttribute(USER_LOGIN_TYPE, "fb");
+                    req.getSession().setAttribute(USER_TYPE, adminService.isAdmin(userEmail));
                     resp.sendRedirect("main");
                     return;
                 }

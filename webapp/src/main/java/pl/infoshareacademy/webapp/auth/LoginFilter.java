@@ -27,7 +27,6 @@ public class LoginFilter implements Filter {
         if (session.getAttribute(USER_NAME) == null && !uri.endsWith("fblogin") && !uri.endsWith("googlelog")) {
             res.sendRedirect("fblogin");
         } else {
-            // pass the request along the filter chain
             filterChain.doFilter(servletRequest, servletResponse);
         }
 

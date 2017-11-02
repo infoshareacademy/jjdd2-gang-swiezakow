@@ -1,8 +1,8 @@
 package pl.infoshareacademy.webapp.statistics;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import pl.infoshareacademy.AllegroCategoryLoader;
-import pl.infoshareacademy.webapp.dao.StatisticsResultsBean;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -12,19 +12,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static pl.infoshareacademy.webapp.auth.FBAuthServlet.USER_TYPE;
+
 @WebServlet("/stats")
 public class StatisticsServlet extends HttpServlet {
 
-    private static final AllegroCategoryLoader loader = new AllegroCategoryLoader();
-
-    @Inject
-    private StatisticsResultsBean resultsBean;
+    private static final Logger logger = LogManager.getLogger(StatisticsServlet.class);
 
     @Inject
     private StatisticService statisticService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Boolean isAdmin = (Boolean) req.getSession().getAttribute(USER_TYPE);
+
+        if(isAdmin == null || !isAdmin) {
+            logger.info("access denied");
+            resp.sendRedirect("unauthorized");
+        }
 
         ObjectMapper objectMapper = new ObjectMapper();
         String json = objectMapper.writer().writeValueAsString(statisticService.getStatsForCategoryEntries());

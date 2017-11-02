@@ -21,6 +21,10 @@ public class AdminService {
         return adminConfiguration;
     }
 
+    public boolean isAdmin(String email) {
+        return adminConfiguration.getAdmins().contains(email);
+    }
+
     private AdminConfiguration loadAdminFile() {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
