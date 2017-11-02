@@ -4,3 +4,7 @@ target/
 out/
 baseapp/logBaseApp.log
 logBaseApp.log
+Allegro_cathegories_2016-02-13.xml
+*.png
+*.pdf
+report-rest-server/
