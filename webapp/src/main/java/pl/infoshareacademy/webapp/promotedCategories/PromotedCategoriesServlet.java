@@ -31,6 +31,7 @@ public class PromotedCategoriesServlet extends HttpServlet {
         if(isAdmin == null || !isAdmin) {
             logger.info("access denied");
             resp.sendRedirect("unauthorized");
+            return;
         }
 
         Map<String, String[]> parameterMap = req.getParameterMap();

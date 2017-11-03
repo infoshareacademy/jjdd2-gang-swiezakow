@@ -36,6 +36,7 @@ public class GoogleLoginServlet extends HttpServlet {
         if (ids == null || ids.length == 0) {
             logger.info("id was not provided");
             resp.sendRedirect("fblogin");
+            return;
         } else {
             String id = ids[0];
             try {

@@ -29,6 +29,7 @@ public class StatisticsServlet extends HttpServlet {
         if(isAdmin == null || !isAdmin) {
             logger.info("access denied");
             resp.sendRedirect("unauthorized");
+            return;
         }
 
         ObjectMapper objectMapper = new ObjectMapper();
