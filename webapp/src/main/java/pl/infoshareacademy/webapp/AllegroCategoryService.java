@@ -4,8 +4,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import pl.infoshareacademy.AllegroCategory;
 import pl.infoshareacademy.AllegroCategoryLoader;
+import pl.infoshareacademy.webapp.allegro.AllegroClient;
 
 import javax.ejb.Singleton;
+import javax.inject.Inject;
+import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,15 +22,20 @@ import java.util.Map;
 public class AllegroCategoryService {
     private static final Logger logger = LogManager.getLogger(AllegroCategoryService.class);
 
+
     private List<AllegroCategory> categories;
     private AllegroCategoryLoader loader = new AllegroCategoryLoader();
     private Map<Integer, List<AllegroCategory>> categoriesTree;
 
-    public AllegroCategoryService() {
+    @Inject
+    private AllegroClient allegroClient;
+
+    public AllegroCategoryService() throws JAXBException, IOException {
         init();
     }
 
-    private void init() {
+    private void init() throws JAXBException, IOException {
+        allegroClient.allegroClient();
         String filePath = getFilePath();
         categoriesTree = loader.loadCategoryTree(filePath);
         categories = loader.loadAllCategories(filePath);
@@ -45,7 +53,7 @@ public class AllegroCategoryService {
         return loader.loadCategoryTree(getFilePath());
     }
 
-    public void saveAllegroCategoryFile(InputStream inputStream) {
+    public void saveAllegroCategoryFile(InputStream inputStream) throws JAXBException {
         OutputStream outputStreamXML = null;
         try {
             String XMLFilePath = getFilePath();

@@ -23,25 +23,18 @@ public class AllegroClient  {
     private static String KEY = "702f4373";
     private static final Logger logger = LogManager.getLogger(AllegroClient.class);
 
-    
-
     @PostConstruct
     public  void allegroClient () throws JAXBException, IOException, WebServiceException {
         ServiceService serviceService = new ServiceService();
         ServicePort servicePort = serviceService.getServicePort();
-
         DoGetCatsDataRequest request = new DoGetCatsDataRequest();
         request.setCountryId(COUNTRY);
         request.setWebapiKey(KEY);
-
         DoGetCatsDataResponse response = servicePort.doGetCatsData(request);
-
         JAXBContext jaxbContext = JAXBContext.newInstance(DoGetCatsDataResponse.class);
         Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
         StringWriter sw = new StringWriter();
         jaxbMarshaller.marshal(response, sw);
-
-        // wyswietli Ci w konsoli cale drzewo
         String xmlString = sw.toString();
         System.out.println(xmlString);
         String content = xmlString;
@@ -52,7 +45,6 @@ public class AllegroClient  {
             fop = new FileOutputStream(file);
             if (!file.exists()) {
                 file.createNewFile();
-
             }
             byte[] contentInBytes = content.getBytes();
             fop.write(contentInBytes);
@@ -61,14 +53,10 @@ public class AllegroClient  {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-
                 if (fop != null) {
                     fop.close();
-
                 }
-
             }
-
-
-        }
+       }
     }
+
