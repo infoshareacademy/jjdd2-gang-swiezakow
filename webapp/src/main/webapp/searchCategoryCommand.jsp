@@ -18,7 +18,7 @@
                 aria-label="Search"
                 value="${searchTerm}"
         >
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">${requestScope['t.searchCategoryCommandSearch']}</button>
     </form>
 </nav>
 <c:if test="${searchTerm.length() != 0 && searchTerm.length() < 3}">
@@ -36,9 +36,8 @@
 <c:forEach items="${searchResults}" var="result">
     <div class="kartka card bg-dark text-white">
         <div class="card-img-overlay" style="
-                background: url(${result.backgroundImageUrl});
-        <c:if test="${result.promoted}">border: 5px chartreuse solid;</c:if>"
-        >
+                background: url(${result.backgroundImageUrl}); <c:if test="${result.promoted}">border: 5px chartreuse solid;</c:if>
+            ">
             <h4 class="card-title">
                 <c:forEach items="${result.parentLinks}" var="parentLink">
                     <a class="category-link" href="${parentLink.link}">${parentLink.name}</a> -

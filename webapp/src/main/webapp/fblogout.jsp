@@ -18,7 +18,7 @@
         FB.getLoginStatus(function (response) {
             if (response.status === 'connected') {
                 FB.logout(function () {
-                    document.getElementById("status").innerHTML = ${requestScope['t.fbLogout']};
+                    document.getElementById("status").innerHTML = '${requestScope['t.fbLogout']}';
                     setTimeout(function(){
                       window.location.href = "main";
                     }, 2000);

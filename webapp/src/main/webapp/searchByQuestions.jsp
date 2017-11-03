@@ -44,8 +44,8 @@
                             <h2>${requestScope['t.common.seriesOfQuestions']}</h2>
                             <p>${requestScope['t.searchByQuestions.categoryQuestion']} <strong>${categoryName}</strong>?<br/></p>
                             <form method="GET"><input type="hidden" name="categoryId" value="${categoryId}"/>
-                                <input class="btn btn-outline-success my-2 my-sm-0" type="submit" name="theAnswer" value="${requestScope['t.searchByQuestions.Yes']}"/>
-                                <input class="btn btn-outline-success my-2 my-sm-0" type="submit" name="theAnswer" value="${requestScope['t.searchByQuestions.No']}"/>
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="theAnswer" value="Tak">${requestScope['t.searchByQuestions.Yes']}</button>
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" name="theAnswer" value="Nie">${requestScope['t.searchByQuestions.No']}</button>
                             </form>
                         </div>
                     </div>
