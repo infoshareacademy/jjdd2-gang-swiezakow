@@ -41,6 +41,7 @@ public final class Translator {
             Locale locale = localeString.isEmpty() ? Locale.ROOT : Locale.forLanguageTag(localeString);
             session = req.getSession();
             session.setAttribute("Locale", locale);
+            LOGGER.info("Chosen locale is now:" + locale);
             return locale;
         } else {
             Locale locale = (Locale)session.getAttribute("Locale");
