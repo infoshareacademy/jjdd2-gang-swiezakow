@@ -24,11 +24,10 @@ public final class Translator {
         Locale actualLocale = SUPPORTED_LOCALES.contains(locale) ? locale : Locale.ROOT;
         LOGGER.debug("Actual locale {}", locale);
         ResourceBundle bundle = ResourceBundle.getBundle(BASE_NAME, actualLocale);
-        LOGGER.debug("Actual keylist: {}", asList(bundle.keySet()));
+        LOGGER.debug("Actual keylist: {}", bundle.keySet());
         for (String key : bundle.keySet()) {
             modifiedRequest.setAttribute(key, bundle.getString(key));
         }
-        LOGGER.debug("RequestAttributes {}", modifiedRequest.getAttributeNames());
     }
 
     public static void fillRequestAttributes(HttpServletRequest modifiedRequest) {

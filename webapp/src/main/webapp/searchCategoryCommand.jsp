@@ -14,7 +14,7 @@
                 name="searchTerm"
                 class="szukaj form-control mr-sm-2"
                 type="text"
-                placeholder="Czego szukasz na allegro?"
+                placeholder="${requestScope['t.searchCategoryCommandPrompt']}"
                 aria-label="Search"
                 value="${searchTerm}"
         >
@@ -23,12 +23,12 @@
 </nav>
 <c:if test="${searchTerm.length() != 0 && searchTerm.length() < 3}">
     <div class="alert alert-danger" role="alert">
-        Szukana fraza musi miec co najmniej 3 znaki! Spróbuj ponownie.
+        ${requestScope['t.searchCategoryCommandMinLengthInfo']}
     </div>
 </c:if>
 <c:if test="${searchTerm.length() >= 3 && searchResults.size() == 0}">
     <div class="alert alert-warning" role="alert">
-        Przepraszamy, nie znaleziono kategorii!
+        ${requestScope['t.searchCategoryCommandCategoryNotFound']}
     </div>
 </c:if>
 <jsp:useBean id="searchResults" scope="request"

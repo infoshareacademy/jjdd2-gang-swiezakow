@@ -18,7 +18,7 @@
         <a href="/webapp/promoted?parentid=${category.getCatID()}">${category.name}</a>
         <br/>
     </c:forEach>
-<input type="submit" name="save" value="Zapisz">
+<input type="submit" name="save" value="${requestScope['t.promotedCategoriesSave']}">
 <input type="hidden" name="parentid" value="${actualId}">
 </form>
 </body>

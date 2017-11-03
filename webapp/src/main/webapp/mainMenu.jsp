@@ -38,7 +38,7 @@
                 <div class="container">
                     <div class="shopping-caption carousel-caption text-right">
                         <h1>${image.getName()}</h1>
-                        <p><a class="btn btn-lg btn-primary" href="${image.getAllegroLink()}" target="_blank" role="button">Przejdź do Allegro</a></p>
+                        <p><a class="btn btn-lg btn-primary" href="${image.getAllegroLink()}" target="_blank" role="button">${requestScope['t.mainMenuPrompt']}</a></p>
                     </div>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                 <div class="container">
                     <div class="shopping-caption carousel-caption text-right">
                         <h1>${image2.getName()}</h1>
-                        <p><a class="btn btn-lg btn-primary" href="${image2.getAllegroLink()}" target="_blank" role="button">Przejdź do Allegro</a></p>
+                        <p><a class="btn btn-lg btn-primary" href="${image2.getAllegroLink()}" target="_blank" role="button">${requestScope['t.mainMenuPrompt']}</a></p>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,7 @@
                 <div class="container">
                     <div class="shopping-caption carousel-caption text-right">
                         <h1>${image3.getName()}</h1>
-                        <p><a class="btn btn-lg btn-primary" href="${image3.getAllegroLink()}" target="_blank" role="button">Przejdź do Allegro</a></p>
+                        <p><a class="btn btn-lg btn-primary" href="${image3.getAllegroLink()}" target="_blank" role="button">${requestScope['t.mainMenuPrompt']}</a></p>
                     </div>
                 </div>
             </div>
@@ -105,9 +105,9 @@
 
         <div class="row featurette">
             <div class="col-md-7">
-                <h2 class="featurette-heading">Najbardziej popularna kategoria miesiąca!<br/> <span
+                <h2 class="featurette-heading">${requestScope['t.mainMenuMostPopular']}${requestScope['t.mainMenuMostPopular']}<br/> <span>
                         class="text-muted" style="word-break: keep-all"><a class="dashboard-link" target="_blank" href="${image5.getAllegroLink()}">${image4.getName()}</a></span></h2>
-                <p class="lead">W tym miesiącu największą popularnością wśród Użytkowników ShopAll cieszyła się kategoria
+                <p class="lead">${requestScope['t.mainMenuMostPopularInfo']}
                 ${image4.getName()}!</p>
             </div>
             <div class="col-md-5">
@@ -123,7 +123,7 @@
             <div class="col-md-7 order-md-2">
                 <h2 class="featurette-heading">Nowości!<br/><span
                         class="text-muted" style="word-break: keep-all"><a class="dashboard-link" target="_blank" href="${image5.getAllegroLink()}">${image5.getName()}</a></span></h2>
-                <p class="lead">Przejdź na stronę Allegro i poznaj wszystkie nowości kategorii ${image5.getName()}!</p>
+                <p class="lead">${requestScope['t.mainMenuCategoryPrompt']}Przejdź na stronę Allegro i poznaj wszystkie nowości kategorii ${image5.getName()}!</p>
             </div>
             <div class="col-md-5 order-md-1">
                 <a target="_blank" href="${image5.getAllegroLink()}"><img class="featurette-image img-fluid mx-auto" alt="500x500"

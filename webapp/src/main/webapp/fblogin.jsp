@@ -183,11 +183,11 @@
 <div class="login">
     <h1>ShopAll</h1>
     <button class="loginBtn loginBtn--facebook" onclick="fb_login();">
-        Login with Facebook
+        ${requestScope['t.fbLogin']}
     </button>
 
     <button id="google-button" class="loginBtn loginBtn--google">
-        Login with Google
+        ${requestScope['t.googleLogin']}
     </button>
     <br>
 </div>

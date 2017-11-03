@@ -9,16 +9,16 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item <c:if test="${'1' == categoryNumber}">active</c:if>">
-                <a class="nav-link" href="SearchByQuestions">${t.header.seriesofquetions}</a>
+                <a class="nav-link" href="SearchByQuestions">${requestScope['t.common.seriesOfQuestions']}</a>
             </li>
             <li class="nav-item <c:if test="${'2' == categoryNumber}">active</c:if>">
-                <a class="nav-link" href="searchCategoryCommand">${t.header.selectproduct}</a>
+                <a class="nav-link" href="searchCategoryCommand">${requestScope['t.header.selectProduct']}</a>
             </li>
             <li class="nav-item <c:if test="${'3' == categoryNumber}">active</c:if>">
-                <a class="nav-link" href="categoryPickerCommand">Katalog Allegro</a>
+                <a class="nav-link" href="categoryPickerCommand">${requestScope['t.header.allegroCatalog']}</a>
             </li>
             <li class="nav-item <c:if test="${'4' == categoryNumber}">active</c:if>">
-                <a class="nav-link" href="searchQueryCommand">Asystent Allegro</a>
+                <a class="nav-link" href="searchQueryCommand">${requestScope['t.header.allegroAssistant']}</a>
             </li>
         </ul>
         <div class="nav-item profile-section dropdown">
@@ -31,11 +31,11 @@
             <div class="dropdown-menu" aria-labelledby="userDropdown">
                 <c:choose>
                     <c:when test="${isFbUser}">
-                        <a class="dropdown-item" href="fblogin?logout=1">Wyloguj</a>
+                        <a class="dropdown-item" href="fblogin?logout=1">${requestScope['t.header.logout']}</a>
                     </c:when>
                     <c:otherwise>
                         <div class="g-signin2" style="display: none;" data-onsuccess="onSignIn"></div>
-                        <a class="dropdown-item" href="#" onclick="signOut();">Wyloguj</a>
+                        <a class="dropdown-item" href="#" onclick="signOut();">${requestScope['t.header.logout']}</a>
                     </c:otherwise>
                 </c:choose>
             </div>

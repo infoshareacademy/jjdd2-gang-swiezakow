@@ -47,13 +47,14 @@ public class UploadFile extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         try {
             Part fileXML = req.getPart("fileXML");
+            Translator.fillRequestAttributes(req);
             allegroCategoryService.saveAllegroCategoryFile(fileXML.getInputStream());
             catalog.updateCatalog(allegroCategoryService.getFilePath());
-            String message = "" + "<div class=\"alert alert-success\" role=\"alert\">\n" +
-                    "  Poprawnie załadowano kategorie!\n" +
+            String message = "<div class=\"alert alert-success\" role=\"alert\">\n" +
+                    "  " + req.getAttribute("t.uploadFile.successMessage") + "\n" +
                     "</div>";
             req.setAttribute("message", message);
-            Translator.fillRequestAttributes(req);
+
             req.getRequestDispatcher("main.jsp").forward(req, resp);
 
         } catch (IOException e) {
