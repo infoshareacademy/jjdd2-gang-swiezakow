@@ -36,6 +36,7 @@ public class AllegroCategoryService {
 
     private void init() throws JAXBException, IOException {
         allegroClient.allegroClient();
+        logger.error("Could not load a file");
         String filePath = getFilePath();
         categoriesTree = loader.loadCategoryTree(filePath);
         categories = loader.loadAllCategories(filePath);
