@@ -26,7 +26,8 @@ public class TaskExecutorTest {
         //when
         sut.takeNewTask(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")), tasksStore);
         //then
-        assertThat(tasksStore.getBase().get(1).getSendTimeDate()).matches("2017-11-03 00:58");
+        assertThat(tasksStore.getBase().get(1).getSendTimeDate())
+                .matches(LocalDateTime.now().plusMinutes(10).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
     }
 
     @Test
@@ -78,16 +79,17 @@ public class TaskExecutorTest {
         //given
 
         TaskExecutor sut = new TaskExecutor();
-        String time = "2017-12-31 23:59";
+        String time = "2017-11-31 23:59";
         Integer interval = 10;
 
         //when
 
-        String result = sut.setNewTaskTime(time, interval);
+        String result = sut.setNewTaskTime(interval);
 
         //then
 
-        assertThat(result).containsPattern(Pattern.compile("2018-01-01 00:09"));
+        assertThat(result).containsPattern(Pattern.compile(LocalDateTime.now().plusMinutes(10)
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
     }
 
 }

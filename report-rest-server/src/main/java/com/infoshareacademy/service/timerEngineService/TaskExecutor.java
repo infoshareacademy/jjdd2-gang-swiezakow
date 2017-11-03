@@ -1,6 +1,5 @@
 package com.infoshareacademy.service.timerEngineService;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.infoshareacademy.model.RecipientModel;
 import com.infoshareacademy.model.TasksStore;
 import com.infoshareacademy.model.databaseinputs.DataStore;
@@ -13,18 +12,22 @@ import com.infoshareacademy.service.pdfservice.PdfGenerator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.inject.Inject;
 import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.chrono.ChronoLocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Startup
 @Singleton
 public class TaskExecutor {
 
@@ -36,9 +39,12 @@ public class TaskExecutor {
     @Inject
     DataStore dataStore;
 
-    @Schedule(minute = "*/1", hour = "*", persistent = false)
+    @Schedule(minute = "*/1", hour = "*", persistent = true)
     public void periodic() {
         prepareAttachment(dataStore.getStatisticsStore());
+        LOG.info("Prepared attachment");
+        System.out.println(dataStore.getStatisticsStore().toString());
+        System.out.println(tasksStore.getBase().toString());
 
     }
 
@@ -67,7 +73,7 @@ public class TaskExecutor {
             recipientList = recipientList.stream()
                     .filter(recipientModel -> recipientModel.getSendTimeDate().compareTo(localDateTime)<0)
                     .collect(Collectors.toList());
-//            recipientList.forEach(s -> s.getEmails().forEach(e -> new EmailSender().sendEmail(e)));
+            recipientList.forEach(s -> s.getEmails().forEach(e -> new EmailSender().sendEmail(e)));
 
 
             updateDataStore(tasksStore, recipientList);
@@ -84,7 +90,6 @@ public class TaskExecutor {
                             new RecipientModel(
                                     tasksStore.getBase().get(mapEntry.getKey()).getEmails(),
                                     setNewTaskTime(
-                                            tasksStore.getBase().get(mapEntry.getKey()).getSendTimeDate(),
                                             tasksStore.getBase().get(mapEntry.getKey()).getInterval()
                                     ),
                                     tasksStore.getBase().get(mapEntry.getKey()).getInterval(),
@@ -94,9 +99,9 @@ public class TaskExecutor {
         }
     }
 
-    public String setNewTaskTime(String inputDate, Integer interval) {
-        LocalDateTime oldTime = LocalDateTime.parse(inputDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-        return oldTime.plusMinutes(interval).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    public String setNewTaskTime(Integer interval) {
+        LocalDateTime now = LocalDateTime.now();
+        return now.plusMinutes(interval).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
 }
