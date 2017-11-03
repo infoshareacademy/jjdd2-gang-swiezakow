@@ -1,9 +1,11 @@
 package com.infoshareacademy.model.databaseinputs;
 
 import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import java.util.ArrayList;
 import java.util.List;
 
+@Startup
 @Singleton
 public class DataStore {
 

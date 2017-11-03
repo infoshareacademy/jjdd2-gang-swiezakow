@@ -17,10 +17,7 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
 import java.time.LocalDateTime;
-import java.time.Period;
-import java.time.chrono.ChronoLocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +28,7 @@ import java.util.stream.Collectors;
 @Singleton
 public class TaskExecutor {
 
-    Logger LOG = LogManager.getLogger(TaskExecutor.class);
+    private static final Logger LOG = LogManager.getLogger(TaskExecutor.class);
 
     @Inject
     TasksStore tasksStore;
@@ -39,14 +36,18 @@ public class TaskExecutor {
     @Inject
     DataStore dataStore;
 
-    @Schedule(minute = "*/1", hour = "*", persistent = true)
+    @Schedule(minute = "*/1", hour = "*")
     public void periodic() {
         prepareAttachment(dataStore.getStatisticsStore());
         LOG.info("Prepared attachment");
         System.out.println(dataStore.getStatisticsStore().toString());
         System.out.println(tasksStore.getBase().toString());
+        if (tasksStore.getBase().size()>=1) {
+            takeNewTask(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")), tasksStore);
+        }
 
-    }
+
+        }
 
     public void prepareAttachment(StatisticsStore statisticsStore) {
 
@@ -68,16 +69,15 @@ public class TaskExecutor {
     }
 
     public void takeNewTask(String localDateTime, TasksStore tasksStore) {
-        if (tasksStore.getBase().size()>=1) {
-            List<RecipientModel> recipientList = new ArrayList<>(tasksStore.getBase().values());
-            recipientList = recipientList.stream()
-                    .filter(recipientModel -> recipientModel.getSendTimeDate().compareTo(localDateTime)<0)
-                    .collect(Collectors.toList());
-            recipientList.forEach(s -> s.getEmails().forEach(e -> new EmailSender().sendEmail(e)));
+        List<RecipientModel> recipientList = new ArrayList<>(tasksStore.getBase().values());
+        recipientList = recipientList.stream()
+                .filter(recipientModel -> recipientModel.getSendTimeDate().compareTo(localDateTime)<0)
+                .collect(Collectors.toList());
+        recipientList.forEach(s -> s.getEmails().forEach(e -> new EmailSender().sendEmail(e)));
 
 
-            updateDataStore(tasksStore, recipientList);
-        }
+        TasksStore tasksStore1 = tasksStore;
+        updateDataStore(tasksStore1, recipientList);
     }
 
     private void updateDataStore(TasksStore tasksStore, List<RecipientModel> recipientList) {

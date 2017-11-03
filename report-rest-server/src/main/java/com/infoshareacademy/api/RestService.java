@@ -16,7 +16,7 @@ import java.util.Map;
 
 @Path("/")
 public class RestService {
-    private Logger LOG = LoggerFactory.getLogger(RestService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RestService.class);
 
     @Context
     private UriInfo uriInfo;

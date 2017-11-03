@@ -26,7 +26,7 @@ public class EmailSender {
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "465");
 
-        Session session = Session.getDefaultInstance(props,
+        Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
                         return new PasswordAuthentication("zakupyapp@gmail.com","zakupy123");
@@ -52,7 +52,7 @@ public class EmailSender {
             messageBodyPart.setText(emailTitle);
 
             logger.info("setting email title to: " + emailTitle);
-
+            System.out.println("setting email title to: " + emailTitle);
             // Create a multipar message
             Multipart multipart = new MimeMultipart();
 
@@ -67,6 +67,7 @@ public class EmailSender {
             messageBodyPart.setFileName(filename);
             multipart.addBodyPart(messageBodyPart);
             logger.info("succesfully added attachment: " + filename);
+            System.out.println("succesfully added attachment: " + filename);
 
 
 
@@ -76,10 +77,11 @@ public class EmailSender {
 
             Transport.send(message);
             logger.info("succesfully sent email to: " + recipient);
+            System.out.println("succesfully sent email to: " + recipient);
 
         } catch (MessagingException e) {
             logger.warn("probelem to send email");
-            throw new RuntimeException(e);
+            System.out.println("probelem to send email");
         }
     }
 }

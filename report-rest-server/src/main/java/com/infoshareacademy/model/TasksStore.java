@@ -4,16 +4,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+@Startup
 @Singleton
 public class TasksStore {
 
-    private Logger LOG = LoggerFactory.getLogger(TasksStore.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TasksStore.class);
 
     private Map<Integer, RecipientModel> base;
 

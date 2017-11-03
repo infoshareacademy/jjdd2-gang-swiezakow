@@ -1,6 +1,5 @@
 package com.infoshareacademy.service.timerEngineService;
 
-import com.infoshareacademy.model.RecipientModel;
 import com.infoshareacademy.model.TasksStore;
 import com.infoshareacademy.model.databaseinputs.DetailedStatisticsModel;
 import com.infoshareacademy.model.databaseinputs.RushHourModel;
