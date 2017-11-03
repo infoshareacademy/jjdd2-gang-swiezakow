@@ -1,5 +1,9 @@
 package pl.infoshareacademy.webapp.promotedCategories;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import pl.infoshareacademy.webapp.auth.FBAuthServlet;
+
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,11 +19,20 @@ import java.util.stream.Collectors;
 @WebServlet(urlPatterns = "/promoted")
 public class PromotedCategoriesServlet extends HttpServlet {
 
+    private static final Logger logger = LogManager.getLogger(PromotedCategoriesServlet.class);
+
     @Inject
     private PromotedCategoriesService categoriesService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        Boolean isAdmin = (Boolean) req.getSession().getAttribute(FBAuthServlet.USER_TYPE);
+        if(isAdmin == null || !isAdmin) {
+            logger.info("access denied");
+            resp.sendRedirect("unauthorized");
+            return;
+        }
 
         Map<String, String[]> parameterMap = req.getParameterMap();
 
