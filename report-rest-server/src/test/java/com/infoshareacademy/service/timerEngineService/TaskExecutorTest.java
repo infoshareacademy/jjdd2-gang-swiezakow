@@ -1,5 +1,7 @@
 package com.infoshareacademy.service.timerEngineService;
 
+import com.infoshareacademy.model.RecipientModel;
+import com.infoshareacademy.model.TasksStore;
 import com.infoshareacademy.model.databaseinputs.DetailedStatisticsModel;
 import com.infoshareacademy.model.databaseinputs.RushHourModel;
 import com.infoshareacademy.model.databaseinputs.StatisticsStore;
@@ -7,6 +9,8 @@ import com.infoshareacademy.model.databaseinputs.SumDetailedStaticsModel;
 import org.junit.Test;
 
 import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -14,6 +18,17 @@ import java.util.regex.Pattern;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
 public class TaskExecutorTest {
+    @Test
+    public void takeNewTask() throws Exception {
+        //given
+        TasksStore tasksStore = new TasksStore();
+        TaskExecutor sut = new TaskExecutor();
+        //when
+        sut.takeNewTask(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")), tasksStore);
+        //then
+        assertThat(tasksStore.getBase().get(1).getSendTimeDate()).matches("2017-11-03 00:58");
+    }
+
     @Test
     public void prepareAttachment() throws Exception {
         //given

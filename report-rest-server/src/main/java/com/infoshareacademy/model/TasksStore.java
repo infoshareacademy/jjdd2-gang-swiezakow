@@ -28,7 +28,7 @@ public class TasksStore {
         emailList.add("zakupyapp@gmail.com");
         RecipientModel newConfiguration = new RecipientModel(
                 emailList,
-                "2017-10-30 11:30",
+                "2017-11-03 00:48",
                 10,
                 1);
         add(newConfiguration);

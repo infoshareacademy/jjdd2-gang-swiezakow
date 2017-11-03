@@ -38,9 +38,8 @@ public class TaskExecutor {
 
     @Schedule(minute = "*/1", hour = "*", persistent = false)
     public void periodic() {
-        String localDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        System.out.println(dataStore.getStatisticsStore().toString());
-        System.out.println(tasksStore.getBase().toString());
+        prepareAttachment(dataStore.getStatisticsStore());
+
     }
 
     public void prepareAttachment(StatisticsStore statisticsStore) {
@@ -62,31 +61,34 @@ public class TaskExecutor {
         pdfGenerator.generatePDF();
     }
 
-    public void takeNewTask(String localDateTime) {
+    public void takeNewTask(String localDateTime, TasksStore tasksStore) {
         if (tasksStore.getBase().size()>=1) {
             List<RecipientModel> recipientList = new ArrayList<>(tasksStore.getBase().values());
             recipientList = recipientList.stream()
-                    .filter(recipientModel -> recipientModel.getSendTimeDate().compareTo(localDateTime)<=0)
+                    .filter(recipientModel -> recipientModel.getSendTimeDate().compareTo(localDateTime)<0)
                     .collect(Collectors.toList());
-            recipientList.forEach(s -> s.getEmails().forEach(e -> new EmailSender().sendEmail(e)));
+//            recipientList.forEach(s -> s.getEmails().forEach(e -> new EmailSender().sendEmail(e)));
 
 
-            Set<Map.Entry<Integer, RecipientModel>> entries = tasksStore.getBase().entrySet();
-            for (Map.Entry<Integer, RecipientModel> mapEntry :
-                    entries) {
-                for (int i = 0; i < recipientList.size(); i++) {
-                    if (mapEntry.getValue().getSendTimeDate().equals(recipientList.get(i))) {
-                        tasksStore.getBase().put(mapEntry.getKey(),
-                                new RecipientModel(
-                                        tasksStore.getBase().get(mapEntry.getKey()).getEmails(),
-                                        //TODO
-                                        setNewTaskTime(
-                                                tasksStore.getBase().get(mapEntry.getKey()).getSendTimeDate(),
-                                                tasksStore.getBase().get(mapEntry.getKey()).getInterval()
-                                        ),
-                                        tasksStore.getBase().get(mapEntry.getKey()).getInterval(),
-                                        tasksStore.getBase().get(mapEntry.getKey()).getId()));
-                    }
+            updateDataStore(tasksStore, recipientList);
+        }
+    }
+
+    private void updateDataStore(TasksStore tasksStore, List<RecipientModel> recipientList) {
+        Set<Map.Entry<Integer, RecipientModel>> entries = tasksStore.getBase().entrySet();
+        for (Map.Entry<Integer, RecipientModel> mapEntry :
+                entries) {
+            for (int i = 0; i < recipientList.size(); i++) {
+                if (mapEntry.getValue().getSendTimeDate().equals(recipientList.get(i).getSendTimeDate())) {
+                    tasksStore.getBase().put(mapEntry.getKey(),
+                            new RecipientModel(
+                                    tasksStore.getBase().get(mapEntry.getKey()).getEmails(),
+                                    setNewTaskTime(
+                                            tasksStore.getBase().get(mapEntry.getKey()).getSendTimeDate(),
+                                            tasksStore.getBase().get(mapEntry.getKey()).getInterval()
+                                    ),
+                                    tasksStore.getBase().get(mapEntry.getKey()).getInterval(),
+                                    tasksStore.getBase().get(mapEntry.getKey()).getId()));
                 }
             }
         }
