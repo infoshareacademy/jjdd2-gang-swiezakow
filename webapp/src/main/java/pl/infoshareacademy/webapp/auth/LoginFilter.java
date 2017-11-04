@@ -24,8 +24,8 @@ public class LoginFilter implements Filter {
 
         HttpSession session = req.getSession();
 
-        if (session.getAttribute(USER_NAME) == null && !uri.endsWith("fblogin") && !uri.endsWith("googlelog")) {
-            res.sendRedirect("fblogin");
+        if (session.getAttribute(USER_NAME) == null && !uri.endsWith("login") && !uri.endsWith("googlelog")) {
+            res.sendRedirect("login");
         } else {
             // pass the request along the filter chain
             filterChain.doFilter(servletRequest, servletResponse);

@@ -15,10 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static pl.infoshareacademy.webapp.auth.FBAuthServlet.USER_EMAIL;
-import static pl.infoshareacademy.webapp.auth.FBAuthServlet.USER_IMG;
-import static pl.infoshareacademy.webapp.auth.FBAuthServlet.USER_LOGIN_TYPE;
-import static pl.infoshareacademy.webapp.auth.FBAuthServlet.USER_NAME;
+import static pl.infoshareacademy.webapp.auth.FBAuthServlet.*;
 
 @WebServlet("googlelog")
 public class GoogleLoginServlet extends HttpServlet {
@@ -29,7 +26,7 @@ public class GoogleLoginServlet extends HttpServlet {
         String[] ids = req.getParameterMap().get("id");
         if (ids == null || ids.length == 0) {
             logger.info("id was not provided");
-            resp.sendRedirect("fblogin");
+            resp.sendRedirect("login");
         } else {
             String id = ids[0];
             try {

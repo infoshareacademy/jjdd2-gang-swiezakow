@@ -105,7 +105,7 @@
 
         <div class="row featurette">
             <div class="col-md-7">
-                <h2 class="featurette-heading">${requestScope['t.mainMenuMostPopular']}<br/> <span>
+                <h2 class="featurette-heading">${requestScope['t.mainMenuMostPopular']}<br/> <span
                         class="text-muted" style="word-break: keep-all"><a class="dashboard-link" target="_blank" href="${image5.getAllegroLink()}">${image4.getName()}</a></span></h2>
                 <p class="lead">${requestScope['t.mainMenuMostPopularInfo']}
                 ${image4.getName()}!</p>
@@ -121,7 +121,7 @@
 
         <div class="row featurette">
             <div class="col-md-7 order-md-2">
-                <h2 class="featurette-heading">Nowości!<br/><span
+                <h2 class="featurette-heading">${requestScope['t.mainMenuCategoryNew']}<br/><span
                         class="text-muted" style="word-break: keep-all"><a class="dashboard-link" target="_blank" href="${image5.getAllegroLink()}">${image5.getName()}</a></span></h2>
                 <p class="lead">${requestScope['t.mainMenuCategoryPrompt']} ${image5.getName()}!</p>
             </div>

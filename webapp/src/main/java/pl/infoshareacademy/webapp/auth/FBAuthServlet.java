@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("fblogin")
+@WebServlet("login")
 public class FBAuthServlet extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(FBAuthServlet.class);
 
@@ -51,7 +51,7 @@ public class FBAuthServlet extends HttpServlet {
                 Translator.fillRequestAttributes(req);
                 req.getRequestDispatcher("fblogout.jsp").forward(req, resp);
             } else {
-                resp.sendRedirect("fblogin");
+                resp.sendRedirect("login");
             }
             return;
         }
@@ -65,7 +65,7 @@ public class FBAuthServlet extends HttpServlet {
 
             req.setAttribute("facebookAppId", facebookAppId);
             Translator.fillRequestAttributes(req);
-            req.getRequestDispatcher("fblogin.jsp").forward(req, resp);
+            req.getRequestDispatcher("login.jsp").forward(req, resp);
         } else {
             String APP_SECRET = facebookAppSecret;
             try {
@@ -88,7 +88,7 @@ public class FBAuthServlet extends HttpServlet {
                 req.setAttribute("message", "Could not authenticate with FB. Please try again or use alternative log in.");
             } finally {
                 Translator.fillRequestAttributes(req);
-                req.getRequestDispatcher("fblogin.jsp").forward(req, resp);
+                req.getRequestDispatcher("login.jsp").forward(req, resp);
             }
         }
     }

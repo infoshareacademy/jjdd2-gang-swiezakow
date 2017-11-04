@@ -22,6 +22,24 @@
             </li>
         </ul>
         <div class="nav-item profile-section dropdown">
+                    <button class="btn btn-link dropdown-toggle" type="button" href="#" id="langDropdown"
+                            data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <c:choose>
+                                <c:when test="${empty Locale}">
+                                   <span class="flag-icon flag-icon-pl"></span>Polski
+                                </c:when>
+                                <c:otherwise>
+                                   <span class="flag-icon flag-icon-us"></span>English
+                                </c:otherwise>
+                            </c:choose>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="langDropdown">
+                       <a class="dropdown-item" href="?locale="> <span class="flag-icon flag-icon-pl"></span>Polski</a>
+                       <a class="dropdown-item" href="?locale=en"> <span class="flag-icon flag-icon-us"></span>English</a>
+                     </div>
+                </div>
+        <div class="nav-item profile-section dropdown">
             <button class="btn btn-link dropdown-toggle" type="button" href="#" id="userDropdown"
                     data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
@@ -31,7 +49,7 @@
             <div class="dropdown-menu" aria-labelledby="userDropdown">
                 <c:choose>
                     <c:when test="${isFbUser}">
-                        <a class="dropdown-item" href="fblogin?logout=1">${requestScope['t.header.logout']}</a>
+                        <a class="dropdown-item" href="login?logout=1">${requestScope['t.header.logout']}</a>
                     </c:when>
                     <c:otherwise>
                         <div class="g-signin2" style="display: none;" data-onsuccess="onSignIn"></div>
