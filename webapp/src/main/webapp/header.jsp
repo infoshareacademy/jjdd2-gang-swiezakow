@@ -48,8 +48,8 @@
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                 <c:if test="${userType}">
-                    <a class="dropdown-item" href="promoted">Promuj</a>
-                    <a class="dropdown-item" href="stats">Statystyki</a>
+                    <a class="dropdown-item" href="promoted">${requestScope['t.header.promote']}</a>
+                    <a class="dropdown-item" href="stats">${requestScope['t.header.statistics']}</a>
                 </c:if>
                 <c:choose>
                     <c:when test="${isFbUser}">
