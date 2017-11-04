@@ -26,17 +26,17 @@
                             data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
                             <c:choose>
-                                <c:when test="${empty Locale}">
-                                   <span class="flag-icon flag-icon-pl"></span>Polski
+                                <c:when test="${empty Locale || Locale==''}">
+                                   <span class="flag-icon flag-icon-pl"></span> Polski
                                 </c:when>
                                 <c:otherwise>
-                                   <span class="flag-icon flag-icon-us"></span>English
+                                   <span class="flag-icon flag-icon-us"></span> English
                                 </c:otherwise>
                             </c:choose>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="langDropdown">
-                       <a class="dropdown-item" href="?locale="> <span class="flag-icon flag-icon-pl"></span>Polski</a>
-                       <a class="dropdown-item" href="?locale=en"> <span class="flag-icon flag-icon-us"></span>English</a>
+                       <a class="dropdown-item" href="?locale="> <span class="flag-icon flag-icon-pl"></span> Polski</a>
+                       <a class="dropdown-item" href="?locale=en"> <span class="flag-icon flag-icon-us"></span> English</a>
                      </div>
                 </div>
         <div class="nav-item profile-section dropdown">
