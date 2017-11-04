@@ -9,10 +9,9 @@
     window.fbAsyncInit = function () {
         FB.init({
             appId: '${facebookAppId}',
-            cookie: true,  // enable cookies to allow the server to access
-                           // the session
-            xfbml: true,  // parse social plugins on this page
-            version: 'v2.8' // use graph api version 2.8
+            cookie: true,
+            xfbml: true,
+            version: 'v2.8'
         });
 
         FB.getLoginStatus(function (response) {
@@ -26,7 +25,6 @@
             }
         });
     };
-    // Load the SDK asynchronously
     (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;

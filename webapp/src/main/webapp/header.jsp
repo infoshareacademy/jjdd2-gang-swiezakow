@@ -46,10 +46,14 @@
                 <img style="border-radius: 50%" class="profile-avatar" src="${UserUrl}">
                 ${UserName}
             </button>
-            <div class="dropdown-menu" aria-labelledby="userDropdown">
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                <c:if test="${userType}">
+                    <a class="dropdown-item" href="promoted">Promuj</a>
+                    <a class="dropdown-item" href="stats">Statystyki</a>
+                </c:if>
                 <c:choose>
                     <c:when test="${isFbUser}">
-                        <a class="dropdown-item" href="login?logout=1">${requestScope['t.header.logout']}</a>
+                        <a class="dropdown-item" target="_top" href="login?logout=1">${requestScope['t.header.logout']}</a>
                     </c:when>
                     <c:otherwise>
                         <div class="g-signin2" style="display: none;" data-onsuccess="onSignIn"></div>

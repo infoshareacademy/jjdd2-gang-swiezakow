@@ -31,16 +31,15 @@ public class MainMenuServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");
 
-
         DashboardItem dashboardItem = dashboardService.randomImageGenerator();
         DashboardItem dashboardItem2 = dashboardService.randomImageGenerator();
         DashboardItem dashboardItem3 = dashboardService.randomImageGenerator();
         DashboardItem dashboardItem4 = dashboardService.randomImageGenerator();
         DashboardItem dashboardItem5 = dashboardService.randomImageGenerator();
+
         String userName = (String) req.getSession().getAttribute(USER_NAME);
         String userEmail = (String) req.getSession().getAttribute(USER_EMAIL);
         Boolean isFbUser = "fb".equals(req.getSession().getAttribute(USER_LOGIN_TYPE));
-
 
         if (userName != null && userEmail != null) {
             req.setAttribute("username", userName);

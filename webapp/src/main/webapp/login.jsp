@@ -22,8 +22,8 @@
                     var accessToken = response.authResponse.accessToken;
                     var userId = response.authResponse.userID;
 
-                    FB.api('/me', function (response) {
-                        window.location.href = '/webapp/login?user_name=' + response.name + '&user_email=' + response.email + '&access_token=' + accessToken + '&user_id=' + userId;
+                    FB.api('/me?fields=name,email,picture', function (response) {
+                        window.location.href = '/webapp/login?user_name=' + response.name + '&user_email=' + response.email + '&access_token=' + accessToken + '&user_id=' + userId  + '&picture=' + encodeURIComponent(response.picture.data.url);
                     });
                 }
             }, {
