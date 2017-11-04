@@ -199,6 +199,8 @@
     </button>
     <br/>
 
+</div>
+ <div id="langpicker" style="position: absolute; right:10px; top:10px">
     <select class="selectpicker" data-width="fit" onchange="window.location.href='?locale='+ $('.selectpicker').val();">
         <option value="" data-content='<span class="flag-icon flag-icon-pl"></span> Polski'></option>
         <option value="en" data-content='<span class="flag-icon flag-icon-us"></span> English'>en</option>
@@ -212,6 +214,6 @@
         $('.selectpicker').selectpicker();
     });
     </script>
-</div>
+    </div>
 </body>
 </html>

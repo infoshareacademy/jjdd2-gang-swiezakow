@@ -1,0 +1,30 @@
+#non ascii characters should be entered as escaped unicode
+t.common.seriesOfQuestions=Seria pytań
+t.header.selectProduct=Wybierz produkt
+t.header.allegroCatalog=Katalog Allegro
+t.header.allegroAssistant=Asystent Allegro
+t.header.logout=Wyloguj
+t.uploadFile.successMessage=Poprawnie załadowano kategorie!
+t.common.AllegroLink=link do strony Allegro
+t.fbLogin=Zaloguj przez Facebook
+t.googleLogin=Zaloguj przez Google
+t.fbLogout=Wylogowano
+t.mainMenuPrompt=Przejdź do Allegro
+t.mainMenuMostPopular=Najbardziej popularna kategoria miesiąca!
+t.mainMenuMostPopularInfo=W tym miesiącu największą popularnością wśród Użytkowników ShopAll cieszyła się kategoria
+t.mainMenuCategoryPrompt=Przejdź na stronę Allegro i poznaj wszystkie nowości kategorii
+t.promotedCategoriesSave=Zapisz
+t.searchByQuestions.categoryNotFound=Niestety nie udało się znaleźć interesującej Cię kategorii
+t.searchByQuestions.categoryQuestion=Czy jesteś zainteresowany produktami z kategorii
+t.searchByQuestions.Yes=Tak
+t.searchByQuestions.No=Nie
+t.searchCategoryCommandPrompt=Czego szukasz na allegro?
+t.searchCategoryCommandMinLengthInfo=Szukana fraza musi miec co najmniej 3 znaki! Spróbuj ponownie.
+t.searchCategoryCommandCategoryNotFound=Przepraszamy, nie znaleziono kategorii!
+t.searchCategoryCommandSearch=Szukaj
+t.searchQueryCommandToSearchCopy=Aby wyszukać, skopiuj
+t.mainMenuCategoryNew=Nowości!
+t.common.Terms=Warunki
+t.common.Privacy=Polityka prywatności
+t.common.BackToTop=Powrót na górę strony
+

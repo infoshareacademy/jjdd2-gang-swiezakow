@@ -137,8 +137,8 @@
     </div>
 
     <footer class="container">
-        <p class="float-right"><a href="#">Back to top</a></p>
-        <p>© 2017 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+        <p class="float-right"><a href="#">${requestScope['t.common.BackToTop']}</a></p>
+        <p>© 2017 Company, Inc. · <a href="#">${requestScope['t.common.Privacy']}</a> · <a href="#">${requestScope['t.common.Terms']}</a></p>
     </footer>
 
 </main>
