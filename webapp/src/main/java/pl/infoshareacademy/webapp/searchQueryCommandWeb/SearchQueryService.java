@@ -54,6 +54,9 @@ public class SearchQueryService {
     private String getPhrase(AllegroCategory result) {
         int parent = result.getParent();
         AllegroCategory parentCategory = categoryService.getParentForCatId(parent);
+        if(parentCategory == null) {
+            return result.getName().toLowerCase();
+        }
         return String.format("%s %s", parentCategory.getName(), result.getName()).toLowerCase();
     }
 }
