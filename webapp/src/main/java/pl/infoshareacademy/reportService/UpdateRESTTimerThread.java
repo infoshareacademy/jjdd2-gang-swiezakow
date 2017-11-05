@@ -2,6 +2,8 @@ package pl.infoshareacademy.reportService;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import pl.infoshareacademy.Configuration;
+import pl.infoshareacademy.ConfigurationLoader;
 import pl.infoshareacademy.reportService.DataFactory.DataProcessingService;
 import pl.infoshareacademy.reportService.ModelsStore.DataStore;
 import pl.infoshareacademy.reportService.ModelsStore.RecipientModel;
@@ -25,8 +27,14 @@ public class UpdateRESTTimerThread {
 
     private final static Logger logger = LogManager.getLogger(UpdateRESTTimerThread.class);
 
+    private final Configuration config = ConfigurationLoader.getConfiguration();
 
-    private static final String ENDPOINT = "http://localhost:8180/report-rest-server-1.5/";
+    private final String ENDPOINT;
+
+    public UpdateRESTTimerThread() {
+        ENDPOINT = config.getRestURL();
+    }
+
 
     @Inject
     StatisticsResultsBean statisticsResultsBean;

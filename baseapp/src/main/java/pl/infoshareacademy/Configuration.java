@@ -11,6 +11,11 @@ public class Configuration {
     private String facebookAppSecret;
     private String testFacebookAppSecret;
     private boolean useTestFB;
+    private String restURL;
+
+    public String getRestURL() {
+        return restURL;
+    }
 
     public boolean isUseTestFB() {
         return useTestFB;
