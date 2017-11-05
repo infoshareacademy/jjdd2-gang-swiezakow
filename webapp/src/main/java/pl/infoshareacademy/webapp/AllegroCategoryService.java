@@ -97,7 +97,7 @@ public class AllegroCategoryService {
         }
     }
 
-    public AllegroCategory getParentForCatId(int catId) {
+    public AllegroCategory getCategoryForId(int catId) {
         for (AllegroCategory category : categories) {
             if (category.getCatID() == catId) {
                 return category;
@@ -107,13 +107,8 @@ public class AllegroCategoryService {
     }
 
     public String getCategoryName(int id) {
-        String categoryName = "";
-        for (AllegroCategory allCategory : categories) {
-            if (allCategory.getCatID() == id) {
-                categoryName = allCategory.getName();
-            }
-        }
-        return categoryName;
+        AllegroCategory category = getCategoryForId(id);
+        return category != null ? category.getName() : "";
     }
 
     public List<AllegroCategory> getAllParentsCategory(AllegroCategory categoryResult) {

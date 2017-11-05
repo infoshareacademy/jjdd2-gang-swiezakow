@@ -34,8 +34,8 @@ public class MainMenuServlet extends HttpServlet {
         DashboardItem dashboardItem = dashboardService.randomImageGenerator();
         DashboardItem dashboardItem2 = dashboardService.randomImageGenerator();
         DashboardItem dashboardItem3 = dashboardService.randomImageGenerator();
-        DashboardItem dashboardItem4 = dashboardService.randomImageGenerator();
-        DashboardItem dashboardItem5 = dashboardService.randomImageGenerator();
+        DashboardItem dashboardItem4 = dashboardService.getMostPopularCategory();
+        DashboardItem dashboardItem5 = dashboardService.getPromotedCategory();
 
         String userName = (String) req.getSession().getAttribute(USER_NAME);
         String userEmail = (String) req.getSession().getAttribute(USER_EMAIL);
