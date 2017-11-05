@@ -42,8 +42,10 @@ public class AllegroCategoryService {
     @PostConstruct
     private void loadRestCategoriesOnStart() {
         categories = allegroClient.getAllCategoriesFromRest();
-        categoriesTree = loader.loadCategoryTree(categories);
-        catalog.updateCatalog(categoriesTree);
+        if (!categories.isEmpty()) {
+            categoriesTree = loader.loadCategoryTree(categories);
+            catalog.updateCatalog(categoriesTree);
+        }
     }
 
     private void init() {

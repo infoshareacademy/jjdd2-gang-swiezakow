@@ -7,9 +7,22 @@ public enum StatisticEvents {
     CATEGORY4_SEARCH,
 
     MENU_ENTRY,
-    CATEGORY1_ENTRY,
-    CATEGORY2_ENTRY,
-    CATEGORY3_ENTRY,
-    CATEGORY4_ENTRY,
+    CATEGORY1_ENTRY("Seria pytań"),
+    CATEGORY2_ENTRY("Wybierz produkt"),
+    CATEGORY3_ENTRY("Katalog Allegro"),
+    CATEGORY4_ENTRY("Asystent Allegro");
 
+    private String name;
+
+    StatisticEvents() {
+        this.name = null;
+    }
+
+    StatisticEvents(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
