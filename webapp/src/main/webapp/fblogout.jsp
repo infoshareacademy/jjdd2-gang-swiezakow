@@ -3,6 +3,12 @@
 <head>
     <title>Facebook Login JavaScript Example</title>
     <meta charset="UTF-8">
+    <jsp:include page="background.jsp" />
+    <style>
+    #status {
+        color: white;
+    }
+    </style>
 </head>
 <body>
 <script>
