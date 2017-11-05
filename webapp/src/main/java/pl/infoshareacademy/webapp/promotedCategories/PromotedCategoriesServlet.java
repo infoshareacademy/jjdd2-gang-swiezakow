@@ -4,6 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import pl.infoshareacademy.webapp.auth.FBAuthServlet;
 
+import pl.infoshareacademy.webapp.lang.Translator;
+
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -57,7 +59,7 @@ public class PromotedCategoriesServlet extends HttpServlet {
         req.setAttribute("categories", promotedCategory.getCategoriesForParent());
         req.setAttribute("actualId", catId);
         req.setAttribute("selectedIds", promotedCategory.getPromotedCategoriesIds());
-
+        Translator.fillRequestAttributes(req);
         req.getRequestDispatcher("promotedCategories.jsp").forward(req, resp);
     }
 }

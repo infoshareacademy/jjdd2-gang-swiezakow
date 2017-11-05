@@ -23,7 +23,7 @@
                     var userId = response.authResponse.userID;
 
                     FB.api('/me?fields=name,email,picture', function (response) {
-                        window.location.href = '/webapp/fblogin?user_name=' + response.name + '&user_email=' + response.email + '&access_token=' + accessToken + '&user_id=' + userId + '&picture=' + encodeURIComponent(response.picture.data.url);
+                        window.location.href = '/webapp/login?user_name=' + response.name + '&user_email=' + response.email + '&access_token=' + accessToken + '&user_id=' + userId  + '&picture=' + encodeURIComponent(response.picture.data.url);
                     });
                 }
             }, {
@@ -96,6 +96,7 @@
             border-radius: 0.2em;
             font-size: 16px;
             color: #FFF;
+            height: 34px;
         }
 
         .loginBtn:before {
@@ -151,19 +152,39 @@
             background: #E74B37;
         }
     </style>
+    <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/css/bootstrap-select.min.css">
+    <link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/0.8.2/css/flag-icon.min.css">
+
     <jsp:include page="background.jsp" />
 </head>
 <body>
 <div class="login">
     <h1>ShopAll</h1>
-    <button class="loginBtn loginBtn--facebook" onclick="fb_login();">
-        Login with Facebook
+    <button id="facebook-button" class="loginBtn loginBtn--facebook" onclick="fb_login();">
+        ${sessionScope['t.fbLogin']}
     </button>
-
+    <br/>
     <button id="google-button" class="loginBtn loginBtn--google">
-        Login with Google
+        ${sessionScope['t.googleLogin']}
     </button>
-    <br>
+    <br/>
+
 </div>
+ <div id="langpicker" style="position: absolute; right:10px; top:10px">
+    <select class="selectpicker" data-width="fit" onchange="window.location.href='?locale='+ $('.selectpicker').val();">
+        <option value="" data-content='<span class="flag-icon flag-icon-pl"></span> Polski'></option>
+        <option value="en" data-content='<span class="flag-icon flag-icon-us"></span> English'>en</option>
+    </select>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script>
+    $(function(){
+        $('select.selectpicker').val('${Locale}');
+        $('.selectpicker').selectpicker();
+    });
+    </script>
+    </div>
 </body>
 </html>
