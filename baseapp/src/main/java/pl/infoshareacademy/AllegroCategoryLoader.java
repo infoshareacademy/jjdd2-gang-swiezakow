@@ -66,9 +66,9 @@ public class AllegroCategoryLoader {
         return list;
     }
 
-    public Map<Integer, List<AllegroCategory>> loadCategoryTree(String path) {
+    public Map<Integer, List<AllegroCategory>> loadCategoryTree(List<AllegroCategory> categories) {
         Map<Integer, List<AllegroCategory>> categoryMap = new HashMap<>();
-        for(AllegroCategory category : loadAllCategories(path)) {
+        for(AllegroCategory category : categories) {
             if(!categoryMap.containsKey(category.getParent())){
                 List<AllegroCategory> list = new ArrayList<>();
                 list.add(category);
@@ -79,6 +79,10 @@ public class AllegroCategoryLoader {
         }
         logger.debug("returned category map with " + categoryMap.size() + " elements");
         return categoryMap;
+    }
+
+    public Map<Integer, List<AllegroCategory>> loadCategoryTree(String path) {
+        return loadCategoryTree(loadAllCategories(path));
     }
 
     private Document loadDocument(String filename) {

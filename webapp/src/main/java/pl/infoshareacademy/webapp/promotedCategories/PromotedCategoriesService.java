@@ -44,7 +44,11 @@ public class PromotedCategoriesService {
                     return true;
                 }
             }
-            catId = service.getParentForCatId(catId).getParent();
+            AllegroCategory parentForCatId = service.getParentForCatId(catId);
+            if (parentForCatId == null) {
+                break;
+            }
+            catId = parentForCatId.getParent();
         }
         return false;
     }
