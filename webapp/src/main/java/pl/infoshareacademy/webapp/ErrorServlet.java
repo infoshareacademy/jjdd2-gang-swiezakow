@@ -1,5 +1,6 @@
 package pl.infoshareacademy.webapp;
 
+import com.google.common.base.Throwables;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static javax.servlet.RequestDispatcher.ERROR_EXCEPTION;
 import static javax.servlet.RequestDispatcher.ERROR_REQUEST_URI;
 
 @WebServlet({"/notFound", "/unauthorized", "/serverError"})
@@ -32,6 +34,7 @@ public class ErrorServlet extends HttpServlet {
                 path = "unauthorized.jsp";
                 break;
             case "/serverError":
+                req.setAttribute("exceptionText", Throwables.getStackTraceAsString((Throwable) req.getAttribute(ERROR_EXCEPTION)));
                 path = "serverError.jsp";
                 break;
         }

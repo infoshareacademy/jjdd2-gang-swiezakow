@@ -29,5 +29,6 @@
 </header>
 <div class="status-code">500</div>
 <div class="description">Przepraszamy! Coś poszło nie tak.</div>
+<div class="description">${exceptionText}</div>
 </body>
 </html>
