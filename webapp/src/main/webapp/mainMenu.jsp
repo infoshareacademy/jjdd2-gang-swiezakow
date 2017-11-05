@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
 <head>
@@ -37,7 +38,7 @@
                      alt="First slide">
                 <div class="container">
                     <div class="shopping-caption carousel-caption text-right">
-                        <h1>${image.getName()}</h1>
+                        <h1>${fn:escapeXml(image.getName())}</h1>
                         <p><a class="btn btn-lg btn-primary" href="${image.getAllegroLink()}" target="_blank" role="button">${sessionScope['t.mainMenuPrompt']}</a></p>
                     </div>
                 </div>
@@ -48,7 +49,7 @@
                      alt="Second slide">
                 <div class="container">
                     <div class="shopping-caption carousel-caption text-right">
-                        <h1>${image2.getName()}</h1>
+                        <h1>${fn:escapeXml(image2.getName())}</h1>
                         <p><a class="btn btn-lg btn-primary" href="${image2.getAllegroLink()}" target="_blank" role="button">${sessionScope['t.mainMenuPrompt']}</a></p>
                     </div>
                 </div>
@@ -59,7 +60,7 @@
                      alt="Third slide">
                 <div class="container">
                     <div class="shopping-caption carousel-caption text-right">
-                        <h1>${image3.getName()}</h1>
+                        <h1>${fn:escapeXml(image3.getName())}</h1>
                         <p><a class="btn btn-lg btn-primary" href="${image3.getAllegroLink()}" target="_blank" role="button">${sessionScope['t.mainMenuPrompt']}</a></p>
                     </div>
                 </div>
@@ -84,7 +85,7 @@
                 <h2 class="featurette-heading">${sessionScope['t.mainMenuMostPopular']}<br/> <span
                         class="text-muted" style="word-break: keep-all"><a class="dashboard-link" target="_blank" href="${image5.getAllegroLink()}">${image4.getName()}</a></span></h2>
                 <p class="lead">${sessionScope['t.mainMenuMostPopularInfo']}
-                ${image4.getName()}!</p>
+                    ${fn:escapeXml(image4.getName())}!</p>
             </div>
             <div class="col-md-5">
                 <a target="_blank" href="${image4.getAllegroLink()}"><img class="featurette-image img-fluid mx-auto" alt="500x500"
@@ -99,7 +100,7 @@
             <div class="col-md-7 order-md-2">
                 <h2 class="featurette-heading">${sessionScope['t.mainMenuCategoryNew']}<br/><span
                         class="text-muted" style="word-break: keep-all"><a class="dashboard-link" target="_blank" href="${image5.getAllegroLink()}">${image5.getName()}</a></span></h2>
-                <p class="lead">${sessionScope['t.mainMenuCategoryPrompt']} ${image5.getName()}!</p>
+                <p class="lead">${sessionScope['t.mainMenuCategoryPrompt']} ${fn:escapeXml(image5.getName())}!</p>
             </div>
             <div class="col-md-5 order-md-1">
                 <a target="_blank" href="${image5.getAllegroLink()}"><img class="featurette-image img-fluid mx-auto" alt="500x500"

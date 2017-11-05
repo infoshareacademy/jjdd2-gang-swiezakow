@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="pl">
 <head>
@@ -41,7 +42,7 @@
             >
             <span class="custom-control-indicator"></span>
             <span class="custom-control-description">
-                <a class="promoted-link" href="/webapp/promoted?parentid=${category.getCatID()}">${category.name}</a>
+                <a class="promoted-link" href="/webapp/promoted?parentid=${category.getCatID()}">${fn:escapeXml(category.name)}</a>
             </span>
         </label>
     </div>

@@ -3,6 +3,9 @@ package pl.infoshareacademy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
 
@@ -111,6 +114,14 @@ public class SearchCategoryCommand {
         String phraseInLink = phrase.replace(" ", "-");
         logger.info("generating link for " + category + " and "+ phrase);
         String name = category.getName().toLowerCase().replace(" ", "-");
-        return String.format(config.getLinkForSCC(), name, category.getCatID(), phraseInLink);
+        try {
+            return String.format(config.getLinkForSCC(),
+                    URLEncoder.encode(name, StandardCharsets.UTF_8.name()),
+                    category.getCatID(),
+                    URLEncoder.encode(phraseInLink, StandardCharsets.UTF_8.name()));
+        } catch (UnsupportedEncodingException e) {
+            logger.error("Cannot encode url", e);
+            throw new RuntimeException(e);
+        }
     }
 }
