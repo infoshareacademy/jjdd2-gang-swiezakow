@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet({"/notFound", "/unauthorized"})
+import static javax.servlet.RequestDispatcher.ERROR_REQUEST_URI;
+
+@WebServlet({"/notFound", "/unauthorized", "/serverError"})
 public class ErrorServlet extends HttpServlet {
 
     private static final Logger logger = LogManager.getLogger(ErrorServlet.class);
@@ -29,7 +31,11 @@ public class ErrorServlet extends HttpServlet {
             case "/unauthorized":
                 path = "unauthorized.jsp";
                 break;
+            case "/serverError":
+                path = "serverError.jsp";
+                break;
         }
+        logger.info("Problem occurred: " + req.getAttribute(ERROR_REQUEST_URI));
         req.getRequestDispatcher(path).forward(req, resp);
     }
 }

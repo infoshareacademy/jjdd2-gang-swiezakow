@@ -36,6 +36,9 @@ data-source add --name=zakupyDS --driver-name=mysql --jndi-name=java:/zakupyDS -
 run-batch
 EOF
 
+echo "=> Creating admin user"
+$JBOSS_HOME/bin/add-user.sh admin abcd1234 --silent &
+
 cp /opt/jboss/wildfly/webapp.war $JBOSS_HOME/$JBOSS_MODE/deployments/webapp.war
 
 echo "=> Shutting down WildFly"
