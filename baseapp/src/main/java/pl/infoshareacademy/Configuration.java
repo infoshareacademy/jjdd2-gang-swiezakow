@@ -10,6 +10,16 @@ public class Configuration {
     private String testFacebookAppId;
     private String facebookAppSecret;
     private String testFacebookAppSecret;
+    private boolean useTestFB;
+    private String restURL;
+
+    public String getRestURL() {
+        return restURL;
+    }
+
+    public boolean isUseTestFB() {
+        return useTestFB;
+    }
 
     public String getTestFacebookAppId() {
         return testFacebookAppId;
@@ -46,4 +56,8 @@ public class Configuration {
     }
 
     public String getFacebookAppId() {return facebookAppId;}
+
+    public void setRestURL(String restURL) {
+        this.restURL = restURL;
+    }
 }

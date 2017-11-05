@@ -83,4 +83,5 @@ public class StatisticService {
                 .map(StatisticResult::getName)
                 .collect(Collectors.toList());
     }
+
 }

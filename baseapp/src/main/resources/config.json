@@ -7,5 +7,6 @@
   "facebookAppId" : "145040069442337",
   "testFacebookAppId" : "353858615026322",
   "facebookAppSecret" : "e447a6099a07e4eb7cab1ad19ef6ae50",
-  "testFacebookAppSecret" : "4c04110acb22b0192849ccb2df740dd7"
+  "testFacebookAppSecret" : "4c04110acb22b0192849ccb2df740dd7",
+  "restURL": "http://localhost:8180/report-rest-server/"
 }
