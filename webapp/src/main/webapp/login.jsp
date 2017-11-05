@@ -167,20 +167,20 @@
     <br/>
 
 </div>
- <div id="langpicker" style="position: absolute; right:10px; top:10px">
-    <select class="selectpicker" data-width="fit" onchange="window.location.href='?locale='+ $('.selectpicker').val();">
-        <option value="" data-content='<span class="flag-icon flag-icon-pl"></span> Polski'></option>
-        <option value="en" data-content='<span class="flag-icon flag-icon-us"></span> English'>en</option>
-    </select>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script>
-    $(function(){
-        $('select.selectpicker').val('${Locale}');
-        $('.selectpicker').selectpicker();
-    });
-    </script>
+    <div id="langpicker" style="position: absolute; right:10px; top:10px">
+        <select class="selectpicker" data-width="fit" onchange="window.location.href='?locale='+ $('.selectpicker').val();">
+            <option value="" data-content='<span class="flag-icon flag-icon-pl"></span> Polski'></option>
+            <option value="en" data-content='<span class="flag-icon flag-icon-us"></span> English'>en</option>
+        </select>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script>
+        $(function(){
+            $('select.selectpicker').val('${Locale}');
+            $('.selectpicker').selectpicker();
+        });
+        </script>
     </div>
 </body>
 </html>

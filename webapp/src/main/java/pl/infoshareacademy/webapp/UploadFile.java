@@ -54,8 +54,7 @@ public class UploadFile extends HttpServlet {
                     "  " + req.getAttribute("t.uploadFile.successMessage") + "\n" +
                     "</div>";
             req.setAttribute("message", message);
-
-            req.getRequestDispatcher("main.jsp").forward(req, resp);
+            req.getRequestDispatcher("mainMenu.jsp").forward(req, resp);
 
         } catch (IOException e) {
             e.printStackTrace();
