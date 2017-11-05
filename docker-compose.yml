@@ -1,0 +1,28 @@
+version: '2'
+services:
+  jjdd2_gang-swiezakow-db:
+    container_name: "jjdd2_gang-swiezakow-db"
+    image: mysql:latest
+    environment:
+      - MYSQL_DATABASE=zakupydb
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+      - MYSQL_ROOT_PASSWORD=pass
+    ports:
+      - 4015:3306
+  jjdd2-stub-webapp:
+    container_name: "jjdd2_gang-swiezakow-webapp"
+    build: .
+    environment:
+      - MYSQL_URI=jjdd2_gang-swiezakow-db:3306
+      - MYSQL_DATABASE=zakupydb
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+      - DATASOURCE_NAME=java:jboss/datasources/zakupyDS
+    ports:
+      - 4010:8080
+      - 4011:9990
+    depends_on:
+      - jjdd2_gang-swiezakow-db
+    links:
+      - jjdd2_gang-swiezakow-db
