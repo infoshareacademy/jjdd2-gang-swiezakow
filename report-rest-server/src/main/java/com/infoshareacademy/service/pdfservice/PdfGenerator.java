@@ -24,7 +24,7 @@ public class PdfGenerator {
         this.statisticsStore = statisticsStore;
     }
 
-    private static String FILE = "Report.pdf";
+    private static String FILE = "Raport.pdf";
 
     private static Font catFont = new Font(Font.FontFamily.TIMES_ROMAN, 30,
             Font.BOLD);
@@ -135,30 +135,8 @@ public class PdfGenerator {
         subCatPart.add(new Paragraph("Paragraph 2"));
         subCatPart.add(new Paragraph("Paragraph 3"));
 
-        // add a list
-        createList(subCatPart);
-        Paragraph paragraph = new Paragraph();
-        addEmptyLine(paragraph, 5);
-        subCatPart.add(paragraph);
-
-
         // now add all this to the document
         document.add(catPart);
-
-        // Next section
-        anchor = new Anchor("Wybierane funkcjonalnosci", catFont);
-        anchor.setName("Wybierane funkcjonalnosci");
-
-        // Second parameter is the number of the chapter
-        catPart = new Chapter(new Paragraph(anchor), 1);
-
-        subPara = new Paragraph("Subcategory", subFont);
-        subCatPart = catPart.addSection(subPara);
-        subCatPart.add(new Paragraph("This is a very important message"));
-
-        // now add all this to the document
-        document.add(catPart);
-
     }
 
     private void createTableForRushHours(Section section) throws BadElementException {

@@ -9,8 +9,8 @@ import com.infoshareacademy.service.chartsGenerator.RushHoursChart;
 import com.infoshareacademy.service.chartsGenerator.VisitsNumberChart;
 import com.infoshareacademy.service.emailservice.EmailSender;
 import com.infoshareacademy.service.pdfservice.PdfGenerator;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 @Singleton
 public class TaskExecutor {
 
-    private static final Logger LOG = LogManager.getLogger(TaskExecutor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TaskExecutor.class);
 
     @Inject
     TasksStore tasksStore;
@@ -39,9 +39,6 @@ public class TaskExecutor {
     @Schedule(minute = "*/1", hour = "*")
     public void periodic() {
         prepareAttachment(dataStore.getStatisticsStore());
-        LOG.info("Prepared attachment");
-        System.out.println(dataStore.getStatisticsStore().toString());
-        System.out.println(tasksStore.getBase().toString());
         if (tasksStore.getBase().size()>=1) {
             takeNewTask(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")), tasksStore);
         }
@@ -59,13 +56,16 @@ public class TaskExecutor {
             compareEntriesChart.generateCompareEntriesChart(statisticsStore.getLastMonthSumUserActivityInIndividualFeature());
             rushHoursChart.generateRushHoursCharts(statisticsStore.getLastMonthUserActivityIntervalStat());
             visitsNumberChart.getVisitsNumberChart(statisticsStore.getLastMonthUserActivityInIndividualFeature());
+            LOG.debug("succesfully prepared charts");
         } catch (Exception e) {
+            LOG.error("could not generate charts: " + e);
             e.printStackTrace();
         }
 
         PdfGenerator pdfGenerator = new PdfGenerator(
                 statisticsStore);
         pdfGenerator.generatePDF();
+        LOG.info("Prepared attachment");
     }
 
     public void takeNewTask(String localDateTime, TasksStore tasksStore) {
@@ -74,8 +74,7 @@ public class TaskExecutor {
                 .filter(recipientModel -> recipientModel.getSendTimeDate().compareTo(localDateTime)<0)
                 .collect(Collectors.toList());
         recipientList.forEach(s -> s.getEmails().forEach(e -> new EmailSender().sendEmail(e)));
-
-
+        LOG.info("tasks to do: " + recipientList.size());
         TasksStore tasksStore1 = tasksStore;
         updateDataStore(tasksStore1, recipientList);
     }

@@ -1,7 +1,6 @@
 package com.infoshareacademy.service.emailservice;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -16,7 +15,7 @@ import java.util.Properties;
 
 public class EmailSender {
 
-    private static final Logger logger = LogManager.getLogger(EmailSender.class);
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(EmailSender.class);
 
     public void sendEmail(String recipient) {
         Properties props = new Properties();

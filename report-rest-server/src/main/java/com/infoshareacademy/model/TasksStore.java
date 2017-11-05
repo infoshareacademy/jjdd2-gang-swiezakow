@@ -1,5 +1,6 @@
 package com.infoshareacademy.model;
 
+import com.infoshareacademy.api.RestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +46,7 @@ public class TasksStore {
     }
 
     public void add(RecipientModel configuration) {
-        LOG.info("Adding to do: " + configuration.toString());
+        LOG.debug("Add to do: " + configuration.toString());
         base.put(findNewId(), configuration);
     }
 

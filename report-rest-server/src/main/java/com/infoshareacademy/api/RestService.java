@@ -82,9 +82,16 @@ public class RestService {
     @DELETE
     @Path("/deletetask/{task}")
     public void deleteTask(@PathParam("task") String id) {
-        if (tasksStore.getBase().containsKey(String.valueOf(id))) {
-            tasksStore.getBase().remove(id);
+        Integer integerId;
+        try {
+            integerId = Integer.parseInt(id);
+            if (tasksStore.getBase().containsKey(integerId)) {
+                tasksStore.getBase().remove(integerId);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Could not parse string \n" + e);
         }
+
     }
 
 }
