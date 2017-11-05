@@ -19,7 +19,7 @@
         <a href="/webapp/promoted?parentid=${category.getCatID()}">${fn:escapeXml(category.name)}</a>
         <br/>
     </c:forEach>
-<input type="submit" name="save" value="Zapisz">
+<input type="submit" name="save" value="${sessionScope['t.promotedCategoriesSave']}">
 <input type="hidden" name="parentid" value="${actualId}">
 </form>
 </body>

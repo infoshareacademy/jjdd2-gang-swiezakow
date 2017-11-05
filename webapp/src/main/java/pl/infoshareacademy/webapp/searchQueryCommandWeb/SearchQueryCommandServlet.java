@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import pl.infoshareacademy.webapp.dao.StatisticsBean;
 import pl.infoshareacademy.webapp.entities.Statistics;
+import pl.infoshareacademy.webapp.lang.Translator;
 import pl.infoshareacademy.webapp.statistics.StatisticEvents;
 
 import javax.inject.Inject;
@@ -45,6 +46,7 @@ public class SearchQueryCommandServlet extends HttpServlet {
             req.setAttribute("queryCard", results);
         }
         req.setAttribute("categoryNumber", "4");
+        Translator.fillRequestAttributes(req);
         req.getRequestDispatcher("searchQueryCommand.jsp").forward(req, resp);
     }
 }
