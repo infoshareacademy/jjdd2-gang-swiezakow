@@ -51,6 +51,7 @@
                     <a class="dropdown-item" href="promoted">${sessionScope['t.header.promote']}</a>
                     <a class="dropdown-item" href="stats">${sessionScope['t.header.statistics']}</a>
                     <a class="dropdown-item" href="index">${sessionScope['t.header.upload']}</a>
+                    <a class="dropdown-item" href="allegro">${sessionScope['t.header.allegro']}</a>
                 </c:if>
                 <c:choose>
                     <c:when test="${isFbUser}">
