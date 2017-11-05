@@ -10,7 +10,7 @@ services:
       - MYSQL_ROOT_PASSWORD=pass
     ports:
       - 4015:3306
-  jjdd2-stub-webapp:
+  jjdd2_gang-swiezakow-webapp:
     container_name: "jjdd2_gang-swiezakow-webapp"
     build: .
     environment:
