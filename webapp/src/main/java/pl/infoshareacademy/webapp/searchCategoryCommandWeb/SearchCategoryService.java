@@ -5,8 +5,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import pl.infoshareacademy.AllegroCategory;
 import pl.infoshareacademy.AllegroCategorySearcher;
-import pl.infoshareacademy.SearchCategoryCommand;
 import pl.infoshareacademy.webapp.AllegroCategoryService;
+import pl.infoshareacademy.webapp.LinkService;
 import pl.infoshareacademy.webapp.promotedCategories.PromotedCategoriesService;
 
 import javax.ejb.Stateless;
@@ -28,8 +28,10 @@ public class SearchCategoryService {
     @Inject
     private ImageUrlService imageUrlService;
 
+    @Inject
+    private LinkService linkService;
+
     private final AllegroCategorySearcher searcher = new AllegroCategorySearcher();
-    private final SearchCategoryCommand searchCategoryCommand = new SearchCategoryCommand(null);
 
     public List<AllegroCategory> getMatchingCategories(String searchTerm) {
         List<AllegroCategory> allCategories = categoryService.getAllCategories();
@@ -47,7 +49,7 @@ public class SearchCategoryService {
                     List<AllegroCategory> allParentsCategory = categoryService.getAllParentsCategory(ac);
                     List<ParentAllegroLink> links = allParentsCategory.stream()
                             .map(parent -> new ParentAllegroLink(parent.getName(),
-                                    searchCategoryCommand.generateLink(parent, searchTerm)))
+                                    linkService.makeLink(parent, searchTerm)))
                             .collect(Collectors.toList());
 
                     AllegroCategory mainCategory = Iterables.getLast(allParentsCategory);
@@ -55,7 +57,7 @@ public class SearchCategoryService {
                     return new SearchResult(ac, links,
                             imageUrlService.getImageUrl(mainCategory.getCatID()),
                             promotedCategoriesService.isCategoryPromoted(ac.getCatID()),
-                            searchCategoryCommand.generateLink(ac, searchTerm));
+                            linkService.makeLink(ac, searchTerm));
                 })
                 .sorted((sr1, sr2) -> {
                     if (sr1.isPromoted() == sr2.isPromoted()) {
@@ -68,5 +70,4 @@ public class SearchCategoryService {
                 })
                 .collect(Collectors.toList());
     }
-
 }

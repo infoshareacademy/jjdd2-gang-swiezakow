@@ -3,6 +3,7 @@ package pl.infoshareacademy.webapp;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import pl.infoshareacademy.Catalog;
+import pl.infoshareacademy.webapp.auth.FBAuthServlet;
 import pl.infoshareacademy.webapp.lang.Translator;
 
 import javax.inject.Inject;
@@ -14,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebServlet("/index")
 @MultipartConfig
@@ -29,32 +29,29 @@ public class UploadFile extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html;charset=UTF-8");
-        PrintWriter writer = resp.getWriter();
-        writer.println("<!DOCTYPE html>");
-        writer.println("<html>");
-        writer.println("<body>");
-        writer.println("<form action=\"index\" method=\"post\" enctype=\"multipart/form-data\">");
-        writer.println("<p>Select the XML file with data: ");
-        writer.println("<input type=\"file\" name=\"fileXML\"/>");
-        writer.println("</p>");
-        writer.println("<button type=\"submit\">Send</button>");
-        writer.println("</form>");
-        writer.println("</body>");
-        writer.println("</html>");
+        Boolean isAdmin = (Boolean) req.getSession().getAttribute(FBAuthServlet.USER_TYPE);
+        if(isAdmin == null || !isAdmin) {
+            logger.info("access denied");
+            resp.sendRedirect("unauthorized");
+            return;
+        }
+       req.getRequestDispatcher("uploadFile.jsp").forward(req, resp);
     }
+
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Boolean isAdmin = (Boolean) req.getSession().getAttribute(FBAuthServlet.USER_TYPE);
+        if(isAdmin == null || !isAdmin) {
+            logger.info("access denied");
+            resp.sendRedirect("unauthorized");
+            return;
+        }
         try {
             Part fileXML = req.getPart("fileXML");
             Translator.fillRequestAttributes(req);
             allegroCategoryService.saveAllegroCategoryFile(fileXML.getInputStream());
             catalog.updateCatalog(allegroCategoryService.getFilePath());
-            String message = "<div class=\"alert alert-success\" role=\"alert\">\n" +
-                    "  " + req.getAttribute("t.uploadFile.successMessage") + "\n" +
-                    "</div>";
-            req.setAttribute("message", message);
-            req.getRequestDispatcher("mainMenu.jsp").forward(req, resp);
+            resp.sendRedirect("main");
 
         } catch (IOException e) {
             e.printStackTrace();
