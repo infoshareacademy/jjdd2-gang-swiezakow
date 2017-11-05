@@ -1,4 +1,4 @@
-package pl.infoshareacademy.webapp;
+package pl.infoshareacademy.webapp.report;
 
 import pl.infoshareacademy.reportService.ModelsStore.RecipientModel;
 import pl.infoshareacademy.reportService.UpdateRESTTimerThread;

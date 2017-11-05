@@ -97,4 +97,10 @@ public class UpdateRESTTimerThread {
         logger.info("Sent new task to report-rest-server");
     }
 
+    public void deleteTask(Integer id) {
+        Client client = ClientBuilder.newClient();
+        WebTarget webTarget = client.target(ENDPOINT + "deletetask/" + id);
+        webTarget.request().delete();
+    }
+
 }

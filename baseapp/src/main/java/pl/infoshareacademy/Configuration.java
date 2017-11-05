@@ -56,4 +56,8 @@ public class Configuration {
     }
 
     public String getFacebookAppId() {return facebookAppId;}
+
+    public void setRestURL(String restURL) {
+        this.restURL = restURL;
+    }
 }
