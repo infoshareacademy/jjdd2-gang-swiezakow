@@ -29,20 +29,9 @@ public class UploadFile extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html;charset=UTF-8");
-        PrintWriter writer = resp.getWriter();
-        writer.println("<!DOCTYPE html>");
-        writer.println("<html>");
-        writer.println("<body>");
-        writer.println("<form action=\"index\" method=\"post\" enctype=\"multipart/form-data\">");
-        writer.println("<p>Select the XML file with data: ");
-        writer.println("<input type=\"file\" name=\"fileXML\"/>");
-        writer.println("</p>");
-        writer.println("<button type=\"submit\">Send</button>");
-        writer.println("</form>");
-        writer.println("</body>");
-        writer.println("</html>");
+       req.getRequestDispatcher("uploadFile.jsp").forward(req, resp);
     }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         try {
@@ -50,12 +39,7 @@ public class UploadFile extends HttpServlet {
             Translator.fillRequestAttributes(req);
             allegroCategoryService.saveAllegroCategoryFile(fileXML.getInputStream());
             catalog.updateCatalog(allegroCategoryService.getFilePath());
-            String message = "<div class=\"alert alert-success\" role=\"alert\">\n" +
-                    "  " + req.getAttribute("t.uploadFile.successMessage") + "\n" +
-                    "</div>";
-            req.setAttribute("message", message);
-
-            req.getRequestDispatcher("main.jsp").forward(req, resp);
+            resp.sendRedirect("main");
 
         } catch (IOException e) {
             e.printStackTrace();
