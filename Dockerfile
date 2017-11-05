@@ -1,6 +1,6 @@
 FROM jboss/wildfly:latest
 
-ADD config /opt/jboss/wildfly/config/
+ADD customization /opt/jboss/wildfly/customization/
 
 COPY webapp/target/webapp.war /opt/jboss/wildfly/config/
 
