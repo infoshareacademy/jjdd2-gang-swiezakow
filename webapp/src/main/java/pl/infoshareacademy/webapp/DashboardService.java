@@ -1,7 +1,6 @@
 package pl.infoshareacademy.webapp;
 
 import pl.infoshareacademy.AllegroCategory;
-import pl.infoshareacademy.AllegroLink;
 import pl.infoshareacademy.webapp.dao.PromotedCategoriesBean;
 import pl.infoshareacademy.webapp.dao.StatisticResult;
 import pl.infoshareacademy.webapp.dao.StatisticsResultsBean;
@@ -29,6 +28,9 @@ public class DashboardService {
     @Inject
     private StatisticsResultsBean resultsBean;
 
+    @Inject
+    private LinkService linkService;
+
     private Random random = new Random();
 
     public List<DashboardItem> getCarousellItems() {
@@ -52,7 +54,7 @@ public class DashboardService {
 
         return new DashboardItem(name,
                 imageUrlService.getImageUrl(catID),
-                AllegroLink.makeLink(name, catID));
+                linkService.makeLink(name, catID));
     }
 
     public DashboardItem getMostPopularCategory() {
@@ -64,7 +66,7 @@ public class DashboardService {
         AllegroCategory category = allegroCategoryService.getCategoryForId(Integer.parseInt(statisticResult.getName()));
         return new DashboardItem(category.getName(),
                 imageUrlService.getImageUrl(category.getCatID()),
-                AllegroLink.makeLink(category.getName(), category.getCatID()));
+                linkService.makeLink(category.getName(), category.getCatID()));
     }
 
     public DashboardItem getPromotedCategory() {
@@ -75,7 +77,7 @@ public class DashboardService {
         Integer catId = promotedCategories.get(0);
         AllegroCategory category = allegroCategoryService.getCategoryForId(catId);
         return new DashboardItem(category.getName(), imageUrlService.getImageUrl(category.getCatID()),
-                AllegroLink.makeLink(category.getName(), category.getCatID()));
+                linkService.makeLink(category.getName(), category.getCatID()));
     }
 
     private int numberGenerator(List<AllegroCategory> list) {

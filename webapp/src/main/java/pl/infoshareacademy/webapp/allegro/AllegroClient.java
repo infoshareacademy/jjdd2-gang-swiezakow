@@ -1,6 +1,8 @@
 package pl.infoshareacademy.webapp.allegro;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -12,21 +14,16 @@ import javax.ejb.Singleton;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Singleton
 public class AllegroClient {
     private static final Logger logger = LogManager.getLogger(AllegroClient.class);
-    private static final List<String> mainCategories = Arrays.asList(
-            "954b95b6-43cf-4104-8354-dea4d9b10ddf"
-    );
+    private static final List<String> mainCategories = Arrays.asList("954b95b6-43cf-4104-8354-dea4d9b10ddf");
 
-
-    private final Map<String, Integer> nonIntCategoryIdMap = new HashMap<>();
+    private final BiMap<String, Integer> nonIntCategoryIdMap = HashBiMap.create();
     private int nextCategoryId = 1000000;
 
     public List<AllegroCategory> getAllCategoriesFromRest() {
@@ -35,6 +32,14 @@ public class AllegroClient {
                 .map(this::toAllegroCategory)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
+    }
+
+    public String getRewrittenId(int id) {
+        BiMap<Integer, String> map = nonIntCategoryIdMap.inverse();
+        if (map.containsKey(id)) {
+            return map.get(id);
+        }
+        return "" + id;
     }
 
     private AllegroCategory toAllegroCategory(AllegroRestCategory c) {
