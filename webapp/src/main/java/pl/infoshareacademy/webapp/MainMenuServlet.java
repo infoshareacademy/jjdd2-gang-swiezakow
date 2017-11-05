@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import static pl.infoshareacademy.webapp.auth.FBAuthServlet.*;
 
@@ -26,31 +28,42 @@ public class MainMenuServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        statisticsBean.saveStatistics(new Statistics(StatisticEvents.MENU_ENTRY.toString(), ""));
+        try {
+            statisticsBean.saveStatistics(new Statistics(StatisticEvents.MENU_ENTRY.toString(), ""));
 
-        resp.setCharacterEncoding("UTF-8");
-        req.setCharacterEncoding("UTF-8");
+            resp.setCharacterEncoding("UTF-8");
+            req.setCharacterEncoding("UTF-8");
 
-        DashboardItem dashboardItem = dashboardService.randomImageGenerator();
-        DashboardItem dashboardItem2 = dashboardService.randomImageGenerator();
-        DashboardItem dashboardItem3 = dashboardService.randomImageGenerator();
-        DashboardItem dashboardItem4 = dashboardService.randomImageGenerator();
-        DashboardItem dashboardItem5 = dashboardService.randomImageGenerator();
+            DashboardItem dashboardItem = dashboardService.randomImageGenerator();
+            DashboardItem dashboardItem2 = dashboardService.randomImageGenerator();
+            DashboardItem dashboardItem3 = dashboardService.randomImageGenerator();
+            DashboardItem dashboardItem4 = dashboardService.randomImageGenerator();
+            DashboardItem dashboardItem5 = dashboardService.randomImageGenerator();
 
-        String userName = (String) req.getSession().getAttribute(USER_NAME);
-        String userEmail = (String) req.getSession().getAttribute(USER_EMAIL);
-        Boolean isFbUser = "fb".equals(req.getSession().getAttribute(USER_LOGIN_TYPE));
+            String userName = (String) req.getSession().getAttribute(USER_NAME);
+            String userEmail = (String) req.getSession().getAttribute(USER_EMAIL);
+            Boolean isFbUser = "fb".equals(req.getSession().getAttribute(USER_LOGIN_TYPE));
 
-        if (userName != null && userEmail != null) {
-            req.setAttribute("username", userName);
-            req.setAttribute("isFbUser", isFbUser);
+            if (userName != null && userEmail != null) {
+                req.setAttribute("username", userName);
+                req.setAttribute("isFbUser", isFbUser);
+            }
+
+            req.setAttribute("image", dashboardItem);
+            req.setAttribute("image2", dashboardItem2);
+            req.setAttribute("image3", dashboardItem3);
+            req.setAttribute("image4", dashboardItem4);
+            req.setAttribute("image5", dashboardItem5);
+            Translator.fillRequestAttributes(req);
+            req.getRequestDispatcher("mainMenu.jsp").forward(req, resp);
+
+        } catch (Throwable e) {
+            resp.getWriter().write(e.toString());
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+            String sStackTrace = sw.toString(); // stack trace as a string
+            System.out.println(e.getMessage() + sStackTrace);
         }
-        req.setAttribute("image", dashboardItem);
-        req.setAttribute("image2", dashboardItem2);
-        req.setAttribute("image3", dashboardItem3);
-        req.setAttribute("image4", dashboardItem4);
-        req.setAttribute("image5", dashboardItem5);
-        Translator.fillRequestAttributes(req);
-        req.getRequestDispatcher("mainMenu.jsp").forward(req, resp);
     }
 }
