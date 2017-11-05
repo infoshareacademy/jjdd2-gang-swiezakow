@@ -3,6 +3,7 @@ package pl.infoshareacademy.webapp;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import pl.infoshareacademy.Catalog;
+import pl.infoshareacademy.webapp.auth.FBAuthServlet;
 import pl.infoshareacademy.webapp.lang.Translator;
 
 import javax.inject.Inject;
@@ -29,11 +30,23 @@ public class UploadFile extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Boolean isAdmin = (Boolean) req.getSession().getAttribute(FBAuthServlet.USER_TYPE);
+        if(isAdmin == null || !isAdmin) {
+            logger.info("access denied");
+            resp.sendRedirect("unauthorized");
+            return;
+        }
        req.getRequestDispatcher("uploadFile.jsp").forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Boolean isAdmin = (Boolean) req.getSession().getAttribute(FBAuthServlet.USER_TYPE);
+        if(isAdmin == null || !isAdmin) {
+            logger.info("access denied");
+            resp.sendRedirect("unauthorized");
+            return;
+        }
         try {
             Part fileXML = req.getPart("fileXML");
             Translator.fillRequestAttributes(req);

@@ -164,11 +164,9 @@
     <button id="facebook-button" class="loginBtn loginBtn--facebook" onclick="fb_login();">
         ${sessionScope['t.fbLogin']}
     </button>
-    <br/>
     <button id="google-button" class="loginBtn loginBtn--google">
         ${sessionScope['t.googleLogin']}
     </button>
-    <br/>
 
 </div>
  <div id="langpicker" style="position: absolute; right:10px; top:10px">

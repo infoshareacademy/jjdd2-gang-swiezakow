@@ -3,7 +3,8 @@
 <head>
     <link href="https://fonts.googleapis.com/css?family=Kalam" rel="stylesheet">
     <title>Server Error</title>
-    <jsp:include page="background.jsp" />
+    <jsp:include page="/head.jsp"/>
+    <jsp:include page="background.jsp"/>
     <style>
         .status-code {
             color: wheat;
@@ -23,6 +24,9 @@
     </style>
 </head>
 <body>
+<header>
+    <jsp:include page="/header.jsp"/>
+</header>
 <div class="status-code">500</div>
 <div class="description">Przepraszamy! Coś poszło nie tak.</div>
 </body>
