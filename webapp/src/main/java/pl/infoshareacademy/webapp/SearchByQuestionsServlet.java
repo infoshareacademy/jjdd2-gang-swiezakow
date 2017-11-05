@@ -7,6 +7,7 @@ import pl.infoshareacademy.SearchByQuestions;
 import pl.infoshareacademy.SearchResult;
 import pl.infoshareacademy.webapp.dao.StatisticsBean;
 import pl.infoshareacademy.webapp.entities.Statistics;
+import pl.infoshareacademy.webapp.lang.Translator;
 import pl.infoshareacademy.webapp.statistics.StatisticEvents;
 
 import javax.inject.Inject;
@@ -77,6 +78,7 @@ public class SearchByQuestionsServlet extends HttpServlet {
             }
         }
         req.setAttribute("categoryNumber", "1");
+        Translator.fillRequestAttributes(req);
         req.getRequestDispatcher("searchByQuestions.jsp").forward(req, resp);
     }
 }

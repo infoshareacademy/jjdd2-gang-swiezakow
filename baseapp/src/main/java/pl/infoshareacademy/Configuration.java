@@ -10,11 +10,6 @@ public class Configuration {
     private String testFacebookAppId;
     private String facebookAppSecret;
     private String testFacebookAppSecret;
-    private boolean useTestFB;
-
-    public boolean isUseTestFB() {
-        return useTestFB;
-    }
 
     public String getTestFacebookAppId() {
         return testFacebookAppId;

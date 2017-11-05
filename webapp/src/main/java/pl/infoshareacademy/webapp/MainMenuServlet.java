@@ -2,6 +2,7 @@ package pl.infoshareacademy.webapp;
 
 import pl.infoshareacademy.webapp.dao.StatisticsBean;
 import pl.infoshareacademy.webapp.entities.Statistics;
+import pl.infoshareacademy.webapp.lang.Translator;
 import pl.infoshareacademy.webapp.statistics.StatisticEvents;
 
 import javax.inject.Inject;
@@ -12,9 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static pl.infoshareacademy.webapp.auth.FBAuthServlet.USER_EMAIL;
-import static pl.infoshareacademy.webapp.auth.FBAuthServlet.USER_LOGIN_TYPE;
-import static pl.infoshareacademy.webapp.auth.FBAuthServlet.USER_NAME;
+import static pl.infoshareacademy.webapp.auth.FBAuthServlet.*;
 
 @WebServlet("/main")
 public class MainMenuServlet extends HttpServlet {
@@ -51,7 +50,7 @@ public class MainMenuServlet extends HttpServlet {
         req.setAttribute("image3", dashboardItem3);
         req.setAttribute("image4", dashboardItem4);
         req.setAttribute("image5", dashboardItem5);
-
+        Translator.fillRequestAttributes(req);
         req.getRequestDispatcher("mainMenu.jsp").forward(req, resp);
     }
 }

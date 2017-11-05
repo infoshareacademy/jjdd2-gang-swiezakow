@@ -3,6 +3,12 @@
 <head>
     <title>Facebook Login JavaScript Example</title>
     <meta charset="UTF-8">
+    <jsp:include page="background.jsp" />
+    <style>
+    #status {
+        color: white;
+    }
+    </style>
 </head>
 <body>
 <script>
@@ -17,7 +23,7 @@
         FB.getLoginStatus(function (response) {
             if (response.status === 'connected') {
                 FB.logout(function () {
-                    document.getElementById("status").innerHTML = "Wylogowano";
+                    document.getElementById("status").innerHTML = '${sessionScope['t.fbLogout']}';
                     setTimeout(function(){
                       window.location.href = "main";
                     }, 2000);
