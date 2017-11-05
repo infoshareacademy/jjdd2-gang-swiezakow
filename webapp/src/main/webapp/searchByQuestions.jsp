@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="pl PL">
 <head>
@@ -87,7 +88,7 @@
                         </div>
                         <div class="col-md-9">
                             <h2>Seria pytań</h2>
-                            <p>Czy jesteś zainteresowany produktami z kategorii <strong>${categoryName}</strong>?<br/></p>
+                            <p>Czy jesteś zainteresowany produktami z kategorii <strong>${fn:escapeXml(categoryName)}</strong>?<br/></p>
                             <form method="GET"><input type="hidden" name="categoryId" value="${categoryId}"/>
                                 <input class="btn btn-outline-success my-2 my-sm-0" type="submit" name="theAnswer" value="Tak"/>
                                 <input class="btn btn-outline-success my-2 my-sm-0" type="submit" name="theAnswer" value="Nie"/>

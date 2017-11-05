@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="pl PL">
 <head>
@@ -16,7 +17,7 @@
                 type="text"
                 placeholder="Czego szukasz na allegro?"
                 aria-label="Search"
-                value="${searchTerm}"
+                value="${fn:escapeXml(searchTerm)}"
         >
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
@@ -39,11 +40,11 @@
                 <c:if test="${qc.promoted}">border: 5px chartreuse solid;</c:if>"
         >
             <h4 class="card-title">
-                ${qc.categoryName}
+                    ${fn:escapeXml(qc.categoryName)}
             </h4>
             <div class="form-group" style="margin-top: 30px">
                 <label class="form-control-label" for="formGroupExampleInput">Aby wyszukać skopiuj:</label>
-                <input type="text" class="form-control" id="formGroupExampleInput" value="${qc.phrase}">
+                <input type="text" class="form-control" id="formGroupExampleInput" value="${fn:escapeXml(qc.phrase)}">
             </div>
         </div>
     </div>

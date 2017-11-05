@@ -1,6 +1,5 @@
 package pl.infoshareacademy.webapp.searchQueryCommandWeb;
 
-import com.google.common.base.Joiner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import pl.infoshareacademy.webapp.dao.StatisticsBean;
