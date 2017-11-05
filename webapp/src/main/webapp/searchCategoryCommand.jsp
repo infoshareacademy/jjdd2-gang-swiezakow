@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="pl PL">
 <head>
@@ -16,7 +17,7 @@
                 type="text"
                 placeholder="${sessionScope['t.searchCategoryCommandPrompt']}"
                 aria-label="Search"
-                value="${searchTerm}"
+                value="${fn:escapeXml(searchTerm)}"
         >
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">${sessionScope['t.searchCategoryCommandSearch']}</button>
     </form>
@@ -40,9 +41,9 @@
             ">
             <h4 class="card-title">
                 <c:forEach items="${result.parentLinks}" var="parentLink">
-                    <a class="category-link" href="${parentLink.link}">${parentLink.name}</a> -
+                    <a class="category-link" href="${parentLink.link}">${fn:escapeXml(parentLink.name)}</a> -
                 </c:forEach>
-                <a class="category-link" href="${result.categoryLink}">${result.category.name}</a>
+                <a class="category-link" href="${result.categoryLink}">${fn:escapeXml(result.category.name)}</a>
             </h4>
         </div>
     </div>

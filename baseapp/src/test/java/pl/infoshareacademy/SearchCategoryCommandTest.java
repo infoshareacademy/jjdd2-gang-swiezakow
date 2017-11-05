@@ -41,7 +41,7 @@ public class SearchCategoryCommandTest {
 
         String link = searchCategoryCommand.generateLink(allegroCategory, phrase);
 
-        assertEquals("https://allegro.pl/kategoria/name-1?string=przykładowa-fraza", link);
+        assertEquals("https://allegro.pl/kategoria/name-1?string=przyk%C5%82adowa-fraza", link);
     }
 
     @Test
@@ -52,7 +52,7 @@ public class SearchCategoryCommandTest {
 
         String link = searchCategoryCommand.generateLink(allegroCategory, phrase);
 
-        assertEquals("https://allegro.pl/kategoria/category-name-1?string=przykładowa-fraza", link);
+        assertEquals("https://allegro.pl/kategoria/category-name-1?string=przyk%C5%82adowa-fraza", link);
     }
 
     @Test

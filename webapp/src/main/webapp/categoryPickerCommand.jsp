@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="pl PL">
 <head>
@@ -29,7 +30,7 @@ font-family: 'Lato', sans-serif;
                     <c:if test="${category.promoted}">border: 5px chartreuse solid;</c:if>
                             box-shadow: 2px 3px 10px #333;">
                         <a style="color: white; text-shadow: 2px 2px 2px #333333" href="${category.childrenLink}">
-                            <h4 class="card-title" style="text-shadow: 2px 2px 2px #333333; margin-bottom: 60px; background: rgba(0, 0, 0, 0.6); font-size: 2.0em; padding: 1%; font-weight: 200; text-align: center">${category.categoryName}</h4>
+                            <h4 class="card-title" style="text-shadow: 2px 2px 2px #333333; margin-bottom: 60px; background: rgba(0, 0, 0, 0.6); font-size: 2.0em; padding: 1%; font-weight: 200; text-align: center">${fn:escapeXml(category.categoryName)}</h4>
                         </a>
                         <a style="color: white; text-shadow: 2px 2px 2px #333333" href="${category.allegroLink}">${sessionScope['t.common.AllegroLink']}</a>
                     </div>
@@ -46,7 +47,7 @@ font-family: 'Lato', sans-serif;
                     <c:if test="${category.promoted}">border: 5px chartreuse solid;</c:if>
                             box-shadow: 2px 3px 10px #333;">
                         <a style="color: white; text-shadow: 2px 2px 2px #333333" href="${category.childrenLink}">
-                            <h4 class="card-title" style="text-shadow: 2px 2px 2px #333333; margin-bottom: 60px; background: rgba(0, 0, 0, 0.6); font-size: 2.0em; padding: 1%; font-weight: 200; text-align: center">${category.categoryName}</h4>
+                            <h4 class="card-title" style="text-shadow: 2px 2px 2px #333333; margin-bottom: 60px; background: rgba(0, 0, 0, 0.6); font-size: 2.0em; padding: 1%; font-weight: 200; text-align: center">${fn:escapeXml(category.categoryName)}</h4>
                         </a>
                         <a style="color: white; text-shadow: 2px 2px 2px #333333" href="${category.allegroLink}">${sessionScope['t.common.AllegroLink']}</a>
                     </div>
@@ -63,7 +64,7 @@ font-family: 'Lato', sans-serif;
                     <c:if test="${category.promoted}">border: 5px chartreuse solid;</c:if>
                             box-shadow: 2px 3px 10px #333;">
                         <a style="color: white; text-shadow: 2px 2px 2px #333333" href="${category.childrenLink}">
-                            <h4 class="card-title" style="text-shadow: 2px 2px 2px #333333; margin-bottom: 60px; background: rgba(0, 0, 0, 0.6); font-size: 2.0em; padding: 1%; font-weight: 200; text-align: center">${category.categoryName}</h4>
+                            <h4 class="card-title" style="text-shadow: 2px 2px 2px #333333; margin-bottom: 60px; background: rgba(0, 0, 0, 0.6); font-size: 2.0em; padding: 1%; font-weight: 200; text-align: center">${fn:escapeXml(category.categoryName)}</h4>
                         </a>
                         <a style="color: white; text-shadow: 2px 2px 2px #333333" href="${category.allegroLink}">${sessionScope['t.common.AllegroLink']}</a>
                     </div>
