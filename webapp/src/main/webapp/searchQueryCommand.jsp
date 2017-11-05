@@ -14,21 +14,21 @@
                 name="searchTerm"
                 class="szukaj form-control mr-sm-2"
                 type="text"
-                placeholder="${requestScope['t.searchCategoryCommandPrompt']}"
+                placeholder="${sessionScope['t.searchCategoryCommandPrompt']}"
                 aria-label="Search"
                 value="${searchTerm}"
         >
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">${requestScope['t.searchCategoryCommandSearch']}</button>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">${sessionScope['t.searchCategoryCommandSearch']}</button>
     </form>
 </nav>
 <c:if test="${searchTerm.length() != 0 && searchTerm.length() < 3}">
     <div class="alert alert-danger" role="alert">
-        ${requestScope['t.searchCategoryCommandMinLengthInfo']}
+        ${sessionScope['t.searchCategoryCommandMinLengthInfo']}
     </div>
 </c:if>
 <c:if test="${searchTerm.length() >= 3 && queryCard.size() == 0}">
     <div class="alert alert-warning" role="alert">
-        ${requestScope['t.searchCategoryCommandCategoryNotFound']}
+        ${sessionScope['t.searchCategoryCommandCategoryNotFound']}
     </div>
 </c:if>
 <jsp:useBean id="queryCard" scope="request" type="java.util.List<pl.infoshareacademy.webapp.searchQueryCommandWeb.QueryCard>" />
@@ -42,7 +42,7 @@
                 ${qc.categoryName}
             </h4>
             <div class="form-group" style="margin-top: 30px">
-                <label class="form-control-label" for="formGroupExampleInput">${requestScope['t.searchQueryCommandToSearchCopy']}:</label>
+                <label class="form-control-label" for="formGroupExampleInput">${sessionScope['t.searchQueryCommandToSearchCopy']}:</label>
                 <input type="text" class="form-control" id="formGroupExampleInput" value="${qc.phrase}">
             </div>
         </div>

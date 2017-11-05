@@ -191,11 +191,11 @@
 <div class="login">
     <h1>ShopAll</h1>
     <button id="facebook-button" class="loginBtn loginBtn--facebook" onclick="fb_login();">
-        ${requestScope['t.fbLogin']}
+        ${sessionScope['t.fbLogin']}
     </button>
     <br/>
     <button id="google-button" class="loginBtn loginBtn--google">
-        ${requestScope['t.googleLogin']}
+        ${sessionScope['t.googleLogin']}
     </button>
     <br/>
 

@@ -26,7 +26,7 @@ public final class Translator {
         ResourceBundle bundle = ResourceBundle.getBundle(BASE_NAME, actualLocale);
         LOGGER.debug("Actual keylist: {}", bundle.keySet());
         for (String key : bundle.keySet()) {
-            modifiedRequest.setAttribute(key, bundle.getString(key));
+            modifiedRequest.getSession().setAttribute(key, bundle.getString(key));
         }
     }
 
