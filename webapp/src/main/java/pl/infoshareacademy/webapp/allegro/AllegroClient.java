@@ -84,7 +84,8 @@ public class AllegroClient {
             return parseAllegroResponse(response.getBody());
         } catch (UnirestException e) {
             logger.error("Cannot download categories", e);
-            return new AllegroRestCategories(Collections.emptyList());
+            throw new RuntimeException(e);
+            //return new AllegroRestCategories(Collections.emptyList());
         }
     }
 

@@ -40,6 +40,14 @@ public class AllegroCategoryService {
     }
 
     @PostConstruct
+    private void loadCategoriesOnStart() {
+        try {
+            loadCategoriesFromRest();
+        } catch (Exception e) {
+            logger.error("Cannot load categories on startup", e);
+        }
+    }
+
     public void loadCategoriesFromRest() {
         categories = allegroClient.getAllCategoriesFromRest();
         if (!categories.isEmpty()) {
