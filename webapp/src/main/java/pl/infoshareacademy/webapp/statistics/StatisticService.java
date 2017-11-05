@@ -40,7 +40,9 @@ public class StatisticService {
         List<StatisticResult> numberOfCategoryEntries = resultsBean.getNumberOfCategoryEntries();
 
         DataSets dataset = getDataset(numberOfCategoryEntries, colors);
-        List<String> label = getLabel(numberOfCategoryEntries);
+        List<String> label = getLabel(numberOfCategoryEntries).stream()
+                .map(s -> StatisticEvents.valueOf(s).getName())
+                .collect(Collectors.toList());
 
         return new Report(Arrays.asList(dataset), label);
     }

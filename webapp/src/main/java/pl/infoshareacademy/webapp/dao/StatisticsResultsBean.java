@@ -56,7 +56,7 @@ public class StatisticsResultsBean {
     }
 
     public List<StatisticResult> getEntriesPerDay() {
-        Query query = em.createQuery("SELECT DATE_FORMAT(sc.date, '%Y-%m-%d %H:%i') AS date, COUNT(sc.parametr) FROM Statistics sc WHERE sc.name LIKE 'M%' GROUP BY DATE_FORMAT(sc.date, '%Y-%m-%d %H:%i')");
+        Query query = em.createQuery("SELECT DATE_FORMAT(sc.date, '%Y-%m-%d') AS date, COUNT(sc.parametr) FROM Statistics sc WHERE sc.name LIKE 'M%' GROUP BY DATE_FORMAT(sc.date, '%Y-%m-%d')");
         List<Object[]> resultList = query.getResultList();
 
         return getResults(resultList);

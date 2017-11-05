@@ -78,30 +78,6 @@
 
     <div class="container marketing">
 
-        <div class="row">
-            <div class="col-lg-4">
-                <img class="rounded-circle"
-                     src="https://i.kinja-img.com/gawker-media/image/upload/s--f2mYtrrv--/c_scale,fl_progressive,q_80,w_800/1333998000191946087.jpg"
-                     alt="Generic placeholder image" width="140" height="140">
-                <h2>Bruce Wayne</h2>
-                <p></p>
-            </div>
-            <div class="col-lg-4">
-                <img class="rounded-circle"
-                     src="http://i0.kym-cdn.com/photos/images/facebook/000/177/888/mfw.jpg"
-                     alt="Generic placeholder image" width="140" height="140">
-                <h2>Peter Parker</h2>
-                <p></p>
-            </div>
-            <div class="col-lg-4">
-                <img class="rounded-circle"
-                     src="http://i.telegraph.co.uk/multimedia/archive/01773/spider-man-outfit_1773895i.jpg"
-                     alt="Generic placeholder image" width="140" height="140">
-                <h2>Człowiek pająk</h2>
-                <p></p>
-            </div>
-        </div>
-
         <hr class="featurette-divider">
 
         <div class="row featurette">

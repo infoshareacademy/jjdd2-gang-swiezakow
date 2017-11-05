@@ -4,8 +4,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import pl.infoshareacademy.AllegroCategory;
 import pl.infoshareacademy.AllegroCategoryLoader;
+import pl.infoshareacademy.Catalog;
+import pl.infoshareacademy.webapp.allegro.AllegroClient;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
+import javax.ejb.Startup;
+import javax.inject.Inject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -16,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 @Singleton
+@Startup
 public class AllegroCategoryService {
     private static final Logger logger = LogManager.getLogger(AllegroCategoryService.class);
 
@@ -23,8 +29,23 @@ public class AllegroCategoryService {
     private AllegroCategoryLoader loader = new AllegroCategoryLoader();
     private Map<Integer, List<AllegroCategory>> categoriesTree;
 
+    @Inject
+    private AllegroClient allegroClient;
+
+    @Inject
+    private Catalog catalog;
+
     public AllegroCategoryService() {
         init();
+    }
+
+    @PostConstruct
+    public void loadCategoriesFromRest() {
+        categories = allegroClient.getAllCategoriesFromRest();
+        if (!categories.isEmpty()) {
+            categoriesTree = loader.loadCategoryTree(categories);
+            catalog.updateCatalog(categoriesTree);
+        }
     }
 
     private void init() {
@@ -42,7 +63,7 @@ public class AllegroCategoryService {
     }
 
     public Map<Integer, List<AllegroCategory>> getCategoriesTree() {
-        return loader.loadCategoryTree(getFilePath());
+        return categoriesTree;
     }
 
     public void saveAllegroCategoryFile(InputStream inputStream) {
@@ -76,7 +97,7 @@ public class AllegroCategoryService {
         }
     }
 
-    public AllegroCategory getParentForCatId(int catId) {
+    public AllegroCategory getCategoryForId(int catId) {
         for (AllegroCategory category : categories) {
             if (category.getCatID() == catId) {
                 return category;
@@ -86,13 +107,8 @@ public class AllegroCategoryService {
     }
 
     public String getCategoryName(int id) {
-        String categoryName = "";
-        for (AllegroCategory allCategory : categories) {
-            if (allCategory.getCatID() == id) {
-                categoryName = allCategory.getName();
-            }
-        }
-        return categoryName;
+        AllegroCategory category = getCategoryForId(id);
+        return category != null ? category.getName() : "";
     }
 
     public List<AllegroCategory> getAllParentsCategory(AllegroCategory categoryResult) {
@@ -100,12 +116,17 @@ public class AllegroCategoryService {
         List<AllegroCategory> allParentCategory = new ArrayList<AllegroCategory>();
         allParentCategory.add(categoryResult);
         while (parent != 0) {
+            boolean foundParent = false;
             for (AllegroCategory allCategory : categories) {
                 if (allCategory.getCatID() == parent) {
                     allParentCategory.add(allCategory);
                     parent = allCategory.getParent();
+                    foundParent = true;
                     break;
                 }
+            }
+            if (!foundParent) {
+                break;
             }
         }
         logger.debug("returned " + allParentCategory.size() + " for category " + categoryResult.getCatID());
