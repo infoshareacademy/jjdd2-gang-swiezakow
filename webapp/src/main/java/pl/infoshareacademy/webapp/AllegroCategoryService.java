@@ -9,6 +9,7 @@ import pl.infoshareacademy.webapp.allegro.AllegroClient;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.inject.Inject;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 @Singleton
+@Startup
 public class AllegroCategoryService {
     private static final Logger logger = LogManager.getLogger(AllegroCategoryService.class);
 
