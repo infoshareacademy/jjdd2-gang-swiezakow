@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
 <head>
@@ -37,8 +38,8 @@
                      alt="First slide">
                 <div class="container">
                     <div class="shopping-caption carousel-caption text-right">
-                        <h1>${image.getName()}</h1>
-                        <p><a class="btn btn-lg btn-primary" href="${image.getAllegroLink()}" target="_blank" role="button">Przejdź do Allegro</a></p>
+                        <h1>${fn:escapeXml(image.getName())}</h1>
+                        <p><a class="btn btn-lg btn-primary" href="${image.getAllegroLink()}" target="_blank" role="button">${sessionScope['t.mainMenuPrompt']}</a></p>
                     </div>
                 </div>
             </div>
@@ -48,8 +49,8 @@
                      alt="Second slide">
                 <div class="container">
                     <div class="shopping-caption carousel-caption text-right">
-                        <h1>${image2.getName()}</h1>
-                        <p><a class="btn btn-lg btn-primary" href="${image2.getAllegroLink()}" target="_blank" role="button">Przejdź do Allegro</a></p>
+                        <h1>${fn:escapeXml(image2.getName())}</h1>
+                        <p><a class="btn btn-lg btn-primary" href="${image2.getAllegroLink()}" target="_blank" role="button">${sessionScope['t.mainMenuPrompt']}</a></p>
                     </div>
                 </div>
             </div>
@@ -59,8 +60,8 @@
                      alt="Third slide">
                 <div class="container">
                     <div class="shopping-caption carousel-caption text-right">
-                        <h1>${image3.getName()}</h1>
-                        <p><a class="btn btn-lg btn-primary" href="${image3.getAllegroLink()}" target="_blank" role="button">Przejdź do Allegro</a></p>
+                        <h1>${fn:escapeXml(image3.getName())}</h1>
+                        <p><a class="btn btn-lg btn-primary" href="${image3.getAllegroLink()}" target="_blank" role="button">${sessionScope['t.mainMenuPrompt']}</a></p>
                     </div>
                 </div>
             </div>
@@ -83,21 +84,21 @@
                      src="https://i.kinja-img.com/gawker-media/image/upload/s--f2mYtrrv--/c_scale,fl_progressive,q_80,w_800/1333998000191946087.jpg"
                      alt="Generic placeholder image" width="140" height="140">
                 <h2>Bruce Wayne</h2>
-                <p>Korzystam z ShopAll od 3 lat. Rodzicie byliby ze mnie dumni.</p>
+                <p></p>
             </div>
             <div class="col-lg-4">
                 <img class="rounded-circle"
                      src="http://i0.kym-cdn.com/photos/images/facebook/000/177/888/mfw.jpg"
                      alt="Generic placeholder image" width="140" height="140">
                 <h2>Peter Parker</h2>
-                <p>Wujek polecił mi tę stronę</p>
+                <p></p>
             </div>
             <div class="col-lg-4">
                 <img class="rounded-circle"
                      src="http://i.telegraph.co.uk/multimedia/archive/01773/spider-man-outfit_1773895i.jpg"
                      alt="Generic placeholder image" width="140" height="140">
                 <h2>Człowiek pająk</h2>
-                <p>Świetna wyszukiwarka! Dzięki ShopAll znalazłem dziewczynę!</p>
+                <p></p>
             </div>
         </div>
 
@@ -105,10 +106,10 @@
 
         <div class="row featurette">
             <div class="col-md-7">
-                <h2 class="featurette-heading">Najbardziej popularna kategoria miesiąca!<br/> <span
+                <h2 class="featurette-heading">${sessionScope['t.mainMenuMostPopular']}<br/> <span
                         class="text-muted" style="word-break: keep-all"><a class="dashboard-link" target="_blank" href="${image5.getAllegroLink()}">${image4.getName()}</a></span></h2>
-                <p class="lead">W tym miesiącu największą popularnością wśród Użytkowników ShopAll cieszyła się kategoria
-                ${image4.getName()}!</p>
+                <p class="lead">${sessionScope['t.mainMenuMostPopularInfo']}
+                    ${fn:escapeXml(image4.getName())}!</p>
             </div>
             <div class="col-md-5">
                 <a target="_blank" href="${image4.getAllegroLink()}"><img class="featurette-image img-fluid mx-auto" alt="500x500"
@@ -121,9 +122,9 @@
 
         <div class="row featurette">
             <div class="col-md-7 order-md-2">
-                <h2 class="featurette-heading">Nowości!<br/><span
+                <h2 class="featurette-heading">${sessionScope['t.mainMenuCategoryNew']}<br/><span
                         class="text-muted" style="word-break: keep-all"><a class="dashboard-link" target="_blank" href="${image5.getAllegroLink()}">${image5.getName()}</a></span></h2>
-                <p class="lead">Przejdź na stronę Allegro i poznaj wszystkie nowości kategorii ${image5.getName()}!</p>
+                <p class="lead">${sessionScope['t.mainMenuCategoryPrompt']} ${fn:escapeXml(image5.getName())}!</p>
             </div>
             <div class="col-md-5 order-md-1">
                 <a target="_blank" href="${image5.getAllegroLink()}"><img class="featurette-image img-fluid mx-auto" alt="500x500"
@@ -137,8 +138,8 @@
     </div>
 
     <footer class="container">
-        <p class="float-right"><a href="#">Back to top</a></p>
-        <p>© 2017 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+        <p class="float-right"><a href="#">${sessionScope['t.common.BackToTop']}</a></p>
+        <p>© 2017 Company, Inc. · <a href="#">${sessionScope['t.common.Privacy']}</a> · <a href="#">${sessionScope['t.common.Terms']}</a></p>
     </footer>
 
 </main>

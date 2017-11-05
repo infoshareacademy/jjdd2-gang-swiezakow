@@ -3,22 +3,27 @@
 <head>
     <title>Facebook Login JavaScript Example</title>
     <meta charset="UTF-8">
+    <jsp:include page="background.jsp" />
+    <style>
+    #status {
+        color: white;
+    }
+    </style>
 </head>
 <body>
 <script>
     window.fbAsyncInit = function () {
         FB.init({
             appId: '${facebookAppId}',
-            cookie: true,  // enable cookies to allow the server to access
-                           // the session
-            xfbml: true,  // parse social plugins on this page
-            version: 'v2.8' // use graph api version 2.8
+            cookie: true,
+            xfbml: true,
+            version: 'v2.8'
         });
 
         FB.getLoginStatus(function (response) {
             if (response.status === 'connected') {
                 FB.logout(function () {
-                    document.getElementById("status").innerHTML = "Wylogowano";
+                    document.getElementById("status").innerHTML = '${sessionScope['t.fbLogout']}';
                     setTimeout(function(){
                       window.location.href = "main";
                     }, 2000);
@@ -26,7 +31,6 @@
             }
         });
     };
-    // Load the SDK asynchronously
     (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;

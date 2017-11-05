@@ -1,3 +1,4 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,8 +23,8 @@
                     var accessToken = response.authResponse.accessToken;
                     var userId = response.authResponse.userID;
 
-                    FB.api('/me', function (response) {
-                        window.location.href = '/webapp/fblogin?user_name=' + response.name + '&user_email=' + response.email + '&access_token=' + accessToken + '&user_id=' + userId;
+                    FB.api('/me?fields=name,email,picture', function (response) {
+                        window.location.href = '/webapp/login?user_name=' + response.name + '&user_email=' + response.email + '&access_token=' + accessToken + '&user_id=' + userId  + '&picture=' + encodeURIComponent(response.picture.data.url);
                     });
                 }
             }, {
@@ -65,33 +66,6 @@
     <style>
         @import url(http://fonts.googleapis.com/css?family=Open+Sans);
 
-        * {
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            -ms-box-sizing: border-box;
-            -o-box-sizing: border-box;
-            box-sizing: border-box;
-        }
-
-        html {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-
-        body {
-            width: 100%;
-            height: 100%;
-            font-family: 'Open Sans', sans-serif;
-            background: #092756;
-            background: -moz-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, .4) 10%, rgba(138, 114, 76, 0) 40%), -moz-linear-gradient(top, rgba(57, 173, 219, .25) 0%, rgba(42, 60, 87, .4) 100%), -moz-linear-gradient(-45deg, #670d10 0%, #092756 100%);
-            background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, .4) 10%, rgba(138, 114, 76, 0) 40%), -webkit-linear-gradient(top, rgba(57, 173, 219, .25) 0%, rgba(42, 60, 87, .4) 100%), -webkit-linear-gradient(-45deg, #670d10 0%, #092756 100%);
-            background: -o-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, .4) 10%, rgba(138, 114, 76, 0) 40%), -o-linear-gradient(top, rgba(57, 173, 219, .25) 0%, rgba(42, 60, 87, .4) 100%), -o-linear-gradient(-45deg, #670d10 0%, #092756 100%);
-            background: -ms-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, .4) 10%, rgba(138, 114, 76, 0) 40%), -ms-linear-gradient(top, rgba(57, 173, 219, .25) 0%, rgba(42, 60, 87, .4) 100%), -ms-linear-gradient(-45deg, #670d10 0%, #092756 100%);
-            background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, .4) 10%, rgba(138, 114, 76, 0) 40%), linear-gradient(to bottom, rgba(57, 173, 219, .25) 0%, rgba(42, 60, 87, .4) 100%), linear-gradient(135deg, #670d10 0%, #092756 100%);
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3E1D6D', endColorstr='#092756', GradientType=1);
-        }
-
         .login {
             position: absolute;
             top: 50%;
@@ -113,7 +87,6 @@
         .loginBtn {
             box-sizing: border-box;
             position: relative;
-            /* width: 13em;  - apply for fixed size */
             margin: 0.2em;
             padding: 0 15px 0 46px;
             border: none;
@@ -123,6 +96,7 @@
             border-radius: 0.2em;
             font-size: 16px;
             color: #FFF;
+            height: 34px;
         }
 
         .loginBtn:before {
@@ -143,11 +117,9 @@
             box-shadow: inset 0 0 0 32px rgba(0, 0, 0, 0.1);
         }
 
-        /* Facebook */
         .loginBtn--facebook {
             background-color: #4C69BA;
             background-image: linear-gradient(#4C69BA, #3B55A0);
-            /*font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;*/
             text-shadow: 0 -1px 0 #354C8C;
         }
 
@@ -162,9 +134,7 @@
             background-image: linear-gradient(#5B7BD5, #4864B1);
         }
 
-        /* Google */
         .loginBtn--google {
-            /*font-family: "Roboto", Roboto, arial, sans-serif;*/
             background: #DD4B39;
         }
 
@@ -178,18 +148,39 @@
             background: #E74B37;
         }
     </style>
+    <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/css/bootstrap-select.min.css">
+    <link rel="stylesheet prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/0.8.2/css/flag-icon.min.css">
+
+    <jsp:include page="background.jsp" />
 </head>
 <body>
 <div class="login">
     <h1>ShopAll</h1>
-    <button class="loginBtn loginBtn--facebook" onclick="fb_login();">
-        Login with Facebook
+    <button id="facebook-button" class="loginBtn loginBtn--facebook" onclick="fb_login();">
+        ${sessionScope['t.fbLogin']}
     </button>
-
+    <br/>
     <button id="google-button" class="loginBtn loginBtn--google">
-        Login with Google
+        ${sessionScope['t.googleLogin']}
     </button>
-    <br>
+    <br/>
+
 </div>
+ <div id="langpicker" style="position: absolute; right:10px; top:10px">
+    <select class="selectpicker" data-width="fit" onchange="window.location.href='?locale='+ $('.selectpicker').val();">
+        <option value="" data-content='<span class="flag-icon flag-icon-pl"></span> Polski'></option>
+        <option value="en" data-content='<span class="flag-icon flag-icon-us"></span> English'>en</option>
+    </select>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.2/js/bootstrap-select.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script>
+    $(function(){
+        $('select.selectpicker').val('${Locale}');
+        $('.selectpicker').selectpicker();
+    });
+    </script>
+    </div>
 </body>
 </html>
