@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 import static pl.infoshareacademy.webapp.auth.FBAuthServlet.*;
 
@@ -31,9 +32,10 @@ public class MainMenuServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");
 
-        DashboardItem dashboardItem = dashboardService.randomImageGenerator();
-        DashboardItem dashboardItem2 = dashboardService.randomImageGenerator();
-        DashboardItem dashboardItem3 = dashboardService.randomImageGenerator();
+        List<DashboardItem> items = dashboardService.getCarousellItems();
+        DashboardItem dashboardItem = items.get(0);
+        DashboardItem dashboardItem2 = items.get(1);
+        DashboardItem dashboardItem3 = items.get(2);
         DashboardItem dashboardItem4 = dashboardService.getMostPopularCategory();
         DashboardItem dashboardItem5 = dashboardService.getPromotedCategory();
 

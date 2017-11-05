@@ -9,8 +9,11 @@ import pl.infoshareacademy.webapp.searchCategoryCommandWeb.ImageUrlService;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 @Stateless
 public class DashboardService {
@@ -27,6 +30,19 @@ public class DashboardService {
     private StatisticsResultsBean resultsBean;
 
     private Random random = new Random();
+
+    public List<DashboardItem> getCarousellItems() {
+        Set<String> categories = new HashSet<>();
+        List<DashboardItem> items = new ArrayList<>();
+        while(categories.size() < 3) {
+            DashboardItem item = randomImageGenerator();
+            if (!categories.contains(item.getName())) {
+                categories.add(item.getName());
+                items.add(item);
+            }
+        }
+        return items;
+    }
 
     public DashboardItem randomImageGenerator() {
         List<AllegroCategory> allegroCategoryList = allegroCategoryService.getCategoriesTree().get(0);
