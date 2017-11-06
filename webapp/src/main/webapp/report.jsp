@@ -82,6 +82,16 @@
         }
     }
 
+    function checkInp()
+    {
+        var x=document.forms["myForm"]["hour"].value;
+        if (isNaN(x))
+        {
+            alert("Must input numbers");
+            return false;
+        }
+    }
+
 </script>
 </body>
 </html>

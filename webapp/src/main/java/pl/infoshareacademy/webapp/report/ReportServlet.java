@@ -31,9 +31,8 @@ public class ReportServlet extends HttpServlet {
         }
 
         PrintWriter pw = resp.getWriter();
-        pw.println("<h1>Chwilowe problemy z modulem raportowym.</h1>");
+        pw.println("<h1>Modul raportowy niedostepny.</h1>");
         pw.println("<h1>Prosimy sprobowac ponownie pozniej</h1>");
-        pw.println("<h1>lub w przypadku dluzszej niedostepnosci skontaktowac sie z najblizszym developerem</h1>");
         pw.println("<h1>Za utrudnienia przepraszamy</h1>");
     }
 

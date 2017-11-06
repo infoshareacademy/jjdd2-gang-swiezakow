@@ -25,11 +25,11 @@ public class ConfigurationLoader {
             objectMapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
             configuration = objectMapper.reader(Configuration.class).readValue(
                     Configuration.class.getResourceAsStream(path));
-//            String reportsUri = System.getenv("REPORTS_SYSTEM_URI");
-//            if (reportsUri != null) {
-//                logger.info("loaded rest uri form environment variable: " + reportsUri);
-//                configuration.setRestURL(reportsUri + "/");
-//            }
+            String reportsUri = System.getenv("REPORTS_SYSTEM_URI");
+            if (reportsUri != null) {
+                logger.info("loaded rest uri form environment variable: " + reportsUri);
+                configuration.setRestURL("http://" + reportsUri + "/");
+            }
         } catch (IOException e) {
             logger.error("caught an exception during loading file", e);
             throw new RuntimeException(e);

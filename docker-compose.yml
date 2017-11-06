@@ -25,8 +25,10 @@ services:
       - 4011:9990
     depends_on:
       - jjdd2_gang-swiezakow-db
+      - jjdd2_gang-swiezakow-report
     links:
       - jjdd2_gang-swiezakow-db
+      - jjdd2_gang-swiezakow-report
   jjdd2_gang-swiezakow-report:
     container_name: "jjdd2_gang-swiezakow-report"
     build: report-rest-server

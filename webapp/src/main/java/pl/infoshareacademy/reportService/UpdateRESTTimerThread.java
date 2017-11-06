@@ -11,6 +11,7 @@ import pl.infoshareacademy.webapp.dao.StatisticsResultsBean;
 
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.inject.Inject;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
+@Startup
 @Singleton
 public class UpdateRESTTimerThread {
 
@@ -33,6 +35,7 @@ public class UpdateRESTTimerThread {
 
     public UpdateRESTTimerThread() {
         ENDPOINT = config.getRestURL();
+        logger.info("Set Rest endpoint to: " + ENDPOINT);
     }
 
 
@@ -74,11 +77,13 @@ public class UpdateRESTTimerThread {
             WebTarget webTarget = client.target(ENDPOINT + "activetasks");
             Response response = webTarget.request().get();
             RecipientModel[] restResponse = response.readEntity(RecipientModel[].class);
+            logger.info("sent request to: " + ENDPOINT + "activetasks");
             response.close();
             ArrayList<RecipientModel> result = new ArrayList<>(Arrays.asList(restResponse));
+            logger.info("returned: " + Optional.ofNullable(result));
             return Optional.ofNullable(result);
         } catch (javax.ws.rs.ProcessingException e) {
-            logger.fatal("could not get actual tasks in report-rest-server");
+            logger.fatal("could not get actual tasks in report-rest-server " + ENDPOINT + "activetasks");
             return Optional.empty();
         }
     }
