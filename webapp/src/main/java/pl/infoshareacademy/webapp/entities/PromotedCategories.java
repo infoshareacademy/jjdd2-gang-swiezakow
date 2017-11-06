@@ -11,10 +11,11 @@ import javax.persistence.Table;
 public class PromotedCategories {
 
     @Id
-    private Integer catId;
-
-    public PromotedCategories() {
-    }
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Integer catId;
+//
+//    public PromotedCategories() {
+//    }
 
     public PromotedCategories(Integer catId) {
         this.catId = catId;
@@ -22,5 +23,9 @@ public class PromotedCategories {
 
     public Integer getCatId() {
         return catId;
+    }
+
+    public void setCatId(Integer catId) {
+        this.catId = catId;
     }
 }

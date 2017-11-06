@@ -33,6 +33,7 @@
     <modules>
         <module>baseapp</module>
         <module>webapp</module>
+        <module>report-rest-server</module>
     </modules>
 
 </project>

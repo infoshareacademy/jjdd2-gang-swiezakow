@@ -1,24 +1,17 @@
 package pl.infoshareacademy.reportService;
 
 import org.junit.Test;
-import pl.infoshareacademy.reportService.ModelsStore.*;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.regex.Pattern;
-
-import static org.assertj.core.api.Assertions.*;
 
 public class UpdateRESTTimerThreadTest {
-    @Test
-    public void deleteTask() throws Exception {
-        //given
-        UpdateRESTTimerThread sut = new UpdateRESTTimerThread();
-        //when
-        sut.deleteTask(2);
-        //then
-    }
+//    @Test
+//    public void deleteTask() throws Exception {
+//        //given
+//        UpdateRESTTimerThread sut = new UpdateRESTTimerThread();
+//        //when
+//        sut.deleteTask(2);
+//        //then
+//        assertThat()
+//    }
 
     @Test
     public void addTaskToReportModuleTest() throws Exception {

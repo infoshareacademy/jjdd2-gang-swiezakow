@@ -39,7 +39,7 @@ public class UpdateRESTTimerThread {
     @Inject
     StatisticsResultsBean statisticsResultsBean;
 
-    @Schedule(minute="*/1",hour="*", persistent=false)
+    @Schedule(minute="*/1", hour="*")
     public void updateDateInReportModulePeriodically(){
         DataProcessingService dataProcessingService = new DataProcessingService(statisticsResultsBean);
         DataStore newSet = dataProcessingService.getNewDataSetForDB();

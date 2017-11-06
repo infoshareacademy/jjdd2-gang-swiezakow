@@ -26,20 +26,10 @@ echo "=> MYSQL (k8s host): " $MYSQL_SERVICE_SERVICE_HOST
 echo "=> MYSQL (k8s port): " $MYSQL_SERVICE_SERVICE_PORT
 echo "=> MYSQL_URI (docker with networking): " $MYSQL_URI
 
-$JBOSS_CLI -c << EOF
-batch
-set CONNECTION_URL=jdbc:mysql://$MYSQL_URI/zakupydb
-echo "Connection URL: " $CONNECTION_URL
-module add --name=com.mysql --resources=/opt/jboss/wildfly/customization/mysql-connector-java-5.1.44-bin.jar --dependencies=javax.api,javax.transaction.api
-/subsystem=datasources/jdbc-driver=mysql:add(driver-name=mysql,driver-module-name=com.mysql,driver-xa-datasource-class-name=com.mysql.jdbc.jdbc2.optional.MysqlXADataSource)
-data-source add --name=zakupyDS --driver-name=mysql --jndi-name=java:/zakupyDS --connection-url=jdbc:mysql://$MYSQL_URI/zakupydb?useUnicode=true&amp;characterEncoding=UTF-8 --user-name=admin --password=admin --use-ccm=false --max-pool-size=25 --blocking-timeout-wait-millis=5000 --enabled=true
-run-batch
-EOF
-
 echo "=> Creating admin user"
 $JBOSS_HOME/bin/add-user.sh admin abcd1234 --silent &
 
-cp /opt/jboss/wildfly/config/webapp.war $JBOSS_HOME/$JBOSS_MODE/deployments/webapp.war
+cp /opt/jboss/wildfly/config/report-rest-server.war $JBOSS_HOME/$JBOSS_MODE/deployments/report-rest-server.war
 
 echo "=> Shutting down WildFly"
 if [ "$JBOSS_MODE" = "standalone" ]; then

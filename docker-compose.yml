@@ -12,13 +12,14 @@ services:
       - 4015:3306
   jjdd2_gang-swiezakow-webapp:
     container_name: "jjdd2_gang-swiezakow-webapp"
-    build: .
+    build: webapp
     environment:
       - MYSQL_URI=jjdd2_gang-swiezakow-db:3306
       - MYSQL_DATABASE=zakupydb
       - MYSQL_USER=admin
       - MYSQL_PASSWORD=admin
       - DATASOURCE_NAME=java:jboss/datasources/zakupyDS
+      - REPORTS_SYSTEM_URI=jjdd2_gang-swiezakow-report:8080
     ports:
       - 4010:8080
       - 4011:9990
@@ -26,3 +27,9 @@ services:
       - jjdd2_gang-swiezakow-db
     links:
       - jjdd2_gang-swiezakow-db
+  jjdd2_gang-swiezakow-report:
+    container_name: "jjdd2_gang-swiezakow-report"
+    build: report-rest-server
+    ports:
+      - 4017:8080
+      - 4018:9990
