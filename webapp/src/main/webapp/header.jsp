@@ -6,6 +6,29 @@
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+
+
+    <c:url value="?" var="localeDefaultUrl">
+      <c:forEach items="${param}" var="currentParam">
+            <c:if test = "${currentParam.key != 'locale'}">
+      		    <c:param name="${currentParam.key}" value="${currentParam.value}"/>
+            </c:if>
+        </c:forEach>
+      <c:param name="locale" value=""/>
+    </c:url>
+
+    <c:url value="?" var="localeEnUrl">
+      <c:forEach items="${param}" var="currentParam">
+         <c:if test = "${currentParam.key != 'locale'}">
+      		<c:param name="${currentParam.key}" value="${currentParam.value}"/>
+         </c:if>
+      </c:forEach>
+      <c:param name="locale" value="en"/>
+    </c:url>
+
+
+
+
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item <c:if test="${'1' == categoryNumber}">active</c:if>">
@@ -35,8 +58,8 @@
                             </c:choose>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="langDropdown">
-                       <a class="dropdown-item" href="?locale="> <span class="flag-icon flag-icon-pl"></span> Polski</a>
-                       <a class="dropdown-item" href="?locale=en"> <span class="flag-icon flag-icon-us"></span> English</a>
+                       <a class="dropdown-item" href="${localeDefaultUrl}"> <span class="flag-icon flag-icon-pl"></span> Polski</a>
+                       <a class="dropdown-item" href="${localeEnUrl}"> <span class="flag-icon flag-icon-us"></span> English</a>
                      </div>
                 </div>
         <div class="nav-item profile-section dropdown">
@@ -50,6 +73,8 @@
                 <c:if test="${userType}">
                     <a class="dropdown-item" href="promoted">${sessionScope['t.header.promote']}</a>
                     <a class="dropdown-item" href="stats">${sessionScope['t.header.statistics']}</a>
+                    <a class="dropdown-item" href="index">${sessionScope['t.header.upload']}</a>
+                    <a class="dropdown-item" href="allegro">${sessionScope['t.header.allegro']}</a>
                 </c:if>
                 <c:choose>
                     <c:when test="${isFbUser}">

@@ -61,13 +61,12 @@ public class StatisticsResultsBean {
     }
 
     public List<StatisticResult> getEntriesPerDay() {
-        Query query = em.createQuery("SELECT DATE_FORMAT(sc.date, '%Y-%m-%d %H:%i') AS date, COUNT(sc.parametr) FROM Statistics sc WHERE sc.name LIKE 'M%' GROUP BY DATE_FORMAT(sc.date, '%Y-%m-%d %H:%i')");
+        Query query = em.createQuery("SELECT DATE_FORMAT(sc.date, '%Y-%m-%d') AS date, COUNT(sc.parametr) FROM Statistics sc WHERE sc.name LIKE 'M%' GROUP BY DATE_FORMAT(sc.date, '%Y-%m-%d')");
         List<Object[]> resultList = query.getResultList();
 
         return getResults(resultList);
     }
-
-    public List<RushHourModel> getRushHourStatistics() {
+public List<RushHourModel> getRushHourStatistics() {
         LocalDate monthAgo = LocalDate.now().minusMonths(1l);
         monthAgo.format(DateTimeFormatter.ISO_LOCAL_DATE);
         Query query = em.createQuery("select hour(date), count(name) from Statistics where name in (\'MENU_ENTRY\', \'CATEGORY1_ENTRY\', \'CATEGORY2_ENTRY\', \'CATEGORY3_ENTRY\', \'CATEGORY4_ENTRY\') and date(date)>\'" + monthAgo + "\' group by hour(date)");

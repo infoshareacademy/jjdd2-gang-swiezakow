@@ -10,6 +10,10 @@ public class AllegroLink {
     private static final Logger logger = LogManager.getLogger(AllegroLink.class);
 
     public static String makeLink(String categoryName, int categoryId) {
+        return makeLink(categoryName, "" + categoryId);
+    }
+
+    public static String makeLink(String categoryName, String categoryId) {
         Configuration config = ConfigurationLoader.getConfiguration();
         String normalizedCategoryName = categoryName.replace(' ', '-');
         String normalizedCategoryNameNoAccents = removeAccents(normalizedCategoryName);

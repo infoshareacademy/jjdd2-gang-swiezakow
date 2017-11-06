@@ -78,7 +78,11 @@
         });
 
         var ctx4 = document.getElementById("chart4");
-        var options4 = {};
+        var options4 = {
+            legend: {
+                display: false
+            }
+        };
         new Chart(ctx4, {
             type: 'line',
             data: data4,

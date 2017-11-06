@@ -52,6 +52,11 @@ public class Catalog {
 
     }
 
+    public void updateCatalog(Map<Integer, List<AllegroCategory>> categoriesTree) {
+        idToSubcategories = categoriesTree;
+        initIdToCategory();
+    }
+
     public static Catalog catalogForFile(String categoryFilePath) {
         AllegroCategoryLoader loader = new AllegroCategoryLoader();
         Map<Integer, List<AllegroCategory>> map = loader.loadCategoryTree(categoryFilePath);

@@ -20,17 +20,21 @@
             <c:when test="${isResultNotPresent}">
                 <div class="container mt-1">
                     <div class="row">
-                        <div class="col-md-9">
+                        <div>
                             <h2>${sessionScope['t.common.seriesOfQuestions']}</h2>
-                            <p> ${sessionScope['t.searchByQuestions.categoryNotFound']} </p>
                         </div>
                     </div>
                 </div>
+                </div>
+               <div class="alert alert-warning w-100" role="alert">
+                    <p> ${sessionScope['t.searchByQuestions.categoryNotFound']} </p>
+               </div>
+               <div>
             </c:when>
             <c:when test="${isLink}">
                 <div class="container mt-1">
                     <div class="row">
-                        <div class="col-md-9">
+                        <div>
                             <h2>${sessionScope['t.common.seriesOfQuestions']}</h2>
                             <p> ${sessionScope['t.common.AllegroLink']}:
                                 <a href="${link}">${link}</a></p>
@@ -41,7 +45,7 @@
             <c:otherwise>
                 <div class="container mt-1">
                     <div class="row">
-                        <div class="col-md-9">
+                        <div>
                             <h2>${sessionScope['t.common.seriesOfQuestions']}</h2>
                             <p>${sessionScope['t.searchByQuestions.categoryQuestion']} <strong>${fn:escapeXml(categoryName)}</strong>?<br/></p>
                             <form method="GET"><input type="hidden" name="categoryId" value="${categoryId}"/>
